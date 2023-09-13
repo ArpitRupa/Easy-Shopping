@@ -34,5 +34,16 @@ logs/
 dependency-reduced-pom.xml
 buildNumber.properties
 
-# macOS system files
-.DS_Store
+# Spring Boot-specific files and directories
+/target/
+/bin/
+/logs/
+/build/
+/build.gradle
+/application.properties
+/application.yml
+
+# Spring Boot generated files (may vary depending on your setup)
+/target/
+/generated/
+/logs/
