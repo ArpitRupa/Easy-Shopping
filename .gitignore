@@ -1,0 +1,38 @@
+# Maven specific files
+target/
+*.iml
+.idea/
+*.ipr
+*.iws
+.mvn/
+
+# Eclipse-specific files
+.classpath
+.project
+.settings/
+
+# NetBeans-specific files
+nb-configuration.xml
+nbactions.xml
+
+# Visual Studio Code settings
+.vscode/
+
+# Logs and other generated files
+logs/
+*.log
+
+# Compiled files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Dependency lock files
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# macOS system files
+.DS_Store
