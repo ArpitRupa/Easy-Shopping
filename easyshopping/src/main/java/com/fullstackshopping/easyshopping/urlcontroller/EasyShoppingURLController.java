@@ -1,15 +1,14 @@
-package com.easyshopping.easyshopping.urlcontroller;
+package com.fullstackshopping.easyshopping.urlcontroller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
-public class EasyshoppingURLController {
+public class EasyShoppingURLController {
 
     @RequestMapping("/test")
     public String test(){
         return "test";
     }
-    
+
 }
