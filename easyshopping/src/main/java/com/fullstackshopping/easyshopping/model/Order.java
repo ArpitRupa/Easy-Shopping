@@ -88,32 +88,16 @@ public class Order implements Serializable {
         return this.orderId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
     public Product getProduct() {
         return this.product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public User getBuyer() {
         return this.buyer;
     }
-
-    public void setBuyer(User buyer) {
-        this.buyer = buyer;
-    }
-
+    
     public User getSeller() {
         return this.seller;
-    }
-
-    public void setSeller(User seller) {
-        this.seller = seller;
     }
 
     public int getProductCount() {
@@ -126,10 +110,6 @@ public class Order implements Serializable {
 
     public LocalDateTime getDateTime() {
         return this.dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
     }
 
     public String getShippingAddressLine1() {

@@ -23,10 +23,10 @@ public class ProductImage implements Serializable {
     // Multiple images can belong to one Product
     // Lazy Fetch since we don't want to reload the product for every image
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false, updatable = false)
     private Product product;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url", nullable = false, updatable = false)
     private String imageUrl;
 
 
@@ -46,24 +46,12 @@ public class ProductImage implements Serializable {
         return this.imageId;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
     public String getImageUrl() {
         return this.imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public Product getProduct() {
         return this.product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
 

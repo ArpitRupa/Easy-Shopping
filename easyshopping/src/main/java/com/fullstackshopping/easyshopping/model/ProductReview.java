@@ -23,13 +23,13 @@ public class ProductReview implements Serializable {
     // Multiple reviews can belong to one Product
     // Lazy Fetch since we don't want to fetch the entire Product Entity immediately per review
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="product_id", nullable = false)
+    @JoinColumn(name="product_id", nullable = false, updatable = false)
     private Product product;
 
     // Multiple review can belong to one User
     // Lazy Fetch since we don't want to fetch the entire User Entity immediately for a review
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reviewer_id", nullable = false)
+    @JoinColumn(name = "reviewer_id", nullable = false, updatable = false)
     private User reviewer;
 
     @Column(name = "review_text", nullable = false, columnDefinition = "TEXT")
@@ -57,22 +57,10 @@ public class ProductReview implements Serializable {
         return this.id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Product getProduct() { return this.product; }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     public User getReviewer() {
         return this.reviewer;
-    }
-
-    public void setReviewer(User reviewer) {
-        this.reviewer = reviewer;
     }
 
     public String getReviewText() {
