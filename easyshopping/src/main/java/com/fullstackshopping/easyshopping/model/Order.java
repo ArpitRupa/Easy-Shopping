@@ -40,10 +40,10 @@ public class Order implements Serializable {
     @Column(name = "date_time", nullable = false, updatable = false)
     private LocalDateTime dateTime;
 
-    @Column(name = "shipping_address_line1", nullable = false, length = 255)
+    @Column(name = "shipping_address_line1", nullable = false)
     private String shippingAddressLine1;
 
-    @Column(name = "shipping_address_line2", length = 255)
+    @Column(name = "shipping_address_line2")
     private String shippingAddressLine2;
 
     @Column(name = "city", nullable = false, length = 100)
@@ -81,7 +81,6 @@ public class Order implements Serializable {
         this.postalCode = postalCode;
     }
 
-
     // getters and setters
 
     public int getOrderId() {
@@ -95,7 +94,7 @@ public class Order implements Serializable {
     public User getBuyer() {
         return this.buyer;
     }
-    
+
     public User getSeller() {
         return this.seller;
     }
@@ -158,5 +157,23 @@ public class Order implements Serializable {
 
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
+    }
+
+    //Override toString() method
+    @Override
+    public String toString() {
+        return "Order{" +
+                "\n\"orderId\"= \"" + this.orderId + "\"" +
+                "\n\"product\"= \"" + this.product + "\"" +
+                "\n\"buyer\"= \"" + this.buyer + "\"" +
+                "\n\"seller\"= \"" + this.seller + "\"" +
+                "\n\"productCount\"= \"" + this.productCount + "\"" +
+                "\n\"dateTime\"= \"" + this.dateTime + "\"" +
+                "\n\"shippingAddressLine1\"= \"" + this.shippingAddressLine1 + "\"" +
+                "\n\"shippingAddressLine2\"= \"" + this.shippingAddressLine2 + "\"" +
+                "\n\"city\"= \"" + this.city + "\"" +
+                "\n\"stateName\"= \"" + this.stateName + "\"" +
+                "\n\"postalCode\"= \"" + this.postalCode + "\"" +
+                "\n}";
     }
 }

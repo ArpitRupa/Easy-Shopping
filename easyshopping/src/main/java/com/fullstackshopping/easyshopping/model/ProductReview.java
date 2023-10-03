@@ -13,7 +13,7 @@ import jakarta.persistence.FetchType;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product_reviews")
 public class ProductReview implements Serializable {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.AUTO) // Auto to work with auto increment or sequence
@@ -78,4 +78,17 @@ public class ProductReview implements Serializable {
     public void setRating(int rating) {
         this.rating = rating;
     }
+
+    //Override toString() method
+    @Override
+    public String toString() {
+        return "ProductReview{" +
+                "\n\"id\"= \"" + this.id + "\"" +
+                "\n\"product\"= \"" + this.product + "\"" +
+                "\n\"reviewer\"= \"" + this.reviewer + "\"" +
+                "\n\"reviewText\"= \"" + this.reviewText + "\"" +
+                "\n\"rating\"= \"" + this.rating + "\"" +
+                "\n}";
+    }
+
 }
