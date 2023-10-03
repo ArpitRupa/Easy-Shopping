@@ -39,10 +39,16 @@ CREATE TABLE IF NOT EXISTS orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
 	product_id INT NOT NULL,
 	buyer_id INT NOT NULL,
+    seller_id INT NOT NULL,
 	product_count INT NOT NULL,
     date_time DATETIME NOT NULL,
-    shipping_address TEXT NOT NULL,
+    shipping_address_line1 VARCHAR(255) NOT NULL,
+    shipping_address_line2 VARCHAR(255),
+    city VARCHAR(100) NOT NULL,
+    state_name VARCHAR(50) NOT NULL,
+    postal_code VARCHAR(20) NOT NULL
     total_cost DECIMAL(10, 2) NOT NULL,
 	FOREIGN KEY (buyer_id) REFERENCES users(id),
+    FOREIGN KEY (seller_id) REFERENCES users(id),
 	FOREIGN KEY (product_id) REFERENCES products(id)
 );

@@ -1,10 +1,20 @@
 package com.fullstackshopping.easyshopping.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.FetchType;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "products")
-public class ProductReview {
+public class ProductReview implements Serializable {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.AUTO) // Auto to work with auto increment or sequence
     @Column(name="review_id", nullable = false, updatable = false) // cannot update ID once set; set to correct column
@@ -20,9 +30,9 @@ public class ProductReview {
     // Lazy Fetch since we don't want to fetch the entire User Entity immediately for a review
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reviewer_id", nullable = false)
-    private User user;
+    private User reviewer;
 
-    @Column(name = "review_text", nullable = false)
+    @Column(name = "review_text", nullable = false, columnDefinition = "TEXT")
     String reviewText;
 
     @Column(name = "rating", columnDefinition = "INT CHECK (rating >= 1 AND rating <= 5)") // rating must be between 1-5
@@ -34,9 +44,9 @@ public class ProductReview {
     public ProductReview() {
     }
 
-    public ProductReview(Product product, User user, String reviewText, int rating){
+    public ProductReview(Product product, User reviewer, String reviewText, int rating){
         this.product = product;
-        this.user = user;
+        this.reviewer = reviewer;
         this.reviewText = reviewText;
         this.rating=rating;
     }
@@ -57,12 +67,12 @@ public class ProductReview {
         this.product = product;
     }
 
-    public User getUser() {
-        return this.user;
+    public User getReviewer() {
+        return this.reviewer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setReviewer(User reviewer) {
+        this.reviewer = reviewer;
     }
 
     public String getReviewText() {

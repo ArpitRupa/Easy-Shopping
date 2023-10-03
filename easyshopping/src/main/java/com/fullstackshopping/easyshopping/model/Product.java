@@ -21,7 +21,7 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(precision = 3, scale = 2)
@@ -30,7 +30,6 @@ public class Product implements Serializable {
     // Constructors, getters, setters, and other methods
 
     // Default constructor
-
     public Product(){
 
     }

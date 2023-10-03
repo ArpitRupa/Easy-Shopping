@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class ProductImage implements Serializable {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.AUTO) // Auto to work with auto increment or sequence
-    @Column(nullable = false, updatable = false) // cannot update ID once set
+    @Column(name = "image_id", nullable = false, updatable = false) // cannot update ID once set
     private int imageId;
 
     // Multiple images can belong to one Product
