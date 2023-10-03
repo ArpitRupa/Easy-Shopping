@@ -1,37 +1,46 @@
 package com.fullstackshopping.easyshopping.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.GenerationType;
 
 import java.io.Serializable;
 
 
 @Entity
-public class Users implements Serializable {
+@Table(name = "users")
+public class User implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private int id;
 
-    @Column(nullable = false, name = "first_name")
+    @Column(nullable = false, name = "first_name", length = 50)
     private String firstName;
 
-    @Column(nullable = false, name="last_name")
+    @Column(nullable = false, name="last_name", length = 50)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 25)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String password;
 
-    public Users() {
+    // Constructors, getters, setters, and other methods
+
+    // Default constructor
+    public User() {
 
     }
 
-    public Users(String firstName, String lastName, String email, String username, String password){
+    public User(String firstName, String lastName, String email, String username, String password){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -39,6 +48,8 @@ public class Users implements Serializable {
         this.password = password;
     }
 
+
+    // Getters and setters
     public int getId(){
         return  this.id;
     }
@@ -84,6 +95,7 @@ public class Users implements Serializable {
     }
 
 
+    //Override toString() method
     @Override
     public String toString(){
         return "User{" +

@@ -1,12 +1,18 @@
 package com.fullstackshopping.easyshopping.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.GenerationType;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class Products implements Serializable {
+@Table(name = "products")
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
@@ -21,23 +27,26 @@ public class Products implements Serializable {
     @Column(precision = 3, scale = 2)
     private BigDecimal rating;
 
+    // Constructors, getters, setters, and other methods
 
-    public Products(){
+    // Default constructor
+
+    public Product(){
 
     }
 
-    //default constructor
-    public Products(String name, String description, BigDecimal rating){
+    public Product(String name, String description, BigDecimal rating){
         this.name = name;
         this.description = description;
         this.rating = rating;
     }
 
     //overload in case no rating is provided
-    public Products(String name, String description){
+    public Product(String name, String description){
         this(name, description, BigDecimal.valueOf(0));
     }
 
+    // Getters and setters
 
     public int getId() {
         return id;
@@ -71,6 +80,7 @@ public class Products implements Serializable {
         this.rating = rating;
     }
 
+    //Override toString() method
     @Override
     public String toString(){
         return "Product{" +

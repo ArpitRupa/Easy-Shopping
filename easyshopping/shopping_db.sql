@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS products (
 CREATE TABLE IF NOT EXISTS product_images (
     image_id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
-    image_data BLOB NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
