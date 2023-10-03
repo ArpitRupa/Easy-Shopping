@@ -13,9 +13,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-    @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
+    @Id // primary key
+    @GeneratedValue(strategy = GenerationType.AUTO) // Auto to work with auto increment or sequence
+    @Column(nullable = false, updatable = false) // cannot update ID once set
     private int id;
 
     @Column(nullable = false, name = "first_name", length = 50)

@@ -15,9 +15,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "product_images")
 public class ProductImage implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id", nullable = false, updatable = false)
+    @Id // primary key
+    @GeneratedValue(strategy = GenerationType.AUTO) // Auto to work with auto increment or sequence
+    @Column(nullable = false, updatable = false) // cannot update ID once set
     private int imageId;
 
     // Multiple images can belong to one Product
@@ -30,7 +30,7 @@ public class ProductImage implements Serializable {
     private String imageUrl;
 
 
-    // Constructors, getters, setters, and other methods
+    // Constructors, getters, setters
 
     // Default constructor
     public ProductImage() {

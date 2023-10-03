@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS product_reviews (
     product_id INT NOT NULL,
     reviewer_id INT NOT NULL,
     review_text TEXT NOT NULL,
-    rating INT NOT NULL,
+    rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5)
     FOREIGN KEY (product_id) REFERENCES products(id),
     FOREIGN KEY (reviewer_id) REFERENCES users(id)
 );
