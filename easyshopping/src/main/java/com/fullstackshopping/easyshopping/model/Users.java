@@ -6,16 +6,16 @@ import java.io.Serializable;
 
 
 @Entity
-public class User implements Serializable {
+public class Users implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     private int id;
 
-    @Column(nullable = false, name = first_name)
+    @Column(nullable = false, name = "first_name")
     private String firstName;
 
-    @Column(nullable = false, name=last_name)
+    @Column(nullable = false, name="last_name")
     private String lastName;
 
     @Column(nullable = false)
@@ -27,11 +27,11 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    public User() {
+    public Users() {
 
     }
 
-    public User(String firstName, String lastName, String email, String username, String password){
+    public Users(String firstName, String lastName, String email, String username, String password){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
