@@ -1,4 +1,7 @@
 package com.fullstackshopping.easyshopping.repository;
 
-public interface OrderRepository {
+import com.fullstackshopping.easyshopping.model.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 }

@@ -1,4 +1,7 @@
 package com.fullstackshopping.easyshopping.repository;
 
-public interface ProductImageRepository {
+import com.fullstackshopping.easyshopping.model.ProductImage;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductImageRepository extends JpaRepository<ProductImage, Integer> {
 }
