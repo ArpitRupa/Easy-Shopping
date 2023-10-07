@@ -1,0 +1,25 @@
+# MySQL Configuration
+spring:
+  datasource:
+    url: ${DATABASE_URL} # credentials for database
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+
+  jpa:
+    # generate the logs from SQL statements via Hibernate
+    show-sql: true
+    # just update the db when the application starts; create missing schemas
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+  level:
+    org.hibernate: DEBUG
+    org.springframework: DEBUG
+
+server:
+  error:
+    include-message: always
