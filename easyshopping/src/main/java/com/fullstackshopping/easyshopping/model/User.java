@@ -43,8 +43,8 @@ public class User implements Serializable {
     public User(String firstName, String lastName, String email, String username, String password){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
-        this.username = username;
+        this.email = email.toLowerCase();
+        this.username = username.toLowerCase();
         this.password = password;
     }
 
@@ -75,7 +75,7 @@ public class User implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getUsername() {
@@ -83,7 +83,7 @@ public class User implements Serializable {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.toLowerCase();
     }
 
     public void setPassword(String password) {
