@@ -1,6 +1,5 @@
 package com.fullstackshopping.easyshopping.service;
 
-import com.fullstackshopping.easyshopping.exception.UserNotFoundException;
 import com.fullstackshopping.easyshopping.model.User;
 import com.fullstackshopping.easyshopping.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +29,11 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException ("User by id: " + id + " not found."));
+        return userRepository.findById(id).orElse(null);
     }
 
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException("User by username: " + username + " not found."));
+        return userRepository.findByUsername(username).orElse(null);
     }
 
 

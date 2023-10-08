@@ -24,7 +24,7 @@ public class User implements Serializable {
     @Column(nullable = false, name="last_name", length = 50)
     private String lastName;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 320)
     private String email;
 
     @Column(nullable = false, unique = true, length = 25)
@@ -84,6 +84,10 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username.toLowerCase();
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {

@@ -1,0 +1,74 @@
+
+## Create Users
+
+### Create User 1
+POST http://localhost:8080/api/users/
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "johndoe@example.com",
+  "username": "johndoe123",
+  "password": "secretpassword"
+}
+
+
+### Create User 2
+POST http://localhost:8080/api/users/
+Content-Type: application/json
+
+{
+  "firstName": "Alice",
+  "lastName": "Smith",
+  "email": "alice.smith@example.com",
+  "username": "alice123",
+  "password": "secure123"
+}
+
+
+### GET ALL USERS
+GET http://localhost:8080/api/users/
+
+## GET USERS BY ID
+
+### Existing
+GET http://localhost:8080/api/users/1
+
+### Not Existing
+GET http://localhost:8080/api/users/3
+
+## UPDATE USER
+
+### EXISTING USER
+PUT http://localhost:8080/api/users/2
+Content-Type: application/json
+
+{
+  "firstName": "Alice",
+  "lastName": "Smith",
+  "email": "alice.smith@example.com",
+  "username": "alice123",
+  "password": "NEWPASSWORD"
+}
+
+### NON-EXISTING USER
+PUT http://localhost:8080/api/users/5
+Content-Type: application/json
+
+{
+  "firstName": "Alice",
+  "lastName": "Smith",
+  "email": "alice.smith@example.com",
+  "username": "alice123",
+  "password": "NEWPASSWORD"
+}
+
+### DELETE USER
+
+### EXISTING USER
+DELETE http://localhost:8080/api/users/1
+
+### NON-EXISTING USER
+DELETE http://localhost:8080/api/users/4

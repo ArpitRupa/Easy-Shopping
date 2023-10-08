@@ -10,7 +10,7 @@ spring:
     show-sql: true
     # just update the db when the application starts; create missing schemas
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
