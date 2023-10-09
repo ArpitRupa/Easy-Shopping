@@ -11,7 +11,8 @@ Content-Type: application/json
   "lastName": "Doe",
   "email": "johndoe@example.com",
   "username": "johndoe123",
-  "password": "secretpassword"
+  "password": "secretpassword",
+  "role": "ADMIN"
 }
 
 
@@ -24,7 +25,8 @@ Content-Type: application/json
   "lastName": "Smith",
   "email": "alice.smith@example.com",
   "username": "alice123",
-  "password": "secure123"
+  "password": "secure123",
+  "role": "USER"
 }
 
 
@@ -50,7 +52,8 @@ Content-Type: application/json
   "lastName": "Smith",
   "email": "alice.smith@example.com",
   "username": "alice123",
-  "password": "NEWPASSWORD"
+  "password": "NEWPASSWORD",
+  "role": "ADMIN"
 }
 
 ### NON-EXISTING USER
@@ -62,7 +65,8 @@ Content-Type: application/json
   "lastName": "Smith",
   "email": "alice.smith@example.com",
   "username": "alice123",
-  "password": "NEWPASSWORD"
+  "password": "NEWPASSWORD",
+  "role" : "ADMIN"
 }
 
 ### DELETE USER

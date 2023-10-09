@@ -1,13 +1,17 @@
 package com.fullstackshopping.easyshopping.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
+//import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 
 @Entity
@@ -33,6 +37,17 @@ public class User implements Serializable {
     @Column(nullable = false, length = 100)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAutorities(){
+//
+//    }
+
+
     // Constructors, getters, setters, and other methods
 
     // Default constructor
@@ -40,12 +55,13 @@ public class User implements Serializable {
 
     }
 
-    public User(String firstName, String lastName, String email, String username, String password){
+    public User(String firstName, String lastName, String email, String username, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email.toLowerCase();
-        this.username = username.toLowerCase();
+        this.email = email;
+        this.username = username;
         this.password = password;
+        this.role = role;
     }
 
 
@@ -94,6 +110,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public Role getRole() {
+        return this.role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
 
     //Override toString() method
     @Override
@@ -104,6 +128,7 @@ public class User implements Serializable {
                 "\n\"last name\"= \"" + this.lastName + "\"" +
                 "\n\"email\"= \"" + this.email + "\"" +
                 "\n\"username\"= \"" + this.username + "\"" +
+                "\n\"Role\"= \"" + this.role + "\"" +
                 "\n}";
     }
 }
