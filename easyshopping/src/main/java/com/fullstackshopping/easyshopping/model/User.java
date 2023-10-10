@@ -1,5 +1,6 @@
 package com.fullstackshopping.easyshopping.model;
 
+import com.fullstackshopping.easyshopping.model.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -8,15 +9,18 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
-//import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.AUTO) // Auto to work with auto increment or sequence
     @Column(nullable = false, updatable = false) // cannot update ID once set
@@ -42,10 +46,30 @@ public class User implements Serializable {
     private Role role;
 
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAutorities(){
-//
-//    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 
     // Constructors, getters, setters, and other methods
@@ -71,7 +95,7 @@ public class User implements Serializable {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -79,7 +103,7 @@ public class User implements Serializable {
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName) {
@@ -87,37 +111,35 @@ public class User implements Serializable {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email.toLowerCase();
     }
 
+    @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
         this.username = username.toLowerCase();
     }
 
+    //override UserDetails Methods
+    @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Role getRole() {
-        return this.role;
-    }
+    public Role getRole() { return this.role; }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
+    public void setRole(Role role) { this.role = role; }
 
     //Override toString() method
     @Override
