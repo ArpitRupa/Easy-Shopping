@@ -9,18 +9,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
 
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable, UserDetails {
+public class User implements Serializable {
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.AUTO) // Auto to work with auto increment or sequence
     @Column(nullable = false, updatable = false) // cannot update ID once set
@@ -44,32 +39,6 @@ public class User implements Serializable, UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role.name()));
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
 
     // Constructors, getters, setters, and other methods
@@ -118,7 +87,6 @@ public class User implements Serializable, UserDetails {
         this.email = email.toLowerCase();
     }
 
-    @Override
     public String getUsername() {
         return this.username;
     }
@@ -127,8 +95,6 @@ public class User implements Serializable, UserDetails {
         this.username = username.toLowerCase();
     }
 
-    //override UserDetails Methods
-    @Override
     public String getPassword() {
         return this.password;
     }

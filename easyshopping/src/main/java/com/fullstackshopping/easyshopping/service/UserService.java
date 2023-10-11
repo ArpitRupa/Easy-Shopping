@@ -2,6 +2,7 @@ package com.fullstackshopping.easyshopping.service;
 
 import com.fullstackshopping.easyshopping.model.User;
 import com.fullstackshopping.easyshopping.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,8 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
+    @Autowired
     private final UserRepository userRepository;
 
     @Autowired
@@ -46,16 +48,6 @@ public class UserService implements UserDetailsService {
 
     public void deleteUser(int id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        System.out.println("In user details!");
-        Optional<User> user = userRepository.findByUsername(username);
-        if (!username.equals("johndoe123")) throw new UsernameNotFoundException("NOT johndoe123");
-
-        return user.orElse(null);
     }
 }
 

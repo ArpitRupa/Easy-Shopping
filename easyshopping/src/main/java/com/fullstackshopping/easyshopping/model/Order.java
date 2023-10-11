@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -37,6 +38,7 @@ public class Order implements Serializable {
     @Column(name = "product_count", nullable = false)
     private int productCount;
 
+    @CreationTimestamp
     @Column(name = "date_time", nullable = false, updatable = false)
     private LocalDateTime dateTime;
 
