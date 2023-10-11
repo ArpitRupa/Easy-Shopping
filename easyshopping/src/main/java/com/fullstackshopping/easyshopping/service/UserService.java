@@ -1,15 +1,15 @@
 package com.fullstackshopping.easyshopping.service;
 
+import com.fullstackshopping.easyshopping.dto.response.UserDto;
 import com.fullstackshopping.easyshopping.model.User;
 import com.fullstackshopping.easyshopping.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,26 +28,82 @@ public class UserService {
 
 
     // Business logic methods
-    public User createUser(User user) {
-        // You can add validation or other business logic here
-        return userRepository.save(user);
+    public UserDto createUser(User user) {
+        return new UserDto(userRepository.save(user));
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        //list to hold all DTOs
+        List<UserDto> userDtos = new ArrayList<>();
+
+        //generate DTOs for all users
+        for (User user : users) {
+            userDtos.add( new UserDto(user));
+        }
+
+        return userDtos;
     }
 
-    public User getUserById(int id) {
-        return userRepository.findById(id).orElse(null);
+    public UserDto getUserById(int id) {
+        User user = userRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "User id not found"));
+        return new UserDto(user);
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+    public UserDto getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
+        return new UserDto(user);
     }
 
 
-    public void deleteUser(int id) {
-        userRepository.deleteById(id);
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "User email not found"));
+        return new UserDto(user);
+    }
+
+
+    public boolean deleteUser(int id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isPresent()) {
+            userRepository.deleteById(id);
+            return true; // User was found and deleted.
+        } else {
+            return false; // User was not found.
+        }
+    }
+
+
+    public UserDto updateUser(int id, User updatedUser) {
+
+        // check to see if entry exists before updating
+        User existingUser = userRepository.findById(id).orElse(null);
+
+        if (existingUser == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID " + id + " not found");
+        }
+
+        // check if the updated username conflicts with existing users
+        if (!existingUser.getUsername().equals(updatedUser.getUsername()) &&
+                userRepository.existsByUsername(updatedUser.getUsername())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
+        }
+
+        // check if the updated email conflicts with existing users
+        if (!existingUser.getEmail().equals(updatedUser.getEmail()) &&
+                userRepository.existsByEmail(updatedUser.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
+        }
+
+        // update other columns
+        existingUser.setFirstName(updatedUser.getFirstName());
+        existingUser.setLastName(updatedUser.getLastName());
+        existingUser.setPassword(updatedUser.getPassword());
+
+        this.userRepository.save(existingUser);
+
+        // Convert the updated user to UserDto and return it
+        return new UserDto(existingUser);
     }
 }
 
