@@ -3,9 +3,9 @@ package com.fullstackshopping.easyshopping.service;
 import com.fullstackshopping.easyshopping.dto.response.UserDto;
 import com.fullstackshopping.easyshopping.model.User;
 import com.fullstackshopping.easyshopping.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,11 +16,9 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
+
     private final UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder encoder;
     @Autowired //    Dependency Injection
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -74,6 +72,7 @@ public class UserService {
     }
 
 
+    @Transactional(rollbackOn = ResponseStatusException.class)
     public UserDto updateUser(int id, User updatedUser) {
 
         // check to see if entry exists before updating

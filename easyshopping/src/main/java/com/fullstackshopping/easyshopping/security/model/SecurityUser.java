@@ -1,18 +1,27 @@
 package com.fullstackshopping.easyshopping.security.model;
 
+import com.fullstackshopping.easyshopping.model.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
+import java.util.Collections;
 
 public class SecurityUser implements UserDetails {
 
     private String username;
     private String password;
+    private GrantedAuthority authority;
+
+    public SecurityUser(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.authority = new SimpleGrantedAuthority("ROLE_" + role.getRoleName()) ;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(this.authority);
     }
 
     @Override
@@ -23,6 +32,10 @@ public class SecurityUser implements UserDetails {
     @Override
     public String getUsername() {
         return this.username;
+    }
+
+    public GrantedAuthority getAuthority() {
+        return this.authority;
     }
 
     @Override
@@ -41,7 +54,5 @@ public class SecurityUser implements UserDetails {
     }
 
     @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    public boolean isEnabled() { return true; }
 }
