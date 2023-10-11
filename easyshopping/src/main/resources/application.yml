@@ -1,5 +1,6 @@
-# MySQL Configuration
+
 spring:
+  # MySQL Configuration
   datasource:
     url: ${DATABASE_URL} # credentials for database
     username: ${DATABASE_USER}
@@ -24,5 +25,6 @@ logging:
     org.springframework: DEBUG
 
 server:
+  port: 8080
   error:
     include-message: always
