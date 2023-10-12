@@ -1,8 +1,8 @@
 package com.fullstackshopping.easyshopping.model.enums;
 
 public enum Role {
-    USER("User"),
-    ADMIN("Administrator");
+    USER("USER"),
+    ADMIN("ADMIN");
 
     private final String roleName;
 
