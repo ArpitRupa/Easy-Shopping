@@ -27,6 +27,9 @@ public class Product implements Serializable {
     @Column(name="avg_rating", precision = 3, scale = 2)
     private BigDecimal avgRating;
 
+    @Column(name="price", scale = 2)
+    private BigDecimal price;
+
     // Constructors, getters, setters, and other methods
 
     // Default constructor
@@ -75,6 +78,14 @@ public class Product implements Serializable {
         this.avgRating = avgRating;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     //Override toString() method
     @Override
     public String toString(){
@@ -83,6 +94,7 @@ public class Product implements Serializable {
                 "\n\"name\"= \"" + this.name + "\"" +
                 "\n\"description\"= \"" + this.description + "\"" +
                 "\n\"rating\"= \"" + this.avgRating.toString() + "\"" +
+                "\n\"price\"= \"" + this.price.toString() + "\"" +
                 "\n}";
     }
 

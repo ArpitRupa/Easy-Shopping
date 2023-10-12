@@ -35,7 +35,7 @@ public class ProductReview implements Serializable {
     @Column(name = "review_text", nullable = false, columnDefinition = "TEXT")
     String reviewText;
 
-    @Column(name = "rating", columnDefinition = "INT CHECK (rating >= 1 AND rating <= 5)") // rating must be between 1-5
+    @Column(name = "rating", nullable = false, columnDefinition = "INT CHECK (rating >= 1 AND rating <= 5)") // rating must be between 1-5
     private int rating;
 
     // Constructors, getters, setters

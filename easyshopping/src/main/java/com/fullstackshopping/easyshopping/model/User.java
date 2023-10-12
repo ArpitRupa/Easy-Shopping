@@ -1,6 +1,9 @@
 package com.fullstackshopping.easyshopping.model;
 
+import com.fullstackshopping.easyshopping.model.enums.Role;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
@@ -24,7 +27,7 @@ public class User implements Serializable {
     @Column(nullable = false, name="last_name", length = 50)
     private String lastName;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 320, unique = true)
     private String email;
 
     @Column(nullable = false, unique = true, length = 25)
@@ -33,6 +36,11 @@ public class User implements Serializable {
     @Column(nullable = false, length = 100)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+
     // Constructors, getters, setters, and other methods
 
     // Default constructor
@@ -40,12 +48,13 @@ public class User implements Serializable {
 
     }
 
-    public User(String firstName, String lastName, String email, String username, String password){
+    public User(String firstName, String lastName, String email, String username, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
 
@@ -55,7 +64,7 @@ public class User implements Serializable {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -63,7 +72,7 @@ public class User implements Serializable {
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName) {
@@ -71,25 +80,32 @@ public class User implements Serializable {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.toLowerCase();
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public Role getRole() { return this.role; }
+
+    public void setRole(Role role) { this.role = role; }
 
     //Override toString() method
     @Override
@@ -100,6 +116,7 @@ public class User implements Serializable {
                 "\n\"last name\"= \"" + this.lastName + "\"" +
                 "\n\"email\"= \"" + this.email + "\"" +
                 "\n\"username\"= \"" + this.username + "\"" +
+                "\n\"Role\"= \"" + this.role + "\"" +
                 "\n}";
     }
 }

@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,8 +28,8 @@ public class Order implements Serializable {
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "buyer_id", nullable = false, updatable = false)
-    private User buyer;
+    @JoinColumn(name = "customer_id", nullable = false, updatable = false)
+    private User customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false, updatable = false)
@@ -37,6 +38,7 @@ public class Order implements Serializable {
     @Column(name = "product_count", nullable = false)
     private int productCount;
 
+    @CreationTimestamp
     @Column(name = "date_time", nullable = false, updatable = false)
     private LocalDateTime dateTime;
 
@@ -65,12 +67,12 @@ public class Order implements Serializable {
 
     }
 
-    public Order(Product product, User buyer, User seller, int productCount, LocalDateTime dateTime,
+    public Order(Product product, User customer, User seller, int productCount, LocalDateTime dateTime,
                  String shippingAddressLine1, String shippingAddressLine2,
                  String city, String stateName, String postalCode)
     {
         this.product = product;
-        this.buyer = buyer;
+        this.customer = customer;
         this.seller = seller;
         this.productCount = productCount;
         this.dateTime = dateTime;
@@ -91,8 +93,8 @@ public class Order implements Serializable {
         return this.product;
     }
 
-    public User getBuyer() {
-        return this.buyer;
+    public User getCustomer() {
+        return this.customer;
     }
 
     public User getSeller() {
@@ -165,7 +167,7 @@ public class Order implements Serializable {
         return "Order{" +
                 "\n\"orderId\"= \"" + this.orderId + "\"" +
                 "\n\"product\"= \"" + this.product + "\"" +
-                "\n\"buyer\"= \"" + this.buyer + "\"" +
+                "\n\"customer\"= \"" + this.customer + "\"" +
                 "\n\"seller\"= \"" + this.seller + "\"" +
                 "\n\"productCount\"= \"" + this.productCount + "\"" +
                 "\n\"dateTime\"= \"" + this.dateTime + "\"" +
