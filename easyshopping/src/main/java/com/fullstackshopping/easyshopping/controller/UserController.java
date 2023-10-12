@@ -1,7 +1,7 @@
 package com.fullstackshopping.easyshopping.controller;
 
+import com.fullstackshopping.easyshopping.dto.request.UserRegistration;
 import com.fullstackshopping.easyshopping.dto.response.UserDto;
-import com.fullstackshopping.easyshopping.model.User;
 import com.fullstackshopping.easyshopping.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,7 @@ public class UserController {
 
 //    @ResponseStatus(HttpStatus.FOUND)
     @GetMapping("")
-    public ResponseEntity< List<UserDto> >getAll(){
+    public ResponseEntity< List<UserDto> >getAllUsers(){
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
@@ -61,18 +61,18 @@ public class UserController {
 
 //    @ResponseStatus(HttpStatus.CREATED) //indicates that something was created in the database
     @PostMapping("/register")
-    public ResponseEntity<UserDto> createUser(@RequestBody User user){ // treat as json
+    public ResponseEntity<UserDto> createUser(@RequestBody UserRegistration userRegistration){ // treat as json
 
-        UserDto userDto = userService.createUser(user);
+        UserDto userDto = userService.createUser(userRegistration);
 
-        URI location = getUserLocation(user.getId());
+        URI location = getUserLocation(userDto.getId());
 
         return ResponseEntity.created(location).body(userDto);
     }
 
 //    @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = {"/{id}", "/{id}/"})
-    public ResponseEntity<UserDto> updateUser(@PathVariable int id, @RequestBody User updatedUser){
+    public ResponseEntity<UserDto> updateUser(@PathVariable int id, @RequestBody UserRegistration updatedUser){
         return ResponseEntity.ok(userService.updateUser(id, updatedUser));
     }
 

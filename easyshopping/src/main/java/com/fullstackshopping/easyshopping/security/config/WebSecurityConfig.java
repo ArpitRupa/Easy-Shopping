@@ -45,7 +45,7 @@ public class WebSecurityConfig {
                         {
                             authorize.requestMatchers("/auth/**").permitAll();
                             authorize.requestMatchers("/api/**").permitAll();
-                            authorize.anyRequest().authenticated();
+                            authorize.anyRequest().permitAll();
                         })
                 .formLogin(Customizer.withDefaults());
 

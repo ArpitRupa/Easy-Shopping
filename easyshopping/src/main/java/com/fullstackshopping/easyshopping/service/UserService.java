@@ -1,7 +1,9 @@
 package com.fullstackshopping.easyshopping.service;
 
+import com.fullstackshopping.easyshopping.dto.request.UserRegistration;
 import com.fullstackshopping.easyshopping.dto.response.UserDto;
 import com.fullstackshopping.easyshopping.model.User;
+import com.fullstackshopping.easyshopping.model.enums.Role;
 import com.fullstackshopping.easyshopping.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,25 @@ public class UserService {
 
 
     // Business logic methods
-    public UserDto createUser(User user) {
-        return new UserDto(userRepository.save(user));
+    public UserDto createUser(UserRegistration userRegistration) {
+
+        System.out.println(userRegistration.getRole());
+
+        Role role = getRoleFromString(userRegistration.getRole());
+
+        // Create user from Registration
+        User user = new User(
+                userRegistration.getFirstName(),
+                userRegistration.getLastName(),
+                userRegistration.getEmail(),
+                userRegistration.getUsername(),
+                userRegistration.getPassword(),
+                role
+        );
+
+        // Continue with user creation
+        User savedUser = userRepository.save(user);
+        return new UserDto(savedUser);
     }
 
     public List<UserDto> getAllUsers() {
@@ -73,7 +92,7 @@ public class UserService {
 
 
     @Transactional(rollbackOn = ResponseStatusException.class)
-    public UserDto updateUser(int id, User updatedUser) {
+    public UserDto updateUser(int id, UserRegistration updatedUser) {
 
         // check to see if entry exists before updating
         User existingUser = userRepository.findById(id).orElse(null);
@@ -98,11 +117,28 @@ public class UserService {
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setLastName(updatedUser.getLastName());
         existingUser.setPassword(updatedUser.getPassword());
+        existingUser.setRole(getRoleFromString(updatedUser.getRole()));
 
         this.userRepository.save(existingUser);
 
         // Convert the updated user to UserDto and return it
         return new UserDto(existingUser);
+    }
+
+
+    private Role getRoleFromString(String registrationRole){
+        // Convert the role string to a Role enum
+        Role role;
+        try {
+            role = Role.valueOf(registrationRole);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid role provided"
+            );
+        }
+
+        return role;
     }
 }
 

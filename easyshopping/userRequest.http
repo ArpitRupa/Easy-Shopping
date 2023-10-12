@@ -2,11 +2,10 @@
 ## Create Users
 
 ### Create User 1
-POST http://localhost:8080/api/users/
+POST http://localhost:8080/api/users/register
 Content-Type: application/json
 
 {
-  "id": 1,
   "firstName": "John",
   "lastName": "Doe",
   "email": "johndoe@example.com",
@@ -17,7 +16,7 @@ Content-Type: application/json
 
 
 ### Create User 2
-POST http://localhost:8080/api/users/
+POST http://localhost:8080/api/users/register
 Content-Type: application/json
 
 {
@@ -25,8 +24,7 @@ Content-Type: application/json
   "lastName": "Smith",
   "email": "alice.smith@example.com",
   "username": "alice123",
-  "password": "secure123",
-  "role": "USER"
+  "password": "secure123"
 }
 
 
