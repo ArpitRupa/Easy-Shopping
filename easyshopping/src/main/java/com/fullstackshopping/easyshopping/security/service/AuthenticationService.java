@@ -1,7 +1,6 @@
 package com.fullstackshopping.easyshopping.security.service;
 
 import com.fullstackshopping.easyshopping.dto.response.LoginResponseDto;
-import com.fullstackshopping.easyshopping.dto.response.UserDto;
 import com.fullstackshopping.easyshopping.model.User;
 import com.fullstackshopping.easyshopping.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
