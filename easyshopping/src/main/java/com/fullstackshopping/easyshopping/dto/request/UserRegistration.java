@@ -17,14 +17,13 @@ public class UserRegistration implements Serializable {
     }
 
     // args Constructor
-    public UserRegistration(String firstName, String lastName, String email, String username, String password) {
+    public UserRegistration(String firstName, String lastName, String email, String username, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
-        // default to USER role
-        this.role = "USER";
+        this.role = role;
     }
     // Getters and setters for all fields
 
