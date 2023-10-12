@@ -28,6 +28,16 @@ Content-Type: application/json
 }
 
 
+### Login User 1
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "johndoe123",
+  "password": "secretpassword"
+}
+
+
 ### GET ALL USERS
 GET http://localhost:8080/api/users/
 
