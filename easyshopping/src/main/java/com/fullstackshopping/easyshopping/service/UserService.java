@@ -8,6 +8,7 @@ import com.fullstackshopping.easyshopping.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,17 +21,19 @@ public class UserService {
 
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired //    Dependency Injection
-    public UserService(UserRepository userRepository) {
+
+    @Autowired //    Constructor Injection
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
     // Business logic methods
     public UserDto createUser(UserRegistration userRegistration) {
 
-        Role role = getRoleFromString(userRegistration.getRole());
 
         // Create user from Registration
         User user = new User(
@@ -38,8 +41,10 @@ public class UserService {
                 userRegistration.getLastName(),
                 userRegistration.getEmail(),
                 userRegistration.getUsername(),
-                userRegistration.getPassword(),
-                role
+                //encode password before saving to database
+                passwordEncoder.encode(userRegistration.getPassword()),
+                // default all new users to USER role
+                Role.USER
         );
 
         // Continue with user creation
@@ -114,7 +119,7 @@ public class UserService {
         // update other columns
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setLastName(updatedUser.getLastName());
-        existingUser.setPassword(updatedUser.getPassword());
+        existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         existingUser.setRole(getRoleFromString(updatedUser.getRole()));
 
         this.userRepository.save(existingUser);
