@@ -30,8 +30,6 @@ public class UserService {
     // Business logic methods
     public UserDto createUser(UserRegistration userRegistration) {
 
-        System.out.println(userRegistration.getRole());
-
         Role role = getRoleFromString(userRegistration.getRole());
 
         // Create user from Registration

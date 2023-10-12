@@ -10,14 +10,20 @@ public class UserRegistration implements Serializable {
     private String password;
     private String role;
 
-    // Params Constructor
+
+    // no-args constructor
+    public  UserRegistration(){
+
+    }
+
+    // args Constructor
     public UserRegistration(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
-        //we do not want to be able to register admin users; will upgrade
+        // default to USER role
         this.role = "USER";
     }
     // Getters and setters for all fields
@@ -31,7 +37,6 @@ public class UserRegistration implements Serializable {
     public String getEmail() {
         return this.email;
     }
-
 
     public String getUsername() {
         return this.username;
