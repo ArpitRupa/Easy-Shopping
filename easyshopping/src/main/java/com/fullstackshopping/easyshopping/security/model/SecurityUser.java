@@ -16,7 +16,7 @@ public class SecurityUser implements UserDetails {
     public SecurityUser(String username, String password, Role role) {
         this.username = username;
         this.password = password;
-        this.authority = new SimpleGrantedAuthority("ROLE_" + role.getRoleName()) ;
+        this.authority = new SimpleGrantedAuthority(role.getRoleName()) ;
     }
 
     @Override

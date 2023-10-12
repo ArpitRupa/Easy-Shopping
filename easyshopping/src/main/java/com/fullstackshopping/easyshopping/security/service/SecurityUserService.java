@@ -28,8 +28,9 @@ public class SecurityUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // authenticate with database credentials
+        // query the database to get username and password
         User user = userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("Username not found."));
-        return new SecurityUser(user.getUsername(), this.passwordEncoder.encode(user.getPassword()), user.getRole());
+        // create and return a SecurityUser with credentials from the database
+        return new SecurityUser(user.getUsername(), user.getPassword(), user.getRole());
     }
 }
