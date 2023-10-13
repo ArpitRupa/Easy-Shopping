@@ -39,18 +39,18 @@ public class UserApiController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping(value = {"/{id}", "/{id}/"})
+    @GetMapping(value = {"/id/{id}", "/id/{id}/"})
     public ResponseEntity<UserDto> getUserById(@PathVariable int id){
 
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @GetMapping(value = {"/{email}", "/{email}/"})
+    @GetMapping(value = {"/email/{email}", "/email/{email}/"})
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email){
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
-    @GetMapping(value = {"/{username}", "/{username}/"})
+    @GetMapping(value = {"/username/{username}", "/username/{username}/"})
     public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username){
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }

@@ -28,6 +28,10 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+/**
+ * Configuration that defines security rules and settings for the application.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -44,6 +48,13 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    /**
+     * Configures the AuthenticationManager used to authenticate users with the database via UserDetailsService.
+     *
+     * @param userDetails The UserDetailsService implementation used for user authentication.
+     * @return An instance of AuthenticationManager.
+     */
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetails){
         //used to authenticate users in the database via UserDetailsService

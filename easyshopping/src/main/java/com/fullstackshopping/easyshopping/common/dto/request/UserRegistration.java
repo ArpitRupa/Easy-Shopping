@@ -2,6 +2,12 @@ package com.fullstackshopping.easyshopping.common.dto.request;
 
 import java.io.Serializable;
 
+
+/**
+ * A class representing a UserRegistration.
+ * Implements Serializable to allow object serialization.
+ * Used by UserApiController and UserService to register or update a user in the database.
+ */
 public class UserRegistration implements Serializable {
     private String firstName;
     private String lastName;

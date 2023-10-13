@@ -7,6 +7,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
+
+/**
+ * Component responsible for managing private and public keys for JWT.
+ * Used by WebSecurityConfig to configure JWT encoder and decoder.
+ */
 @Component
 public class RSAKeyProperties {
 

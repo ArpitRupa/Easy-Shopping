@@ -13,6 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+
+/**
+ * Service responsible for user authentication in Spring Security.
+ * Used in AuthenticationController.
+ */
 @Service
 @Transactional
 public class AuthenticationService {
@@ -26,7 +31,9 @@ public class AuthenticationService {
 
     private final TokenService tokenService;
 
-
+    /**
+     * Constructor to inject dependencies.
+     */
     @Autowired
     public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenService tokenService){
         this.userRepository = userRepository;
@@ -36,6 +43,15 @@ public class AuthenticationService {
     }
 
 
+
+    /**
+     * Authenticate a user and generate a JWT token upon successful login.
+     *
+     * @param username The username provided for login.
+     * @param password The password provided for login.
+     * @return A LoginResponse with user information and a JWT token.
+     * @throws ResponseStatusException if authentication fails.
+     */
     public LoginResponse loginUser(String username, String password){
 
         try{

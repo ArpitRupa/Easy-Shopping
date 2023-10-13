@@ -32,8 +32,14 @@ public class UserService {
 
 
     // Business logic methods
-    public UserDto createUser(UserRegistration userRegistration) {
 
+    /**
+     * Create a new user based on the provided user registration information.
+     *
+     * @param userRegistration The user registration information including first name, last name, email, username, and password.
+     * @return The UserDto representing the newly created user.
+     */
+    public UserDto createUser(UserRegistration userRegistration) {
 
         // Create user from Registration
         User user = new User(
@@ -52,6 +58,11 @@ public class UserService {
         return new UserDto(savedUser);
     }
 
+    /**
+     * Retrieve a list of all users in the system.
+     *
+     * @return A list of UserDto objects, each representing a user.
+     */
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
         //list to hold all DTOs
@@ -65,23 +76,48 @@ public class UserService {
         return userDtos;
     }
 
+    /**
+     * Retrieve a user by their ID.
+     *
+     * @param id The ID of the user to retrieve.
+     * @return The user information as a UserDto.
+     * @throws ResponseStatusException if the user with the specified ID is not found.
+     */
     public UserDto getUserById(int id) {
         User user = userRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "User id not found"));
         return new UserDto(user);
     }
 
+    /**
+     * Retrieve a user by their username.
+     *
+     * @param username The username of the user to retrieve.
+     * @return The user information as a UserDto.
+     * @throws ResponseStatusException if the user with the specified username is not found.
+     */
     public UserDto getUserByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
         return new UserDto(user);
     }
 
-
+    /**
+     * Retrieve a user by their email.
+     *
+     * @param email The email of the user to retrieve.
+     * @return The user information as a UserDto.
+     * @throws ResponseStatusException if the user with the specified email is not found.
+     */
     public UserDto getUserByEmail(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "User email not found"));
         return new UserDto(user);
     }
 
-
+    /**
+     * Delete a user by their ID.
+     *
+     * @param id The ID of the user to delete.
+     * @return true if the user was found and deleted, false if the user was not found.
+     */
     public boolean deleteUser(int id) {
         Optional<User> user = userRepository.findById(id);
 
@@ -93,7 +129,14 @@ public class UserService {
         }
     }
 
-
+    /**
+     * Updates an existing user's information.
+     *
+     * @param id The ID of the user to update.
+     * @param updatedUser The updated user information.
+     * @return The updated user's information as a UserDto.
+     * @throws ResponseStatusException if the user with the specified ID is not found, or if there are conflicts with the updated username or email.
+     */
     @Transactional(rollbackOn = ResponseStatusException.class)
     public UserDto updateUser(int id, UserRegistration updatedUser) {
 
@@ -128,7 +171,13 @@ public class UserService {
         return new UserDto(existingUser);
     }
 
-
+    /**
+     * Converts a role string to a Role enum.
+     *
+     * @param registrationRole The role string to be converted.
+     * @return The corresponding Role enum value.
+     * @throws ResponseStatusException if an invalid role is provided.
+     */
     private Role getRoleFromString(String registrationRole){
         // Convert the role string to a Role enum
         Role role;

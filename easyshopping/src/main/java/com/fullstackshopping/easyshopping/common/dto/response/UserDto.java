@@ -3,6 +3,11 @@ package com.fullstackshopping.easyshopping.common.dto.response;
 import com.fullstackshopping.easyshopping.user.model.User;
 import com.fullstackshopping.easyshopping.user.role.Role;
 
+/**
+ * DTO representing a user's data to be exposed in responses.
+ * Used in UserService and UserApiController.
+ */
+
 public class UserDto {
 
     private int id;

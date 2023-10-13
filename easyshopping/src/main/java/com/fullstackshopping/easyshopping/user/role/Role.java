@@ -1,6 +1,11 @@
 package com.fullstackshopping.easyshopping.user.role;
 
+
+/**
+ * Enum representing user roles.
+ */
 public enum Role {
+    // Possible roles of USER and ADMIN
     USER("USER"),
     ADMIN("ADMIN");
 
