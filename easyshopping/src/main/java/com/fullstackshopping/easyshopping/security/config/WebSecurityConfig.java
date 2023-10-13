@@ -1,6 +1,6 @@
 package com.fullstackshopping.easyshopping.security.config;
 
-import com.fullstackshopping.easyshopping.util.RSAKeyProperties;
+import com.fullstackshopping.easyshopping.security.util.RSAKeyProperties;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

@@ -1,7 +1,7 @@
 package com.fullstackshopping.easyshopping.security.controller;
 
-import com.fullstackshopping.easyshopping.dto.request.LoginRequest;
-import com.fullstackshopping.easyshopping.dto.response.LoginResponseDto;
+import com.fullstackshopping.easyshopping.common.dto.request.LoginRequest;
+import com.fullstackshopping.easyshopping.common.dto.response.LoginResponse;
 import com.fullstackshopping.easyshopping.security.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value={"/login", "/login/"})
-    public LoginResponseDto loginUser (@RequestBody LoginRequest loginRequest){
+    public LoginResponse loginUser (@RequestBody LoginRequest loginRequest){
         return authenticationService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
     }
 

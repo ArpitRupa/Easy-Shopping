@@ -1,6 +1,6 @@
 package com.fullstackshopping.easyshopping.security.model;
 
-import com.fullstackshopping.easyshopping.model.enums.Role;
+import com.fullstackshopping.easyshopping.user.role.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

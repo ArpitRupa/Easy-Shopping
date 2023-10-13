@@ -1,8 +1,8 @@
 package com.fullstackshopping.easyshopping.security.service;
 
-import com.fullstackshopping.easyshopping.dto.response.LoginResponseDto;
-import com.fullstackshopping.easyshopping.model.User;
-import com.fullstackshopping.easyshopping.repository.UserRepository;
+import com.fullstackshopping.easyshopping.common.dto.response.LoginResponse;
+import com.fullstackshopping.easyshopping.user.model.User;
+import com.fullstackshopping.easyshopping.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ public class AuthenticationService {
     }
 
 
-    public LoginResponseDto loginUser(String username, String password){
+    public LoginResponse loginUser(String username, String password){
 
         try{
             Authentication auth = authenticationManager.authenticate(
@@ -47,7 +47,7 @@ public class AuthenticationService {
 
             User user = userRepository.findByUsername(username).get();
 
-            return new LoginResponseDto(user.getUsername(), user.getRole(), token);
+            return new LoginResponse(user.getUsername(), user.getRole(), token);
 
         } catch(ResponseStatusException e){
 

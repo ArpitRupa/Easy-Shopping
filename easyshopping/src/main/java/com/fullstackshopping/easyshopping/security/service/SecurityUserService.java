@@ -1,7 +1,7 @@
 package com.fullstackshopping.easyshopping.security.service;
 
-import com.fullstackshopping.easyshopping.model.User;
-import com.fullstackshopping.easyshopping.repository.UserRepository;
+import com.fullstackshopping.easyshopping.user.model.User;
+import com.fullstackshopping.easyshopping.user.repository.UserRepository;
 import com.fullstackshopping.easyshopping.security.model.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
