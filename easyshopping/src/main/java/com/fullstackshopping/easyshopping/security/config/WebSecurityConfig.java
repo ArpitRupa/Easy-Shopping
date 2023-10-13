@@ -1,6 +1,6 @@
 package com.fullstackshopping.easyshopping.security.config;
 
-import com.fullstackshopping.easyshopping.util.RSAKeyProperties;
+import com.fullstackshopping.easyshopping.security.util.RSAKeyProperties;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -28,6 +28,10 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+/**
+ * Configuration that defines security rules and settings for the application.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -44,6 +48,13 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    /**
+     * Configures the AuthenticationManager used to authenticate users with the database via UserDetailsService.
+     *
+     * @param userDetails The UserDetailsService implementation used for user authentication.
+     * @return An instance of AuthenticationManager.
+     */
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetails){
         //used to authenticate users in the database via UserDetailsService

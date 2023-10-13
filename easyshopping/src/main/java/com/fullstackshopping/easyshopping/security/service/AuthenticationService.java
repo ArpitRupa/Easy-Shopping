@@ -1,20 +1,23 @@
 package com.fullstackshopping.easyshopping.security.service;
 
-import com.fullstackshopping.easyshopping.dto.response.LoginResponseDto;
-import com.fullstackshopping.easyshopping.dto.response.UserDto;
-import com.fullstackshopping.easyshopping.model.User;
-import com.fullstackshopping.easyshopping.repository.UserRepository;
+import com.fullstackshopping.easyshopping.common.dto.response.LoginResponse;
+import com.fullstackshopping.easyshopping.user.model.User;
+import com.fullstackshopping.easyshopping.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+
+/**
+ * Service responsible for user authentication in Spring Security.
+ * Used in AuthenticationController.
+ */
 @Service
 @Transactional
 public class AuthenticationService {
@@ -28,7 +31,9 @@ public class AuthenticationService {
 
     private final TokenService tokenService;
 
-
+    /**
+     * Constructor to inject dependencies.
+     */
     @Autowired
     public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenService tokenService){
         this.userRepository = userRepository;
@@ -38,7 +43,16 @@ public class AuthenticationService {
     }
 
 
-    public LoginResponseDto loginUser(String username, String password){
+
+    /**
+     * Authenticate a user and generate a JWT token upon successful login.
+     *
+     * @param username The username provided for login.
+     * @param password The password provided for login.
+     * @return A LoginResponse with user information and a JWT token.
+     * @throws ResponseStatusException if authentication fails.
+     */
+    public LoginResponse loginUser(String username, String password){
 
         try{
             Authentication auth = authenticationManager.authenticate(
@@ -49,7 +63,7 @@ public class AuthenticationService {
 
             User user = userRepository.findByUsername(username).get();
 
-            return new LoginResponseDto(user.getUsername(), user.getRole(), token);
+            return new LoginResponse(user.getUsername(), user.getRole(), token);
 
         } catch(ResponseStatusException e){
 

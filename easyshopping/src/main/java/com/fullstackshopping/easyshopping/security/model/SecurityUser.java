@@ -1,18 +1,30 @@
 package com.fullstackshopping.easyshopping.security.model;
 
-import com.fullstackshopping.easyshopping.model.enums.Role;
+import com.fullstackshopping.easyshopping.user.role.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.Collections;
 
+
+/**
+ * Represents a user for authentication via Spring Security, implementing the UserDetails interface.
+ */
 public class SecurityUser implements UserDetails {
 
     private String username;
     private String password;
     private GrantedAuthority authority;
 
+    /**
+     * Constructor to create a SecurityUser instance.
+     *
+     * @param username The user's username.
+     * @param password The user's password.
+     * @param role     The user's role.
+     */
     public SecurityUser(String username, String password, Role role) {
         this.username = username;
         this.password = password;
