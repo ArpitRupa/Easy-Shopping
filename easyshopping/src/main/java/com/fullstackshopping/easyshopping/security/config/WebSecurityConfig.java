@@ -78,7 +78,10 @@ public class WebSecurityConfig {
                         authorize ->
                         {
                             authorize.requestMatchers("/auth/**").permitAll();
-                            authorize.requestMatchers("/api/**").permitAll();
+                            authorize.requestMatchers(
+                                    "/api/**",
+                                    "/v3/api-docs/**"
+                            ).permitAll();
                             authorize.requestMatchers("/admin/**").hasRole("ADMIN");
                             authorize.requestMatchers("/user/**").hasAnyRole("ADMIN","USER");
                             authorize.anyRequest().authenticated();

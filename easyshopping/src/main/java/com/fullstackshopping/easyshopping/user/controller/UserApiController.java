@@ -20,7 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = {"/api/users","api/users/"})
+@RequestMapping("/api/users")
 @CrossOrigin("*")
 public class UserApiController {
 
@@ -39,23 +39,23 @@ public class UserApiController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping(value = {"/id/{id}", "/id/{id}/"})
+    @GetMapping("/id/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable int id){
 
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @GetMapping(value = {"/email/{email}", "/email/{email}/"})
+    @GetMapping("/email/{email}")
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email){
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
-    @GetMapping(value = {"/username/{username}", "/username/{username}/"})
+    @GetMapping("/username/{username}")
     public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username){
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
-    @PostMapping(value={"/register", "/register/"})
+    @PostMapping("/register")
     public ResponseEntity<UserDto> registerUser(@RequestBody UserRegistration userRegistration){ // treat as json
 
         UserDto userDto = userService.createUser(userRegistration);
@@ -65,12 +65,12 @@ public class UserApiController {
         return ResponseEntity.created(location).body(userDto);
     }
 
-    @PutMapping(value = {"/{id}", "/{id}/"})
+    @PutMapping({"/{id}"})
     public ResponseEntity<UserDto> updateUser(@PathVariable int id, @RequestBody UserRegistration updatedUser){
         return ResponseEntity.ok(userService.updateUser(id, updatedUser));
     }
 
-    @DeleteMapping(value = {"/{id}", "/{id}/"})
+    @DeleteMapping({"/{id}"})
     public boolean deleteById(@PathVariable int id){
         return this.userService.deleteUser(id);
     }

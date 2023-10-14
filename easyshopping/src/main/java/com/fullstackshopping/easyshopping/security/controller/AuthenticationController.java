@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = {"/auth","/auth/"})
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
@@ -20,7 +20,7 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping(value={"/login", "/login/"})
+    @PostMapping("/login")
     public LoginResponse loginUser (@RequestBody LoginRequest loginRequest){
         return authenticationService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
     }
