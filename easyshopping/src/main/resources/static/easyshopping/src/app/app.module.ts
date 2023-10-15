@@ -13,6 +13,9 @@ import { ToastrModule } from "ngx-toastr"
 import { RegisterComponent } from './component/register/register.component';
 import { HomeComponent } from './component/home/home.component';
 import { AdminComponent } from './admin/admin.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button'
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { AdminComponent } from './admin/admin.component';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

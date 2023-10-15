@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
+import { routeAnimation } from 'src/route-animations';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [routeAnimation],
 })
 export class LoginComponent implements OnInit {
 
@@ -47,4 +50,7 @@ export class LoginComponent implements OnInit {
     return '';
   }
 
+  getRouteAnimationState(outlet: RouterOutlet) {
+    return outlet.activatedRouteData['animation'] || 'none';
+  }
 }

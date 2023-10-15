@@ -3,11 +3,14 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from "ngx-toastr"
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
+import { routeAnimation } from 'src/route-animations';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  animations: [routeAnimation],
 })
 export class RegisterComponent implements OnInit {
 
@@ -89,5 +92,9 @@ export class RegisterComponent implements OnInit {
     }
 
     return '';
+  }
+
+  getRouteAnimationState(outlet: RouterOutlet) {
+    return outlet.activatedRouteData['animation'] || 'none';
   }
 }
