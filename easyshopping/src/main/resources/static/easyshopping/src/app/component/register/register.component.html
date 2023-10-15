@@ -1,0 +1,62 @@
+<div class="card-parent-div">
+  <mat-card>
+    <mat-card-header>
+      <h1 style="padding-left: 10px;">User Registration</h1>
+    </mat-card-header>
+    <mat-card-content class="registration-form">
+      <form class="full-width" [formGroup]="registerForm" (ngSubmit)="processRegistration()">
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="badge" />
+          <mat-form-field class="full-width">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="John" formControlName="firstName">
+            <mat-error *ngIf="registerForm.get('firstName')?.invalid">{{getInLineErrorMessage('firstName')}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="badge" />
+          <mat-form-field class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Doe" formControlName="lastName">
+            <mat-error *ngIf="registerForm.get('lastName')?.invalid">{{getInLineErrorMessage('lastName')}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="account_circle" />
+          <mat-form-field class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Username" formControlName="username">
+            <mat-error *ngIf="registerForm.get('username')?.invalid">{{getInLineErrorMessage('username')}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="mail" />
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" formControlName="email" />
+            <mat-error *ngIf="registerForm.get('email')?.invalid">{{getInLineErrorMessage('email')}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="lock" />
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput placeholder="Password" formControlName="password">
+            <mat-error *ngIf="registerForm.get('password')?.invalid">{{getInLineErrorMessage('password')}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="registration-buttons">
+          <button style="width:50%" mat-raised-button color="primary">Submit</button>
+          <a style="width:50%" routerLink="" mat-raised-button color="accent">Back to Login</a>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

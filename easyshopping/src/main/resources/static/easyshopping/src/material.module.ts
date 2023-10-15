@@ -6,6 +6,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTableModule } from '@angular/material/table'
 import { MatSortModule } from '@angular/material/sort'
 import { MatDialogModule } from '@angular/material/dialog'
+import { MatButtonModule } from '@angular/material/button'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatIconModule } from '@angular/material/icon'
+// import {} from '@angular/material/'
 
 
 
@@ -18,7 +22,10 @@ import { MatDialogModule } from '@angular/material/dialog'
         MatCheckboxModule,
         MatTableModule,
         MatSortModule,
-        MatDialogModule
+        MatDialogModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatIconModule
     ]
 
 })

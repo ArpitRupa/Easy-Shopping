@@ -1,7 +1,13 @@
 <main>
   <header>
-    <img src="../assets/logo_tranparent.png" routerLink="" alt="logo">
-    <h1 class="app-name" href="">Easyshopping</h1>
+    <mat-toolbar color="primary">
+      <img src="../assets/logo_tranparent.png" alt="logo_tranparent" routerLink="" style="cursor:pointer" />
+      <span routerLink="" style="cursor:pointer; font-family: 'Alfa Slab One';">Easyshopping</span>
+      <span class="toolbar-spacer"></span>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
   </header>
   <section>
     <router-outlet></router-outlet>

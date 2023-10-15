@@ -1,27 +1,7 @@
-header {
-    margin-bottom: 50px;
-    font-weight: bold;
-    font-size: 24pt;
-    border-bottom: solid .5px rgb(223, 223, 223);
-    color: #050e2e;
-}
-
-header {
-    padding-left: 50px;
-    display: flex;
-    margin-left: 25px;
-    margin-right: 25px;
-}
-
 .app-name {
     float: right;
     margin-right: 50px;
     font-size: x-large;
-}
-
-header>img {
-    width: 50pt;
-    height: 50pt
 }
 
 section {
@@ -31,6 +11,11 @@ section {
 
 
 img {
-    border-radius: 5px;
-    width: 100%;
+    border-radius: 10px;
+    height: 75%;
+    width: auto;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
 }
