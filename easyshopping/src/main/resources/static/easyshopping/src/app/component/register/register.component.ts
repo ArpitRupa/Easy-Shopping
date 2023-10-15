@@ -29,10 +29,20 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
 
-      console.log(this.authService.postRegistration(formData));
+      this.authService.postRegistration(formData).subscribe(
+        (response) => {
+          // Handle the successful response
+          console.log('Server Response:', response);
+          this.toastr.success("Registered Successfully.");
+          this.router.navigate(['login']);
+        },
+        (error) => {
+          // Handle API request error
+          console.error('Registration failed', error);
+        }
+      );
 
-      this.toastr.success("Registered Successfully.");
-      this.router.navigate(['login']);
+
     }
     else {
       for (const field in this.registerForm.controls) {

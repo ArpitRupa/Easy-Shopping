@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegistrationData } from '../interface/registrationData';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  apiUrl = 'http://localhost:8080/api/users/register/'
+  private apiUrl = "http://localhost:8080/api"
 
   getAll() {
     return this.http.get(this.apiUrl);
@@ -22,25 +24,13 @@ export class AuthService {
         'Content-Type': 'application/json',
       })
     };
-    return this.http.post(this.apiUrl, inputData, httpOptions).subscribe(
-      (response) => {
-        // Handle the response
-        console.log('Server Response:', response);
-      },
-      (error) => {
-        // Handle API request error
+    return this.http.post('http://localhost:8080/api/users/register', inputData, httpOptions).pipe(
+      catchError((error) => {
         console.error('Registration failed', error);
-      }
+        // Return an observable with an error or some fallback value if needed
+        return throwError(() => new error('Registration failed'));
+      })
     );
-    //   (response) => {
-    //     // Handle a successful response from the API
-    //     console.log('Registration successful', response);
-    //   },
-    //   (error) => {
-    //     // Handle API request error
-    //     console.error('Registration failed', error);
-    //   }
-    // );
   }
 
 }
