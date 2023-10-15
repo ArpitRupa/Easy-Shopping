@@ -12,9 +12,12 @@ import { HttpClientModule } from '@angular/common/http'
 import { ToastrModule } from "ngx-toastr"
 import { RegisterComponent } from './component/register/register.component';
 import { HomeComponent } from './component/home/home.component';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './component/admin/admin.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button'
+import { NavBarComponent } from './component/nav-bar/nav-bar.component';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -24,7 +27,8 @@ import { MatButtonModule } from '@angular/material/button'
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    AdminComponent
+    AdminComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { MatButtonModule } from '@angular/material/button'
     HttpClientModule,
     ToastrModule.forRoot(),
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

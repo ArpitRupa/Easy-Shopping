@@ -1,23 +1,6 @@
 <main>
   <header>
-    <mat-toolbar color="primary">
-      <img src="../assets/logo_tranparent.png" alt="logo_tranparent" routerLink="" style="cursor:pointer" />
-      <span routerLink="" style="cursor:pointer; font-family: 'Alfa Slab One';">Easyshopping</span>
-      <span class="toolbar-spacer"></span>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button routerLink="login" mat-menu-item>
-          <mat-icon color="primary">login</mat-icon>
-          <span>Login</span>
-        </button>
-        <button routerLink='register' mat-menu-item>
-          <mat-icon color="primary">app_registration</mat-icon>
-          <span>Register</span>
-        </button>
-      </mat-menu>
-    </mat-toolbar>
+    <app-nav-bar></app-nav-bar>
   </header>
   <section>
     <router-outlet></router-outlet>
