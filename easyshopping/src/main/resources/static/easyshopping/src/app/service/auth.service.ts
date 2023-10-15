@@ -24,7 +24,7 @@ export class AuthService {
         'Content-Type': 'application/json',
       })
     };
-    return this.http.post(this.apiUrl + '/users/register/', inputData, httpOptions).pipe(
+    return this.http.post(this.apiUrl + '/users/register', inputData, httpOptions).pipe(
       catchError((error) => {
         console.error('Registration failed', error);
         // Return an observable with an error or some fallback value if needed

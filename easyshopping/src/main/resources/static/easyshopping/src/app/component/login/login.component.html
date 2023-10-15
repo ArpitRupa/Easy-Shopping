@@ -1,12 +1,36 @@
-<div ngbAccordion>
-  <div ngbAccordionItem>
-    <h2 ngbAccordionHeader>
-      <button ngbAccordionButton>First</button>
-    </h2>
-    <div ngbAccordionCollapse>
-      <div ngbAccordionBody>
-        <ng-template>Content for the first item</ng-template>
-      </div>
-    </div>
-  </div>
+<div class="card-parent-div">
+  <mat-card>
+    <mat-card-header>
+      <h1 style="padding-left: 10px;">User Login</h1>
+    </mat-card-header>
+    <mat-card-content class="registration-form">
+      <form class="full-width" [formGroup]="loginForm" (ngSubmit)="processLogin()">
+
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="account_circle" />
+          <mat-form-field class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Username" formControlName="username">
+            <mat-error *ngIf="loginForm.get('username')?.invalid">{{getInLineErrorMessage('username')}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="lock" />
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput placeholder="Password" formControlName="password">
+            <mat-error *ngIf="loginForm.get('password')?.invalid">{{getInLineErrorMessage('password')}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="registration-buttons">
+          <button style="width:50%" mat-raised-button color="primary">Submit</button>
+          <a style="width:50%" routerLink="register" mat-raised-button color="accent">Register</a>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

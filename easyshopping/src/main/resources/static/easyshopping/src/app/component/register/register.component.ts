@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
     role: 'USER'
   });
 
-  processRegistration() {
+  public processRegistration() {
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
 
