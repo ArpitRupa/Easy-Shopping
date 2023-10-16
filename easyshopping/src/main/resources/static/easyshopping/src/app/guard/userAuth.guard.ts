@@ -6,7 +6,7 @@ import { ToastrService } from "ngx-toastr";
 
 
 
-export const authGuard = () => {
+export const userAuthGuard = () => {
   const authService = inject(AuthService);
   const route = inject(Router)
   const toastr = inject(ToastrService);

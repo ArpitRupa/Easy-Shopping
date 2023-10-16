@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
+import { TokenStorageService } from 'src/app/service/tokenStorage.service';
 import { routeAnimation } from 'src/route-animations';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
@@ -14,7 +15,7 @@ import { ToastrService } from "ngx-toastr"
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private builder: FormBuilder, private authService: AuthService, private toastr: ToastrService, private router: Router,) { }
+  constructor(private builder: FormBuilder, private authService: AuthService, private toastr: ToastrService, private router: Router, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit() {
   }
@@ -32,7 +33,9 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           // Handle the successful response
           console.log('Server Response:', response);
-          this.authService.storeToken(response.jwt)
+          this.tokenStorageService.storeToken(response.jwt);
+          this.tokenStorageService.storeUsername(response.username);
+          this.tokenStorageService.storeRole(response.role);
           this.loginForm.reset();
           this.toastr.success("Logged in Successfully.");
           this.router.navigate(['']);

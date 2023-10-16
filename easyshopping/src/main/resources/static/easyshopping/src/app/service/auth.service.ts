@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegistrationData } from '../interface/registration';
-import { LoginData } from '../interface/LoginData';
+import { RegistrationRequestInterface } from '../interface/registrationRequest.interface';
+import { LoginRequestInterface } from '../interface/loginRequest.interface';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
@@ -14,18 +14,20 @@ export class AuthService {
 
   private apiUrl = "http://localhost:8080"
 
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+  };
+
   getAll() {
     return this.http.get(this.apiUrl);
   }
 
 
-  postRegistration(inputData: Partial<RegistrationData>) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
-    return this.http.post<any>(this.apiUrl + '/api/users/register', inputData, httpOptions)
+  postRegistration(inputData: Partial<RegistrationRequestInterface>) {
+
+    return this.http.post<any>(this.apiUrl + '/api/users/register', inputData, this.httpOptions)
       .pipe(
         catchError((error) => {
           console.error('Registration failed', error);
@@ -36,29 +38,15 @@ export class AuthService {
   }
 
 
-  postLogin(inputData: Partial<LoginData>) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
+  postLogin(inputData: Partial<LoginRequestInterface>) {
 
-    return this.http.post<any>(this.apiUrl + '/auth/login', inputData, httpOptions)
+    return this.http.post<any>(this.apiUrl + '/auth/login', inputData, this.httpOptions)
       .pipe(
         catchError((error) => {
           // Return an observable with an error or some fallback value if needed
           return error;
         })
       );
-  }
-
-
-  storeToken(tokenValue: string) {
-    localStorage.setItem('token', tokenValue);
-  }
-
-  getToken() {
-    return localStorage.getItem('token');
   }
 
   isAuthenticated(): boolean {
