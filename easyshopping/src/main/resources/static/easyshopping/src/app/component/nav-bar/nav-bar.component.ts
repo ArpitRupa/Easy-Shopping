@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,10 +10,19 @@ import { AuthService } from '../../service/auth.service';
 export class NavBarComponent implements OnInit {
 
   isLoggedIn: boolean = false;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.isAuthenticated();
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isLoggedIn = this.authService.isAuthenticated();
+      }
+
+    });
   }
 
+  handleLogout() {
+    this.authService.signOut();
+    this.router.navigate(['login'])
+  }
 }

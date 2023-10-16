@@ -9,6 +9,8 @@ import { userAuthGuard } from './guard/userAuth.guard';
 import { adminAuthGuard } from './guard/adminAuth.guard';
 import { anonAuthGuard } from './guard/anonAuth.guard';
 import { AccountComponent } from './component/account/account.component';
+import { AboutComponent } from './component/about/about.component';
+import { ContactComponent } from './component/contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [userAuthGuard] },
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [adminAuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [userAuthGuard] },
   { path: 'account', component: AccountComponent, canActivate: [userAuthGuard] },
+  { path: 'about', component: AboutComponent, },
+  { path: 'contact', component: ContactComponent, }
 ];
 
 @NgModule({

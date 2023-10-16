@@ -53,4 +53,8 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return token !== null && token !== '';
   }
+
+  signOut(): void {
+    localStorage.clear();
+  }
 }
