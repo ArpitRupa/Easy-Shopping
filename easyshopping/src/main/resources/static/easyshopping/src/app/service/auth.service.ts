@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,) { }
 
   private apiUrl = "http://localhost:8080"
 
