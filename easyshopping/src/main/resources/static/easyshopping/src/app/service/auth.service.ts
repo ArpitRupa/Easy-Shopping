@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegistrationData } from '../interface/registrationData';
+import { RegistrationData } from '../interface/registration';
 import { LoginData } from '../interface/LoginData';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -61,7 +61,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  isLoggedin(): boolean {
+  isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     return token !== null && token !== '';
   }
