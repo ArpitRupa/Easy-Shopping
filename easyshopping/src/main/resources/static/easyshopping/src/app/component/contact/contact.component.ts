@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-contact',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
 
-  constructor() { }
+  constructor(private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer) {
+    this.matIconRegistry.addSvgIcon(
+      'linkedin-icon',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../assets/linkedin-50.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'git-icon',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../../assets/github-60.svg')
+    );
+  }
 
   ngOnInit() {
   }
 
+  openLink(link: string) {
+    window.open(link, '_blank');
+  }
 }

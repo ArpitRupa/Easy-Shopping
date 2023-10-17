@@ -17,7 +17,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button'
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { MatListModule } from '@angular/material/list';
-
+import { AboutComponent } from './component/about/about.component';
+import { ContactComponent } from './component/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { MatListModule } from '@angular/material/list';
     RegisterComponent,
     HomeComponent,
     AdminComponent,
-    NavBarComponent
+    NavBarComponent,
+    AboutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
