@@ -78,7 +78,8 @@ public class WebSecurityConfig {
                         {
                             authorize.requestMatchers("/auth/**").permitAll();
                             authorize.requestMatchers(
-                                    "/api/**",
+                                    "/api/swagger-ui/**",
+                                    "/api/users/register/**",
                                     "/v3/api-docs/**"
                             ).permitAll();
                             authorize.requestMatchers("/admin/**").hasRole("ADMIN");
