@@ -4,16 +4,30 @@
     font-size: x-large;
 }
 
-section {
-    margin-left: 50px;
-    margin-right: 50px;
-}
+.title {
+    cursor: pointer;
+    font-family: 'Alfa Slab One';
 
+    @media (max-width: 400px) {
+        font-size: 16px;
+    }
+}
 
 img {
     border-radius: 10px;
     height: 75%;
     width: auto;
+    cursor: pointer;
+
+    @media (max-width: 400px) {
+        transform: scale(.8);
+    }
+}
+
+button {
+    @media (min-width: 1200px) {
+        transform: scale(1);
+    }
 }
 
 .toolbar-spacer {

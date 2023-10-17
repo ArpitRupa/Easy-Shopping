@@ -27,6 +27,7 @@ mat-card-header {
     align-items: center;
 }
 
+
 .flex-container {
     display: flex;
     justify-content: center;
@@ -34,6 +35,11 @@ mat-card-header {
 
 .flex-container-links {
     display: flex;
+    padding-bottom: 10px;
+
+    @media (max-width: 800px) {
+        padding-bottom: 0;
+    }
 }
 
 .avatar {

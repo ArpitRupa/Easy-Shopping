@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
           this.tokenStorageService.storeUsername(response.username);
           this.tokenStorageService.storeRole(response.role);
           this.loginForm.reset();
-          this.toastr.success("Logged in Successfully.");
+          this.toastr.success("Logged in Successfully.", "SUCESS!", { timeOut: 3000 });
           this.router.navigate(['']);
         },
         error: (error) => {
