@@ -66,6 +66,15 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>static/easyshopping</exclude>
+				</excludes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
