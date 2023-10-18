@@ -1,11 +1,18 @@
 <div class="flex-container">
   <mat-card>
     <mat-card-header>
-      <h2>username</h2>
-      <h3>Id number: </h3>
-      <h3>role</h3>
-      <h3>firstName lastName</h3>
-      <h3>email</h3>
+      <div class="flex-container">
+        <h2>{{userObject.username}} </h2>
+      </div>
+      <div>
+        <h4>{{userObject.firstName}} {{userObject.lastName}}</h4>
+      </div>
+      <div>
+        <h4>{{userObject.email}}</h4>
+      </div>
+      <div>
+        <h4>Role: {{userObject.role}}</h4>
+      </div>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>

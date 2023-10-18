@@ -20,6 +20,10 @@ import { AboutComponent } from './component/about/about.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { AccountComponent } from './component/account/account.component';
 import { HttpAuthInterceptor } from './interceptors/http-auth.interceptor';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { UserDialogComponent } from './component/admin/component/user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,7 @@ import { HttpAuthInterceptor } from './interceptors/http-auth.interceptor';
     AboutComponent,
     ContactComponent,
     AccountComponent,
+    UserDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,10 @@ import { HttpAuthInterceptor } from './interceptors/http-auth.interceptor';
     MatButtonModule,
     MatMenuModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatDialogModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

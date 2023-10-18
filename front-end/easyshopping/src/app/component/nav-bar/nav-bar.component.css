@@ -1,16 +1,5 @@
-.app-name {
-    float: right;
-    margin-right: 50px;
-    font-size: x-large;
-}
-
-.title {
-    cursor: pointer;
-    font-family: 'Alfa Slab One';
-
-    @media (max-width: 400px) {
-        font-size: 16px;
-    }
+mat-toolbar {
+    width: 100vw;
 }
 
 img {
@@ -27,6 +16,21 @@ img {
 button {
     @media (min-width: 1200px) {
         transform: scale(1);
+    }
+}
+
+.app-name {
+    float: right;
+    margin-right: 50px;
+    font-size: x-large;
+}
+
+.title {
+    cursor: pointer;
+    font-family: 'Alfa Slab One';
+
+    @media (max-width: 400px) {
+        font-size: 16px;
     }
 }
 

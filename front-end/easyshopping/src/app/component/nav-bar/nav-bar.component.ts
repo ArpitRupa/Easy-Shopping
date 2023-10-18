@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/service/tokenStorage.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,12 +11,14 @@ import { NavigationEnd, Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   isLoggedIn: boolean = false;
-  constructor(private authService: AuthService, private router: Router) { }
+  role = "";
+  constructor(private authService: AuthService, private router: Router, private token: TokenStorageService) { }
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isLoggedIn = this.authService.isAuthenticated();
+        this.role = this.token.getRole() || "none";
       }
 
     });

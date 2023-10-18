@@ -30,6 +30,10 @@
       <mat-icon color="primary">logout</mat-icon>
       <span>Logout</span>
     </button>
+    <button routerLink='admin' mat-menu-item *ngIf="isLoggedIn">
+      <mat-icon color="primary">admin_panel_settings</mat-icon>
+      <span>Admin Panel</span>
+    </button>
     <button routerLink='contact' mat-menu-item>
       <mat-icon color="primary">forum</mat-icon>
       <span>Contact Me</span>

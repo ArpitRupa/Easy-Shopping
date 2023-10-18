@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
       this.authService.postRegistration(formData).subscribe({
         next: (response) => {
           // Handle the successful response
-          console.log('Server Response:', response);
           this.toastr.success("Registered Successfully.");
           this.router.navigate(['login']);
         },

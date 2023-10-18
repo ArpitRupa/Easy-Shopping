@@ -20,13 +20,30 @@ export class AuthService {
     })
   };
 
-  getAll() {
-    return this.http.get(this.apiUrl);
+  getUser() {
+    return this.http.get<any>(this.apiUrl + "/api/users/username/" + localStorage.getItem('username'))
+      .pipe(
+        catchError((error) => {
+          console.error('Get for username failed', error);
+          // Return an observable with an error or some fallback value if needed
+          return throwError(() => new error('Get for username failed'));
+        })
+      );
+  }
+
+  getAllUsers() {
+    return this.http.get<any>(this.apiUrl + "/api/users")
+      .pipe(
+        catchError((error) => {
+          console.error('Error getting all users.', error);
+          // Return an observable with an error or some fallback value if needed
+          return throwError(() => new error('Error getting all users'));
+        })
+      );
   }
 
 
   postRegistration(inputData: Partial<RegistrationRequestInterface>) {
-
     return this.http.post<any>(this.apiUrl + '/api/users/register', inputData, this.httpOptions)
       .pipe(
         catchError((error) => {
