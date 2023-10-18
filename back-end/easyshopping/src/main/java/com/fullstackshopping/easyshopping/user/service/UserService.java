@@ -2,9 +2,9 @@ package com.fullstackshopping.easyshopping.user.service;
 
 import com.fullstackshopping.easyshopping.common.dto.request.UserRegistration;
 import com.fullstackshopping.easyshopping.common.dto.response.UserDto;
-import com.fullstackshopping.easyshopping.user.role.Role;
 import com.fullstackshopping.easyshopping.user.model.User;
 import com.fullstackshopping.easyshopping.user.repository.UserRepository;
+import com.fullstackshopping.easyshopping.user.role.Role;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

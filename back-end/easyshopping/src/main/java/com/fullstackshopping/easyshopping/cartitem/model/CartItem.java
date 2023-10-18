@@ -2,11 +2,11 @@ package com.fullstackshopping.easyshopping.cartitem.model;
 
 import com.fullstackshopping.easyshopping.cart.model.Cart;
 import com.fullstackshopping.easyshopping.product.model.Product;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
