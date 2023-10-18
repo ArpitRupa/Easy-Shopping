@@ -1,5 +1,6 @@
 package com.fullstackshopping.easyshopping.order.model;
 
+import com.fullstackshopping.easyshopping.address.model.Address;
 import com.fullstackshopping.easyshopping.product.model.Product;
 import com.fullstackshopping.easyshopping.user.model.User;
 import jakarta.persistence.Column;
@@ -37,27 +38,17 @@ public class Order implements Serializable {
     @JoinColumn(name = "seller_id", nullable = false, updatable = false)
     private User seller;
 
+
+    @ManyToOne
+    @JoinColumn(name = "address_id") // This column links to the "address_id" in the Address table
+    private Address shippingAddress;
+
     @Column(name = "product_count", nullable = false)
     private int productCount;
 
     @CreationTimestamp
     @Column(name = "date_time", nullable = false, updatable = false)
     private LocalDateTime dateTime;
-
-    @Column(name = "shipping_address_line1", nullable = false)
-    private String shippingAddressLine1;
-
-    @Column(name = "shipping_address_line2")
-    private String shippingAddressLine2;
-
-    @Column(name = "city", nullable = false, length = 100)
-    private String city;
-
-    @Column(name = "state_name", nullable = false, length = 50)
-    private String stateName;
-
-    @Column(name = "postal_code", nullable = false, length = 20)
-    private String postalCode;
 
     @Column(name = "total_cost", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalCost;
@@ -78,11 +69,6 @@ public class Order implements Serializable {
         this.seller = seller;
         this.productCount = productCount;
         this.dateTime = dateTime;
-        this.shippingAddressLine1 = shippingAddressLine1;
-        this.shippingAddressLine2 = shippingAddressLine2;
-        this.city = city;
-        this.stateName = stateName;
-        this.postalCode = postalCode;
     }
 
     // getters and setters
@@ -115,46 +101,6 @@ public class Order implements Serializable {
         return this.dateTime;
     }
 
-    public String getShippingAddressLine1() {
-        return this.shippingAddressLine1;
-    }
-
-    public void setShippingAddressLine1(String shippingAddressLine1) {
-        this.shippingAddressLine1 = shippingAddressLine1;
-    }
-
-    public String getShippingAddressLine2() {
-        return this.shippingAddressLine2;
-    }
-
-    public void setShippingAddressLine2(String shippingAddressLine2) {
-        this.shippingAddressLine2 = shippingAddressLine2;
-    }
-
-    public String getCity() {
-        return this.city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStateName() {
-        return this.stateName;
-    }
-
-    public void setStateName(String stateName) {
-        this.stateName = stateName;
-    }
-
-    public String getPostalCode() {
-        return this.postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
     public BigDecimal getTotalCost() {
         return this.totalCost;
     }
@@ -173,11 +119,6 @@ public class Order implements Serializable {
                 "\n\"seller\"= \"" + this.seller + "\"" +
                 "\n\"productCount\"= \"" + this.productCount + "\"" +
                 "\n\"dateTime\"= \"" + this.dateTime + "\"" +
-                "\n\"shippingAddressLine1\"= \"" + this.shippingAddressLine1 + "\"" +
-                "\n\"shippingAddressLine2\"= \"" + this.shippingAddressLine2 + "\"" +
-                "\n\"city\"= \"" + this.city + "\"" +
-                "\n\"stateName\"= \"" + this.stateName + "\"" +
-                "\n\"postalCode\"= \"" + this.postalCode + "\"" +
                 "\n}";
     }
 }
