@@ -28,6 +28,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 /**
  * Configuration that defines security rules and settings for the application.
  */
@@ -72,6 +74,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorize ->
@@ -79,7 +82,7 @@ public class WebSecurityConfig {
                             authorize.requestMatchers("/auth/**").permitAll();
                             authorize.requestMatchers(
                                     "/api/swagger-ui/**",
-                                    "/api/users/**",
+                                    "/api/users/register",
                                     "/v3/api-docs/**"
                             ).permitAll();
                             authorize.requestMatchers("",
@@ -104,7 +107,6 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
 
     /**
      * Creates a JwtDecoder configured to verify the digital signature of JWTs with the public key.
