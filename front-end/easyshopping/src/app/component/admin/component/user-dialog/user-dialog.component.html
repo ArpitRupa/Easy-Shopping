@@ -16,8 +16,18 @@
       <h4>Role: {{user.role}}</h4>
     </div>
     <div class="button-container">
-      <button mat-flat-button color="primary">Update Role</button>
-      <button mat-flat-button color="warn">Delete User</button>
+
+      <div class="custom-form-field">
+        <label class="role-label" for="role">Role</label>
+        <div>
+          <select id="role" name="role" [(ngModel)]="currentRole" (change)="onRoleSelected(user)">
+            <option *ngFor="let role of roles" [value]="role.value">{{ role.viewValue }}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <button mat-flat-button color="warn" (click)="openConfirmDeleteDialog(user)">Delete User</button>
     </div>
   </mat-card-content>
 </mat-card>

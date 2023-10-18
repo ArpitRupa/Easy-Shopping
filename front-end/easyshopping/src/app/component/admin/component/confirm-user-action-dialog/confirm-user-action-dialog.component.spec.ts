@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { UpdateRoleDialogComponent } from './update-role-dialog.component';
+import { ConfirmUserActionDialogComponent } from './confirm-user-action-dialog.component';
 
-describe('UpdateRoleDialogComponent', () => {
-  let component: UpdateRoleDialogComponent;
-  let fixture: ComponentFixture<UpdateRoleDialogComponent>;
+describe('DeleteUserDialogComponent', () => {
+  let component: ConfirmUserActionDialogComponent;
+  let fixture: ComponentFixture<ConfirmUserActionDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UpdateRoleDialogComponent ]
+      declarations: [ConfirmUserActionDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UpdateRoleDialogComponent);
+    fixture = TestBed.createComponent(ConfirmUserActionDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

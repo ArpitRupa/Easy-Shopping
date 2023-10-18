@@ -24,6 +24,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UserDialogComponent } from './component/admin/component/user-dialog/user-dialog.component';
+import { ConfirmUserActionDialogComponent } from './component/admin/component/confirm-user-action-dialog/confirm-user-action-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,8 @@ import { UserDialogComponent } from './component/admin/component/user-dialog/use
     AboutComponent,
     ContactComponent,
     AccountComponent,
-    UserDialogComponent
+    UserDialogComponent,
+    ConfirmUserActionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,10 @@ import { UserDialogComponent } from './component/admin/component/user-dialog/use
     MatListModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    FormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

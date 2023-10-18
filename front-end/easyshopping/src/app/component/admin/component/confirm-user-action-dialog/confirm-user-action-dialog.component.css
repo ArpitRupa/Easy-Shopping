@@ -16,28 +16,13 @@ h2 {
 
     @media (max-width: 400px) {
         font-size: small;
-        margin-bottom: -15px;
     }
 
     @media (max-width: 800px) and (min-width: 401px) {
         font-size: medium;
-        margin-bottom: -10px;
+
     }
 }
-
-h4 {
-    margin-bottom: 0;
-
-
-    @media (max-width: 400px) {
-        font-size: small;
-    }
-
-    @media (max-width: 800px) and (min-width: 401px) {
-        font-size: medium;
-    }
-}
-
 
 mat-card-content {
     display: flex;
@@ -48,28 +33,10 @@ mat-card-content {
 
 button {
     flex: 1;
-    padding-top: 5%;
-    padding-bottom: 5%;
 }
 
 .button-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
     margin-bottom: 0;
-    margin-top: 5%;
-}
-
-.role-label {
-    font-size: small;
-    font-weight: 700;
-}
-
-.custom-form-field {
-    margin-bottom: 5%;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
 }
