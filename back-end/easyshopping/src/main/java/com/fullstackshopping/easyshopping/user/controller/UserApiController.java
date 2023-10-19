@@ -72,7 +72,7 @@ public class UserApiController {
     public ResponseEntity<UserDto> updateUserInformation(@PathVariable int id, @RequestBody UserRegistration updatedUser){
         return ResponseEntity.ok(userService.updateUser(id, updatedUser));
     }
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping({"/{id}/role"})
     public ResponseEntity<UserDto> updateUserRole(@PathVariable int id, @RequestBody String role){
         return ResponseEntity.ok(userService.updateUserRole(id, role));

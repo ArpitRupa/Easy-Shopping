@@ -53,9 +53,14 @@ public class UserService {
                 Role.USER
         );
 
-        // Continue with user creation
-        User savedUser = userRepository.save(user);
-        return new UserDto(savedUser);
+
+        try {
+            User savedUser = userRepository.save(user);
+            return new UserDto(savedUser);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not register user.");
+
+        }
     }
 
     /**
@@ -188,6 +193,9 @@ public class UserService {
         }
 
         existingUser.setPassword(passwordEncoder.encode(password));
+
+        this.userRepository.save(existingUser);
+
         return new UserDto(existingUser);
     }
 
@@ -209,6 +217,9 @@ public class UserService {
 
         Role roleENum = getRoleFromString(role);
         existingUser.setRole(roleENum);
+
+        this.userRepository.save(existingUser);
+
         return new UserDto(existingUser);
 
     }

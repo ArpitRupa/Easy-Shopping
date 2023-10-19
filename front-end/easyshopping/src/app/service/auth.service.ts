@@ -67,9 +67,9 @@ export class AuthService {
       );
   }
 
-  updateUser(inputData: UserInterface) {
+  updateUserRole(id: number, role: string) {
 
-    return this.http.put<any>(this.apiUrl + '/api/users/' + inputData.id, inputData, this.httpOptions)
+    return this.http.put<any>(this.apiUrl + '/api/users/' + id + "/role", role, this.httpOptions)
       .pipe(
         catchError((error) => {
           console.log(error);
@@ -77,6 +77,19 @@ export class AuthService {
         })
       );
   }
+
+
+  deleteUser(id: number) {
+
+    return this.http.delete<any>(this.apiUrl + '/api/users/' + id, this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.log(error);
+          return error;
+        })
+      );
+  }
+
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');

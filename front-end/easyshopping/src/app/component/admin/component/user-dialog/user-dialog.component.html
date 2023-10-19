@@ -25,9 +25,21 @@
           </select>
         </div>
       </div>
-
-
       <button mat-flat-button color="warn" (click)="openConfirmDeleteDialog(user)">Delete User</button>
     </div>
   </mat-card-content>
 </mat-card>
+
+<!-- https://stackoverflow.com/questions/52282913/angular-how-to-disable-grey-out-screen-on-load-and-save -->
+
+<div id="overlay">
+  <span id="nav" *ngIf="saveInProgress">
+    <div class="spinner" style="display: block; position: fixed">
+    </div>
+  </span>
+  <span id="nav" *ngIf="saveInProgress">
+    <div class="submit-message" style="display: block; color: #FFFFFF; position: fixed; left: 49.7%; top: 54.5%;">
+      Saving...
+    </div>
+  </span>
+</div>

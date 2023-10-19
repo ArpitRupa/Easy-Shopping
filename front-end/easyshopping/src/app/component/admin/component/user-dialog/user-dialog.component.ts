@@ -18,9 +18,16 @@ export class UserDialogComponent implements OnInit {
 
   currentRole = ''
 
+  saveInProgress: boolean = false;
+
   roles = [{ value: 'USER', viewValue: 'USER' }, { value: 'ADMIN', viewValue: 'ADMIN' }]
 
   ngOnInit() {
+    this.saveInProgress = false;
+    const overlay = document.getElementById("overlay");
+    if (overlay) {
+      overlay.style.display = "none";
+    }
     this.currentRole = this.user.role;
   }
 
@@ -29,8 +36,25 @@ export class UserDialogComponent implements OnInit {
       data: user
     }).afterClosed().subscribe((result: boolean) => {
       if (result === true) {
-        // User confirmed with "Yes"
-        console.log('User confirmed with "Yes"');
+        this.authService.deleteUser(user.id).subscribe({
+          next: (response) => {
+            // Handle the successful response
+            const toast = this.toastr.success("User successfully deleted.", "SUCCESS!", { timeOut: 2000, });
+            this.saveInProgress = true;
+            const overlay = document.getElementById("overlay");
+            if (overlay) {
+              overlay.style.display = "block";
+            }
+            toast.onHidden.subscribe(() =>
+              window.location.reload()
+            );
+          },
+          error: (error) => {
+            // Handle API request error
+            console.error('Role Update failed', error);
+          }
+        });
+
       }
     });
   }
@@ -41,12 +65,17 @@ export class UserDialogComponent implements OnInit {
       data: user
     }).afterClosed().subscribe((result: boolean) => {
       if (result === true) {
-        let updated_user = user;
-        updated_user.role = this.currentRole;
-        this.authService.updateUser(updated_user).subscribe({
+        this.authService.updateUserRole(user.id, this.currentRole).subscribe({
           next: (response) => {
-            // Handle the successful response
-            this.toastr.success("Role successfully update.", "SUCCESS!", { timeOut: 3000 });
+            const toast = this.toastr.success("Role successfully updated.", "SUCCESS!", { timeOut: 2000 });
+            this.saveInProgress = true;
+            const overlay = document.getElementById("overlay");
+            if (overlay) {
+              overlay.style.display = "block";
+            }
+            toast.onHidden.subscribe(() =>
+              window.location.reload()
+            );
           },
           error: (error) => {
             // Handle API request error
