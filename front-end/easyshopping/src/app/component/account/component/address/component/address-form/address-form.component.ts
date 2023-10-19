@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { StateService } from '../../../Service/state.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-address-form',
@@ -13,7 +14,7 @@ export class AddressFormComponent implements OnInit {
   addressForm!: FormGroup
   states!: { code: string, name: string }[]
 
-  constructor(private formBuilder: FormBuilder, private stateService: StateService, public dialogRef: MatDialogRef<AddressFormComponent>) { }
+  constructor(private formBuilder: FormBuilder, private stateService: StateService, public dialogRef: MatDialogRef<AddressFormComponent>, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.addressForm = this.formBuilder.group({
@@ -48,11 +49,43 @@ export class AddressFormComponent implements OnInit {
 
 
   processSubmit() {
+    if (this.addressForm.valid) {
 
+      const address = this.addressForm.value;
+      console.log(address);
+
+    } else {
+
+      this.toastr.error("Invalid Information. Please Check fields and try again.", "INVALID FORM", { timeOut: 2000 })
+    }
   }
 
   processClose() {
     this.dialogRef.close();
   }
 
+
+  validateInput(fieldName: string) {
+    const control = this.addressForm.get(fieldName);
+
+    if (control) {
+
+      if (control.hasError('pattern')) {
+        const inputValue = control.value as string;
+        if (inputValue.length > 0) {
+          control.reset();
+          // Remove the last character
+          control.setValue(inputValue.slice(0, -1));
+        }
+      }
+
+      if (control.hasError('maxlength')) {
+        const inputValue = control.value as string;
+        control.reset();
+        control.setValue(inputValue.slice(0, -1));
+      }
+
+    }
+
+  }
 }
