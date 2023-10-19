@@ -4,8 +4,6 @@ import com.fullstackshopping.easyshopping.address.model.Address;
 import com.fullstackshopping.easyshopping.address.repository.AddressRepository;
 import com.fullstackshopping.easyshopping.common.dto.request.CreateAddress;
 import com.fullstackshopping.easyshopping.common.dto.response.ResponseAddress;
-import com.fullstackshopping.easyshopping.common.dto.response.UserDto;
-import com.fullstackshopping.easyshopping.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
