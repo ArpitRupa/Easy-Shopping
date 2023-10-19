@@ -39,13 +39,20 @@ public class Address {
 
     }
 
-    public Address(int addressId, String shippingAddressLine1, String shippingAddressLine2, String city, String stateName, String postalCode) {
-        this.addressId = addressId;
+    public Address( String shippingAddressLine1, String shippingAddressLine2, String city, String stateName, String postalCode) {
         this.shippingAddressLine1 = shippingAddressLine1;
         this.shippingAddressLine2 = shippingAddressLine2;
         this.city = city;
         this.stateName = stateName;
         this.postalCode = postalCode;
+    }
+
+    public int getAddressId() {
+        return this.addressId;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     public String getShippingAddressLine1() {
