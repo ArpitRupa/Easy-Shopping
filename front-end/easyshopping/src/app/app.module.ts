@@ -28,6 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { UserDialogComponent } from './component/admin/component/user-dialog/user-dialog.component';
+import { AddressComponent } from './component/account/component/address/address.component';
+import { AddressFormComponent } from './component/account/component/address/component/address-form/address-form.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { UserDialogComponent } from './component/admin/component/user-dialog/use
     ContactComponent,
     AccountComponent,
     ConfirmUserActionDialogComponent,
-    UserDialogComponent
+    UserDialogComponent,
+    AddressComponent,
+    AddressFormComponent
   ],
   imports: [
     BrowserModule,

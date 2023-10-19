@@ -11,16 +11,28 @@ import { AccountComponent } from './component/account/account.component';
 import { AboutComponent } from './component/about/about.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { CartComponent } from './component/cart/cart.component';
+import { AddressComponent } from './component/account/component/address/address.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [userAuthGuard] },
+  { path: '', component: HomeComponent, },
   { path: 'login', component: LoginComponent, canActivate: [anonAuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [anonAuthGuard] },
   { path: 'admin', component: AdminComponent, canActivate: [adminAuthGuard] },
-  { path: 'account', component: AccountComponent, canActivate: [userAuthGuard] },
+  {
+    path: 'account',
+    component: AccountComponent,
+    canActivate: [userAuthGuard],
+    children: [
+      {
+        path: 'update/address',
+        component: AddressComponent,
+
+      }
+    ]
+  },
   { path: 'cart', component: CartComponent, canActivate: [userAuthGuard] },
   { path: 'about', component: AboutComponent, },
-  { path: 'contact', component: ContactComponent, }
+  { path: 'contact', component: ContactComponent, },
 
 ];
 

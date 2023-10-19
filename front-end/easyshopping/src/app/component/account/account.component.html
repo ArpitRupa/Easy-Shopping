@@ -19,15 +19,17 @@
 
       <div class="flex-container-user-options">
         <div class="option">
-          <a mat-button="text-align: left;">Orders</a>
-          <a mat-button style="text-align: right;">Addresses</a>
+          <a mat-button style="text-align: left;" (click)="routeFromButton('orders')">Orders</a>
+          <a mat-button style="text-align: right;" (click)="routeFromButton('addresses')">Addresses</a>
         </div>
         <div class="option">
-          <a mat-button style="text-align: left;">Change Password</a>
-          <a mat-button style="text-align: right;">Update Information</a>
+          <a mat-button style="text-align: left;" (click)="routeFromButton('password')">Change Password</a>
+          <a mat-button style="text-align: right;" (click)="routeFromButton('information')">Update Information</a>
         </div>
       </div>
 
     </mat-card-content>
   </mat-card>
 </div>
+
+<router-outlet></router-outlet>

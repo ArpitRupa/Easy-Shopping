@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-account',
@@ -17,7 +19,7 @@ export class AccountComponent implements OnInit {
     role: ''
   };
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.authService.getUser().subscribe({
@@ -35,6 +37,21 @@ export class AccountComponent implements OnInit {
         console.error('Loading user data failed', error);
       }
     });
+  }
+
+  routeFromButton(button: string) {
+
+    switch (button) {
+      case 'addresses':
+        this.router.navigate(['/account/update/address'])
+        break;
+      default:
+        const toast = this.toastr.error('Invalid Option. Returning home...', 'INVALID OPTION', { timeOut: 2000 })
+        toast.onHidden.subscribe(() =>
+          this.router.navigate([''])
+        );
+
+    }
   }
 
 }
