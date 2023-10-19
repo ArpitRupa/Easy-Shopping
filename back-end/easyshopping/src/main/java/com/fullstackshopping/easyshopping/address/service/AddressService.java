@@ -60,9 +60,18 @@ public class AddressService {
             Address savedAddress = addressRepository.save(newAddress);
             return new ResponseAddress(savedAddress);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not register user.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not create address.");
 
         }
 
+    }
+
+    public boolean deleteUser(int id) {
+        try {
+            this.addressRepository.deleteById(id);
+            return true;
+        }catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not find address to delete.");
+        }
     }
 }

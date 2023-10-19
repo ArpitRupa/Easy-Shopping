@@ -70,7 +70,7 @@ public class AddressController {
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
     @DeleteMapping({"/{id}"})
     public boolean deleteById(@PathVariable int id){
-        return this.userService.deleteUser(id);
+        return this.addressService.deleteUser(id);
     }
 
 
