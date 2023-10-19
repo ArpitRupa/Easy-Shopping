@@ -162,13 +162,55 @@ public class UserService {
         // update other columns
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setLastName(updatedUser.getLastName());
-        existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-        existingUser.setRole(getRoleFromString(updatedUser.getRole()));
 
         this.userRepository.save(existingUser);
 
         // Convert the updated user to UserDto and return it
         return new UserDto(existingUser);
+    }
+
+
+    /**
+     * Updates the password of a user identified by their ID.
+     *
+     * @param id The ID of the user to update.
+     * @param password The new password to set for the user.
+     * @return A {@link UserDto} representing the updated user with the new password.
+     * @throws ResponseStatusException if the user with the given ID is not found.
+     */
+    public UserDto updateUserPassword(int id, String password){
+
+        //get user by id
+        User existingUser = userRepository.findById(id).orElse(null);
+
+        if (existingUser == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID " + id + " not found");
+        }
+
+        existingUser.setPassword(passwordEncoder.encode(password));
+        return new UserDto(existingUser);
+    }
+
+    /**
+     * Updates the password of a user identified by their ID.
+     *
+     * @param id The ID of the user to update.
+     * @param role The new role for the user.
+     * @return A {@link UserDto} representing the updated user with the role.
+     * @throws ResponseStatusException if the user with the given ID is not found.
+     */
+
+    public UserDto updateUserRole(int id, String role){
+        User existingUser = userRepository.findById(id).orElse(null);
+
+        if (existingUser == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID " + id + " not found");
+        }
+
+        Role roleENum = getRoleFromString(role);
+        existingUser.setRole(roleENum);
+        return new UserDto(existingUser);
+
     }
 
     /**

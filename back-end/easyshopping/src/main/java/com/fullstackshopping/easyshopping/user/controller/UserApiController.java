@@ -69,8 +69,20 @@ public class UserApiController {
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
     @PutMapping({"/{id}"})
-    public ResponseEntity<UserDto> updateUser(@PathVariable int id, @RequestBody UserRegistration updatedUser){
+    public ResponseEntity<UserDto> updateUserInformation(@PathVariable int id, @RequestBody UserRegistration updatedUser){
         return ResponseEntity.ok(userService.updateUser(id, updatedUser));
+    }
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
+    @PutMapping({"/{id}/role"})
+    public ResponseEntity<UserDto> updateUserRole(@PathVariable int id, @RequestBody String role){
+        return ResponseEntity.ok(userService.updateUserRole(id, role));
+    }
+
+    //update user password
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
+    @PutMapping({"/{id}/password"})
+    public ResponseEntity<UserDto> updateUserPassword(@PathVariable int id, @RequestBody String password){
+        return ResponseEntity.ok(userService.updateUserPassword(id, password));
     }
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping({"/{id}"})
