@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -18,6 +19,7 @@ public class Address {
     private int addressId;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "shipping_address_line1", nullable = false)
@@ -39,12 +41,13 @@ public class Address {
 
     }
 
-    public Address( String shippingAddressLine1, String shippingAddressLine2, String city, String stateName, String postalCode) {
+    public Address( String shippingAddressLine1, String shippingAddressLine2, String city, String stateName, String postalCode, User user) {
         this.shippingAddressLine1 = shippingAddressLine1;
         this.shippingAddressLine2 = shippingAddressLine2;
         this.city = city;
         this.stateName = stateName;
         this.postalCode = postalCode;
+        this.user = user;
     }
 
     public int getAddressId() {

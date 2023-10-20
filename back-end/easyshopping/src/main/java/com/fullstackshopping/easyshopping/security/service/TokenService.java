@@ -2,6 +2,7 @@ package com.fullstackshopping.easyshopping.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -54,6 +55,16 @@ public class TokenService {
 
         // take JWT claims and encode into JWT via encoder and return as a string
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+
+
+    public String getUsernameFromToken(String jwtToken) {
+        // Decode the JWT token
+        Jwt jwt = jwtDecoder.decode(jwtToken);
+
+        // Get the subject (username) from the decoded JWT
+
+        return jwt.getSubject();
     }
 
 }

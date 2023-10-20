@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -55,10 +56,18 @@ public class AddressController {
 
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
-    @PostMapping("/create")
-    public ResponseEntity<ResponseAddress> createAddress(@RequestBody CreateAddress address){ // treat as json
+    @PostMapping("/user")
+    public ResponseEntity<List<ResponseAddress>> getAddressForUser(@RequestHeader(name = "Authorization") String token){
 
-        ResponseAddress responseAddress = addressService.createAddress(address);
+        return ResponseEntity.ok(addressService.getAddressByUser(token));
+    }
+
+
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
+    @PostMapping("/create")
+    public ResponseEntity<ResponseAddress> createAddress(@RequestBody CreateAddress address, @RequestHeader(name="Authorization") String token){ // treat as json
+
+        ResponseAddress responseAddress = addressService.createAddress(address, token);
 
         URI location = getUserLocation(responseAddress.getAddressId());
 

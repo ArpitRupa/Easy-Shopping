@@ -4,6 +4,9 @@ import com.fullstackshopping.easyshopping.address.model.Address;
 import com.fullstackshopping.easyshopping.address.repository.AddressRepository;
 import com.fullstackshopping.easyshopping.common.dto.request.CreateAddress;
 import com.fullstackshopping.easyshopping.common.dto.response.ResponseAddress;
+import com.fullstackshopping.easyshopping.security.service.TokenService;
+import com.fullstackshopping.easyshopping.user.model.User;
+import com.fullstackshopping.easyshopping.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,14 +15,19 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 public class AddressService {
 
     private final AddressRepository addressRepository;
+    private final UserRepository userRepository;
+    private  final TokenService tokenService;
 
     @Autowired
-    public AddressService(AddressRepository addressRepository) {
+    public AddressService(AddressRepository addressRepository, UserRepository userRepository, TokenService tokenService) {
         this.addressRepository = addressRepository;
+        this.userRepository=userRepository;
+        this.tokenService = tokenService;
     }
 
 
@@ -33,7 +41,8 @@ public class AddressService {
     }
 
     public List<ResponseAddress> getAddressByUserId(int id) {
-        List<Address> addresses = this.addressRepository.findAllByUser_Id(id);
+
+        List<Address> addresses = this.addressRepository.findAllByUser_Id(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "User Id not found"));
         List<ResponseAddress> responseAddresses = new ArrayList<>();
 
         for (Address address : addresses)
@@ -44,14 +53,19 @@ public class AddressService {
         return responseAddresses;
     }
 
-    public ResponseAddress createAddress(CreateAddress address) {
+    public ResponseAddress createAddress(CreateAddress address, String tokenHeader) {
+
+        String username = this.getUsernameFromToken(tokenHeader);
+
+        User user = userRepository.findByUsername(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
 
         Address newAddress = new Address(
                 address.getShippingAddressLine1(),
                 address.getShippingAddressLine2(),
                 address.getCity(),
                 address.getStateName(),
-                address.getPostalCode()
+                address.getPostalCode(),
+                user
         );
 
         try {
@@ -64,6 +78,21 @@ public class AddressService {
 
     }
 
+
+    public List<ResponseAddress> getAddressByUser(String token) {
+        String username = this.getUsernameFromToken(token);
+
+        List<Address> addresses = addressRepository.findAllByUser_Username(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
+        List<ResponseAddress> responseAddresses = new ArrayList<>();
+
+        for (Address address : addresses)
+        {
+            responseAddresses.add(new ResponseAddress(address));
+        }
+
+        return responseAddresses;
+    }
+
     public boolean deleteUser(int id) {
         try {
             this.addressRepository.deleteById(id);
@@ -71,5 +100,13 @@ public class AddressService {
         }catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not find address to delete.");
         }
+    }
+
+    private String getUsernameFromToken(String tokenHeader){
+        String[] parts = tokenHeader.split(" "); // remove "Bearer" from token header
+        String token = parts[1]; // The token is in the second part
+        String username = this.tokenService.getUsernameFromToken(token);
+
+        return username;
     }
 }

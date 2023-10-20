@@ -8,6 +8,10 @@ public class CreateAddress {
     private String stateName;
     private String postalCode;
 
+    public CreateAddress(){
+
+    }
+
     public CreateAddress(String shippingAddressLine1, String shippingAddressLine2, String city, String stateName, String postalCode) {
         this.shippingAddressLine1 = shippingAddressLine1;
         this.shippingAddressLine2 = shippingAddressLine2;

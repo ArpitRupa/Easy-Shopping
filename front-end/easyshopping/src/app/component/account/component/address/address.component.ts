@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserInterface } from 'src/app/interface/user.interface';
-import { AuthService } from 'src/app/service/auth.service';
+import { AddressInterface } from 'src/app/interface/address.interface';
+import { AddressService } from 'src/app/service/address.service';
 import { AddressFormComponent } from './component/address-form/address-form.component';
 
 @Component({
@@ -11,7 +11,9 @@ import { AddressFormComponent } from './component/address-form/address-form.comp
 })
 export class AddressComponent implements OnInit {
 
-  constructor(private authService: AuthService, public dialog: MatDialog) { }
+  address!: []
+
+  constructor(private addressService: AddressService, public dialog: MatDialog) { }
 
   ngOnInit() {
   }

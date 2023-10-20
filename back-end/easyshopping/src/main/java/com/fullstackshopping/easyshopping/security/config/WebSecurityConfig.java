@@ -90,7 +90,10 @@ public class WebSecurityConfig {
                                     "/api/users",
                                     "/api/users/delete/**"
                                     ).hasRole("ADMIN");
-                            authorize.requestMatchers("/user/**").hasAnyRole("ADMIN","USER");
+                            authorize.requestMatchers(
+                                    "/user/**",
+                                    "/api/addresses"
+                                    ).hasAnyRole("ADMIN","USER");
                             authorize.anyRequest().authenticated();
                         })
                 // configure Spring Security to act as OAuth 2.0 resource server

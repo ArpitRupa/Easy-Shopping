@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { StateService } from '../../../Service/state.service';
 import { ToastrService } from 'ngx-toastr';
+import { AddressInterface } from 'src/app/interface/address.interface';
+import { AddressService } from 'src/app/service/address.service';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-address-form',
@@ -14,7 +17,7 @@ export class AddressFormComponent implements OnInit {
   addressForm!: FormGroup
   states!: { code: string, name: string }[]
 
-  constructor(private formBuilder: FormBuilder, private stateService: StateService, public dialogRef: MatDialogRef<AddressFormComponent>, private toastr: ToastrService) { }
+  constructor(private addressService: AddressService, private formBuilder: FormBuilder, private stateService: StateService, public dialogRef: MatDialogRef<AddressFormComponent>, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.addressForm = this.formBuilder.group({
@@ -51,8 +54,29 @@ export class AddressFormComponent implements OnInit {
   processSubmit() {
     if (this.addressForm.valid) {
 
-      const address = this.addressForm.value;
-      console.log(address);
+      const address: AddressInterface = {
+        shippingAddressLine1: this.addressForm.get('street1')?.value as string,
+        shippingAddressLine2: this.addressForm.get('street2')?.value as string,
+        city: this.addressForm.get('city')?.value as string,
+        stateName: this.addressForm.get('state')?.value as string,
+        postalCode: this.addressForm.get('zipCode')?.value as string,
+      };
+
+      this.addressService.createAddress(address).subscribe({
+        next: (response) => {
+          // Handle the successful response
+          const toast = this.toastr.success("Address created Successfully.", "SUCCESS!", { timeOut: 2000 });
+          toast.onHidden.subscribe(() =>
+            window.location.reload()
+          );
+        },
+        error: (error) => {
+          this.toastr.error("Failed to create address.", "FAILED!", { timeOut: 2000 });
+          // Handle API request error
+          console.error('Address Creation failed', error);
+        }
+      });
+
 
     } else {
 
