@@ -56,7 +56,7 @@ public class AddressController {
 
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
-    @PostMapping("/user")
+    @GetMapping("/user")
     public ResponseEntity<List<ResponseAddress>> getAddressForUser(@RequestHeader(name = "Authorization") String token){
 
         return ResponseEntity.ok(addressService.getAddressByUser(token));

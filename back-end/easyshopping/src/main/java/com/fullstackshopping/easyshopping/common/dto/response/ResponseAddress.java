@@ -19,7 +19,7 @@ public class ResponseAddress extends CreateAddress {
     public ResponseAddress (Address address){
         super(
                 address.getShippingAddressLine1(),
-                address.getShippingAddressLine1(),
+                address.getShippingAddressLine2(),
                 address.getCity(),
                 address.getStateName(),
                 address.getPostalCode()

@@ -13,13 +13,33 @@
             (click)="openAddressInputDialog()">
             <mat-icon class="link-icon">add</mat-icon>
           </button>
-          <!-- <button class="icon-button" mat-mini-fab color="warn" aria-label="linkedin icon">
-            <mat-icon class="link-icon"> delete </mat-icon>
-          </button> -->
         </div>
       </div>
-      <div class="flex-container">
+      <div class="flex-container" *ngFor="let address of addressArray">
         <mat-card class="address-card">
+          <mat-card-header>
+            <div class="flex-container">
+              <h3>
+                {{address.shippingAddressLine1}}
+              </h3>
+              <h3 *ngIf="address.shippingAddressLine2 !== ''">
+                {{address.shippingAddressLine2}}
+              </h3>
+              <h3>
+                {{address.city}}
+              </h3>
+              <h3>
+                {{address.stateName}}
+              </h3>
+              <h3>
+                {{address.postalCode}}
+              </h3>
+              <button class="icon-button" mat-mini-fab color="warn" aria-label="linkedin icon"
+                (click)="openConfirmDeleteDialog(address)">
+                <mat-icon class="link-icon"> delete </mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
           <mat-card-content>
 
           </mat-card-content>

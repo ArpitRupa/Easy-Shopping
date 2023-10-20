@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmUserActionDialogComponent } from '../confirm-user-action-dialog/confirm-user-action-dialog.component';
+import { ConfirmUserActionDialogComponent } from '../../../common/confirm-user-action-dialog/confirm-user-action-dialog.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserInterface } from 'src/app/interface/user.interface';
 import { ToastrService } from "ngx-toastr";
@@ -51,7 +51,7 @@ export class UserDialogComponent implements OnInit {
           },
           error: (error) => {
             // Handle API request error
-            console.error('Role Update failed', error);
+            console.error('Deletion of User failed', error);
           }
         });
 

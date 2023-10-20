@@ -24,7 +24,7 @@ const routes: Routes = [
     canActivate: [userAuthGuard],
     children: [
       {
-        path: 'update/address',
+        path: 'addresses',
         component: AddressComponent,
 
       }

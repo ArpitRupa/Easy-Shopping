@@ -32,4 +32,25 @@ export class AddressService {
       );
   }
 
+  getUserAddresses() {
+    return this.http.get<any>(this.apiUrl + '/api/addresses/user', this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.error('Get for user addresses failed', error);
+          // Return an observable with an error or some fallback value if needed
+          return throwError(() => new error('Get for user addresses failed'));
+        })
+      );
+  }
+
+  deleteAddress(id: number) {
+    return this.http.delete<any>(this.apiUrl + '/api/addresses/' + id, this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.log(error);
+          return error;
+        })
+      );
+  }
+
 }

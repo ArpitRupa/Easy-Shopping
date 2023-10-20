@@ -55,6 +55,7 @@ export class AddressFormComponent implements OnInit {
     if (this.addressForm.valid) {
 
       const address: AddressInterface = {
+        id: 0,
         shippingAddressLine1: this.addressForm.get('street1')?.value as string,
         shippingAddressLine2: this.addressForm.get('street2')?.value as string,
         city: this.addressForm.get('city')?.value as string,

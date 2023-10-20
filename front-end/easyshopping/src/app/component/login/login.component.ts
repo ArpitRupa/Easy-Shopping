@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
       this.authService.postLogin(formData).subscribe({
         next: (response) => {
           // Handle the successful response
-          console.log('Server Response:', response);
           this.tokenStorageService.storeToken(response.jwt);
           this.tokenStorageService.storeUsername(response.username);
           this.tokenStorageService.storeRole(response.role);

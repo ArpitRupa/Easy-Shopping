@@ -23,7 +23,7 @@ import { HttpAuthInterceptor } from './interceptors/http-auth.interceptor';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ConfirmUserActionDialogComponent } from './component/admin/component/confirm-user-action-dialog/confirm-user-action-dialog.component';
+import { ConfirmUserActionDialogComponent } from './component/common/confirm-user-action-dialog/confirm-user-action-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';

@@ -43,7 +43,7 @@ export class AccountComponent implements OnInit {
 
     switch (button) {
       case 'addresses':
-        this.router.navigate(['/account/update/address'])
+        this.router.navigate(['/account/addresses'])
         break;
       default:
         const toast = this.toastr.error('Invalid Option. Returning home...', 'INVALID OPTION', { timeOut: 2000 })
