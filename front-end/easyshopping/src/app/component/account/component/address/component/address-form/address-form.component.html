@@ -1,7 +1,8 @@
 <div class="card-parent-div">
   <mat-card>
     <mat-card-header>
-      <h1 style="padding-left: 10px;">Add Address</h1>
+      <h1 *ngIf="!initialAddress" style="padding-left: 10px;">Add Address</h1>
+      <h1 *ngIf="initialAddress" style="padding-left: 10px;">Edit Address</h1>
     </mat-card-header>
     <mat-card-content class="registration-form">
       <form class="full-width" [formGroup]="addressForm">
@@ -51,7 +52,7 @@
 
         </div>
 
-        <div class="registration-buttons">
+        <div class="address-buttons">
           <button style="width:50%" mat-raised-button color="primary" (click)="processSubmit()">Submit</button>
           <a style="width:50%" mat-raised-button color="accent" (click)="processClose()">Cancel</a>
         </div>

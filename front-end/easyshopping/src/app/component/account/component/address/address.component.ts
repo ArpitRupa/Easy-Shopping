@@ -34,12 +34,15 @@ export class AddressComponent implements OnInit {
 
 
 
-  openAddressInputDialog() {
-    this.dialog.open(AddressFormComponent);
+  openAddressInputDialog(address?: AddressInterface) {
+    console.log(address);
+    let dialogRef = this.dialog.open(AddressFormComponent);
+    dialogRef.componentInstance.initialAddress = address;
+    // https://stackoverflow.com/questions/54939352/passing-parameter-to-mat-dialog-open-method
   }
 
+
   private mapToAddressInterface(data: any): AddressInterface {
-    console.log(data.shippingAddressLine2);
     return {
       id: data.addressId,
       shippingAddressLine1: data.shippingAddressLine1,

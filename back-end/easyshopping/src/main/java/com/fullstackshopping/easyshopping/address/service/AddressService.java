@@ -102,6 +102,22 @@ public class AddressService {
         }
     }
 
+    public ResponseAddress updateAddress(int id, CreateAddress newAddress){
+
+        Address address = this.addressRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Address id not found"));
+
+        address.setShippingAddressLine1(newAddress.getShippingAddressLine1());
+        address.setShippingAddressLine2(newAddress.getShippingAddressLine2());
+        address.setCity(newAddress.getCity());
+        address.setStateName(newAddress.getStateName());
+        address.setPostalCode(newAddress.getPostalCode());
+
+        this.addressRepository.save(address);
+
+        return new ResponseAddress(address);
+
+    }
+
     private String getUsernameFromToken(String tokenHeader){
         String[] parts = tokenHeader.split(" "); // remove "Bearer" from token header
         String token = parts[1]; // The token is in the second part

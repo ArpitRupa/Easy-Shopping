@@ -53,4 +53,14 @@ export class AddressService {
       );
   }
 
+  updateAddress(address: AddressInterface) {
+    return this.http.put<any>(this.apiUrl + '/api/addresses/' + address.id, address, this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.log(error);
+          return error;
+        })
+      );
+  }
+
 }

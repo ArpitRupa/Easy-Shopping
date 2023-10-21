@@ -114,6 +114,11 @@ mat-divider {
     color: #fff;
 }
 
+.mat-edit {
+    background-color: #48b2e9;
+    color: #fff;
+}
+
 #overlay {
     position: fixed;
     text-align: center;

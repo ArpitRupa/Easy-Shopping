@@ -34,10 +34,18 @@
               <h3>
                 {{address.postalCode}}
               </h3>
-              <button class="icon-button" mat-mini-fab color="warn" aria-label="linkedin icon"
-                (click)="openConfirmDeleteDialog(address)">
-                <mat-icon class="link-icon"> delete </mat-icon>
-              </button>
+
+              <div>
+                <button class="icon-button" mat-mini-fab color="edit" aria-label="linkedin icon"
+                  (click)="openAddressInputDialog(address)">
+                  <mat-icon class="link-icon"> edit </mat-icon>
+                </button>
+                <button class="icon-button" mat-mini-fab color="warn" aria-label="linkedin icon"
+                  (click)="openConfirmDeleteDialog(address)">
+                  <mat-icon class="link-icon"> delete </mat-icon>
+                </button>
+              </div>
+
             </div>
           </mat-card-header>
           <mat-card-content>
