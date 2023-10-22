@@ -55,7 +55,7 @@ public class AddressService {
 
     public ResponseAddress createAddress(CreateAddress address, String tokenHeader) {
 
-        String username = this.getUsernameFromToken(tokenHeader);
+        String username = this.tokenService.getUsernameFromToken(tokenHeader);
 
         User user = userRepository.findByUsername(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
 
@@ -80,7 +80,7 @@ public class AddressService {
 
 
     public List<ResponseAddress> getAddressByUser(String token) {
-        String username = this.getUsernameFromToken(token);
+        String username = this.tokenService.getUsernameFromToken(token);
 
         List<Address> addresses = addressRepository.findAllByUser_Username(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
         List<ResponseAddress> responseAddresses = new ArrayList<>();
@@ -102,9 +102,9 @@ public class AddressService {
         }
     }
 
-    public ResponseAddress updateAddress(int id, CreateAddress newAddress){
+    public ResponseAddress updateAddress(int id, CreateAddress newAddress) {
 
-        Address address = this.addressRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Address id not found"));
+        Address address = this.addressRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address id not found"));
 
         address.setShippingAddressLine1(newAddress.getShippingAddressLine1());
         address.setShippingAddressLine2(newAddress.getShippingAddressLine2());
@@ -115,14 +115,5 @@ public class AddressService {
         this.addressRepository.save(address);
 
         return new ResponseAddress(address);
-
-    }
-
-    private String getUsernameFromToken(String tokenHeader){
-        String[] parts = tokenHeader.split(" "); // remove "Bearer" from token header
-        String token = parts[1]; // The token is in the second part
-        String username = this.tokenService.getUsernameFromToken(token);
-
-        return username;
     }
 }

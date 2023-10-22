@@ -22,7 +22,7 @@ export class AuthService {
   };
 
   getUser() {
-    return this.http.get<any>(this.apiUrl + "/api/users/username/" + localStorage.getItem('username'))
+    return this.http.get<any>(this.apiUrl + "/api/users/user", this.httpOptions)
       .pipe(
         catchError((error) => {
           console.error('Get for username failed', error);
@@ -70,6 +70,18 @@ export class AuthService {
   updateUserRole(id: number, role: string) {
 
     return this.http.put<any>(this.apiUrl + '/api/users/' + id + "/role", role, this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.log(error);
+          return error;
+        })
+      );
+  }
+
+
+  updateUserInfo(formData: UserInterface) {
+
+    return this.http.put<any>(this.apiUrl + '/api/users/' + formData.id, formData, this.httpOptions)
       .pipe(
         catchError((error) => {
           console.log(error);

@@ -30,6 +30,7 @@ import { FormsModule } from '@angular/forms';
 import { UserDialogComponent } from './component/admin/component/user-dialog/user-dialog.component';
 import { AddressComponent } from './component/account/component/address/address.component';
 import { AddressFormComponent } from './component/account/component/address/component/address-form/address-form.component';
+import { UpdateInfoFormComponent } from './component/account/component/update-info-form/update-info-form.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AddressFormComponent } from './component/account/component/address/comp
     ConfirmUserActionDialogComponent,
     UserDialogComponent,
     AddressComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    UpdateInfoFormComponent
   ],
   imports: [
     BrowserModule,

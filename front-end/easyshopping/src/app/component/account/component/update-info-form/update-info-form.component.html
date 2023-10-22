@@ -1,0 +1,55 @@
+<div class="card-parent-div">
+
+  <mat-card>
+    <mat-card-header>
+      <h1 style="padding-left: 10px;">Update Information</h1>
+    </mat-card-header>
+    <mat-card-content class="Update-info-form">
+      <form class="full-width" [formGroup]="infoForm">
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="badge" />
+          <mat-form-field class="full-width">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="John" formControlName="firstName">
+            <mat-error *ngIf=" infoForm.get('firstName')?.invalid"> Please enter a valid First Name.</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="badge" />
+          <mat-form-field class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Doe" formControlName="lastName">
+            <mat-error *ngIf=" infoForm.get('lastName')?.invalid"> Please enter a valid Last Name.</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="account_circle" />
+          <mat-form-field class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Username" formControlName="username">
+            <mat-error *ngIf=" infoForm.get('username')?.invalid"> Please enter a valid Username.</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="mail" />
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" formControlName="email" />
+            <mat-error *ngIf=" infoForm.get('email')?.invalid"> Please enter a valid E-mail.</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="update-info-buttons">
+          <button style="width:50%" mat-raised-button color="primary" (click)="processInfoUpdate()">Submit</button>
+          <a style="width:50%" routerLink="/account" mat-raised-button color="accent">Cancel</a>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>

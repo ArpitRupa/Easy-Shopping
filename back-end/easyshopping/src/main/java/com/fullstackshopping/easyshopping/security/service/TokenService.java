@@ -58,7 +58,11 @@ public class TokenService {
     }
 
 
-    public String getUsernameFromToken(String jwtToken) {
+    public String getUsernameFromToken(String jwtTokenWithHeader) {
+
+        String[] parts = jwtTokenWithHeader.split(" "); // remove "Bearer" from token header
+        String jwtToken = parts[1]; // The token is in the second part
+
         // Decode the JWT token
         Jwt jwt = jwtDecoder.decode(jwtToken);
 

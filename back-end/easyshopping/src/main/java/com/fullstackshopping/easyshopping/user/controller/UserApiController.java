@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,6 +40,15 @@ public class UserApiController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
+    @GetMapping("/user")
+    public ResponseEntity<UserDto> getUser(@RequestHeader(name = "Authorization") String token){
+
+        return ResponseEntity.ok(userService.getUser(token));
+    }
+
+
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
     @GetMapping("/id/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable int id){
@@ -51,7 +61,7 @@ public class UserApiController {
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/username/{username}")
     public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username){
         return ResponseEntity.ok(userService.getUserByUsername(username));

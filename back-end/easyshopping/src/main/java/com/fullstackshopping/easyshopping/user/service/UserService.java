@@ -2,6 +2,7 @@ package com.fullstackshopping.easyshopping.user.service;
 
 import com.fullstackshopping.easyshopping.common.dto.request.UserRegistration;
 import com.fullstackshopping.easyshopping.common.dto.response.UserDto;
+import com.fullstackshopping.easyshopping.security.service.TokenService;
 import com.fullstackshopping.easyshopping.user.model.User;
 import com.fullstackshopping.easyshopping.user.repository.UserRepository;
 import com.fullstackshopping.easyshopping.user.role.Role;
@@ -22,12 +23,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
 
 
     @Autowired //    Constructor Injection
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, TokenService tokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.tokenService = tokenService;
     }
 
 
@@ -244,6 +247,16 @@ public class UserService {
         }
 
         return role;
+    }
+
+    public UserDto getUser(String token) {
+        String username = this.tokenService.getUsernameFromToken(token);
+
+        System.out.println(username);
+
+        User user = this.userRepository.findByUsername(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
+
+        return new UserDto(user);
     }
 }
 

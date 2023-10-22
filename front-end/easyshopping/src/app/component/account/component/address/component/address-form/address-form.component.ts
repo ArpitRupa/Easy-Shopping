@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { StateService } from '../../../Service/state.service';
+import { StateService } from '../../../../Service/state.service';
 import { ToastrService } from 'ngx-toastr';
 import { AddressInterface } from 'src/app/interface/address.interface';
 import { AddressService } from 'src/app/service/address.service';
@@ -17,8 +17,8 @@ export class AddressFormComponent implements OnInit {
 
   @Input() initialAddress: AddressInterface | undefined;
 
-  addressForm!: FormGroup
-  states!: { code: string, name: string }[]
+  addressForm!: FormGroup;
+  states!: { code: string, name: string }[];
 
   constructor(
     private addressService: AddressService,
