@@ -6,6 +6,7 @@ import com.fullstackshopping.easyshopping.common.dto.request.CreateAddress;
 import com.fullstackshopping.easyshopping.common.dto.response.ResponseAddress;
 import com.fullstackshopping.easyshopping.common.dto.response.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,7 +62,9 @@ public class AddressController {
     @GetMapping("/user")
     public ResponseEntity<List<ResponseAddress>> getAddressForUser(@RequestHeader(name = "Authorization") String token){
 
-        return ResponseEntity.ok(addressService.getAddressByUser(token));
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        return ResponseEntity.ok().headers(headers).body(addressService.getAddressByUser(token));
     }
 
 

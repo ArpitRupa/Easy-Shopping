@@ -15,7 +15,7 @@ export class AddressService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
     })
   };
 

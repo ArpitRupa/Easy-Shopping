@@ -22,19 +22,16 @@ export class UpdateInfoFormComponent implements OnInit {
   ngOnInit() {
 
     const state = this.location.getState() as any;
-    let user = state.userObject;
+    this.user = state.userObject;
 
     this.infoForm = this.formBuilder.group({
-      firstName: [user.firstName ? user.firstName : '', [
+      firstName: [this.user.firstName ? this.user.firstName : '', [
         Validators.pattern('[a-zA-Z ]*'), Validators.required
       ]],
-      lastName: [user.lastName ? user.lastName : '', [
+      lastName: [this.user.lastName ? this.user.lastName : '', [
         Validators.pattern('[a-zA-Z ]*'), Validators.required
       ]],
-      username: [user.username ? user.username : '', [
-        Validators.pattern('[a-zA-Z][a-zA-Z0-9 ]*'), Validators.required
-      ]],
-      email: [user.email ? user.email : '', [
+      email: [this.user.email ? this.user.email : '', [
         Validators.email, Validators.required
       ]],
     })
@@ -48,7 +45,7 @@ export class UpdateInfoFormComponent implements OnInit {
     if (this.infoForm.valid) {
       const formData = this.infoForm.value;
 
-      this.authService.updateUserInfo(formData).subscribe({
+      this.authService.updateUserInfo(formData, this.user.id).subscribe({
         next: (response) => {
           // Handle the successful response
           const toast = this.toastr.success("Info Updated Successfully.", "SUCCESS!", { timeOut: 2000 });

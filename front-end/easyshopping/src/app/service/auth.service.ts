@@ -17,7 +17,7 @@ export class AuthService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
     })
   };
 
@@ -79,9 +79,9 @@ export class AuthService {
   }
 
 
-  updateUserInfo(formData: UserInterface) {
+  updateUserInfo(formData: UserInterface, id: number) {
 
-    return this.http.put<any>(this.apiUrl + '/api/users/' + formData.id, formData, this.httpOptions)
+    return this.http.put<any>(this.apiUrl + '/api/users/' + id, formData, this.httpOptions)
       .pipe(
         catchError((error) => {
           console.log(error);

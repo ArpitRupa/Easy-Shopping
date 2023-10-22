@@ -4,6 +4,7 @@ import com.fullstackshopping.easyshopping.common.dto.request.UserRegistration;
 import com.fullstackshopping.easyshopping.common.dto.response.UserDto;
 import com.fullstackshopping.easyshopping.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +46,9 @@ public class UserApiController {
     @GetMapping("/user")
     public ResponseEntity<UserDto> getUser(@RequestHeader(name = "Authorization") String token){
 
-        return ResponseEntity.ok(userService.getUser(token));
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        return ResponseEntity.ok().headers(headers).body(userService.getUser(token));
     }
 
 
