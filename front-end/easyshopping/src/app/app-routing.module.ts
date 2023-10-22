@@ -13,7 +13,7 @@ import { ContactComponent } from './component/contact/contact.component';
 import { CartComponent } from './component/cart/cart.component';
 import { AddressComponent } from './component/account/component/address/address.component';
 import { UpdateInfoFormComponent } from './component/account/component/update-info-form/update-info-form.component';
-
+import { ChangePasswordComponent } from './component/account/component/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
@@ -32,6 +32,10 @@ const routes: Routes = [
       {
         path: 'updateInfo/:id',
         component: UpdateInfoFormComponent,
+      },
+      {
+        path: 'changePassword/:id',
+        component: ChangePasswordComponent,
       }
 
     ]

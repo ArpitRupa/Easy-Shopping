@@ -50,6 +50,11 @@ export class AccountComponent implements OnInit {
           state: { userObject: this.userObject },
         });
         break;
+      case 'password':
+        this.router.navigate(['/account/changePassword', this.userObject.id], {
+          state: { userObject: this.userObject },
+        });
+        break;
       default:
         const toast = this.toastr.error('Invalid Option. Returning home...', 'INVALID OPTION', { timeOut: 2000 })
         toast.onHidden.subscribe(() =>
