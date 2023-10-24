@@ -37,36 +37,6 @@ public class UserService {
     // Business logic methods
 
     /**
-     * Create a new user based on the provided user registration information.
-     *
-     * @param userRegistration The user registration information including first name, last name, email, username, and password.
-     * @return The UserDto representing the newly created user.
-     */
-    public UserDto createUser(UserRegistration userRegistration) {
-
-        // Create user from Registration
-        User user = new User(
-                userRegistration.getFirstName(),
-                userRegistration.getLastName(),
-                userRegistration.getEmail(),
-                userRegistration.getUsername(),
-                //encode password before saving to database
-                passwordEncoder.encode(userRegistration.getPassword()),
-                // default all new users to USER role
-                Role.USER
-        );
-
-
-        try {
-            User savedUser = userRepository.save(user);
-            return new UserDto(savedUser);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not register user.");
-
-        }
-    }
-
-    /**
      * Retrieve a list of all users in the system.
      *
      * @return A list of UserDto objects, each representing a user.

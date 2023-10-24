@@ -5,6 +5,7 @@ import { LoginRequestInterface } from '../interface/loginRequest.interface';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { UserInterface } from '../interface/user.interface';
+import { UpdatePassword } from '../interface/update-password.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,7 @@ export class AuthService {
 
 
   postRegistration(inputData: Partial<RegistrationRequestInterface>) {
-    return this.http.post<any>(this.apiUrl + '/api/users/register', inputData, this.httpOptions)
+    return this.http.post<any>(this.apiUrl + '/auth/register', inputData, this.httpOptions)
       .pipe(
         catchError((error) => {
           console.error('Registration failed', error);
@@ -62,6 +63,17 @@ export class AuthService {
       .pipe(
         catchError((error) => {
           // Return an observable with an error or some fallback value if needed
+          return error;
+        })
+      );
+  }
+
+
+  updateUserPassword(formData: UpdatePassword) {
+    return this.http.put<any>(this.apiUrl + '/auth/update-password', formData, this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.log(error);
           return error;
         })
       );
