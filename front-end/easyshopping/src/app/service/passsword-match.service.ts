@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +9,16 @@ export class PassswordMatchService {
   constructor() { }
 
 
-  static passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const newPassword = control.get('newPassword')?.value as string;
-    const confirmPassword = control.get('confirmPassword')?.value as string;
+  static passwordMatchValidator: ValidatorFn = (control: AbstractControl): { [key: string]: any } | null => {
+    const password = control.get('newPassword');
+    const confirmPassword = control.get('confirmNewPassword');
 
-    if (newPassword !== confirmPassword) {
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ 'passwordMismatch': true });
       return { 'passwordMismatch': true };
+    } else {
+      confirmPassword!.setErrors(null);
+      return null;
     }
-
-    return null;
-  }
+  };
 }

@@ -31,7 +31,7 @@ export class ChangePasswordComponent implements OnInit {
         Validators.required
       ]]
     },
-
+      { validator: PassswordMatchService.passwordMatchValidator }
     );
   }
 
@@ -65,6 +65,9 @@ export class ChangePasswordComponent implements OnInit {
 
 
       } else {
+        if (this.changePasswordForm.hasError('passwordMismatch')) {
+          console.log('mismatch');
+        }
         console.log('Form validation error.')
       }
 
