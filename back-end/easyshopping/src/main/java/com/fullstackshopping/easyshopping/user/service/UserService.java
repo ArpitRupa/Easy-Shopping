@@ -223,8 +223,6 @@ public class UserService {
     public UserDto getUser(String token) {
         String username = this.tokenService.getUsernameFromToken(token);
 
-        System.out.println(username);
-
         User user = this.userRepository.findByUsername(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
 
         return new UserDto(user);

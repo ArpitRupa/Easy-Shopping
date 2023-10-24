@@ -41,7 +41,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
               this.authService.signOut();
               this.router.navigate(['login']);
               this.toastr.error('You have been logged out for invalidating your JWT; please log back in.',
-                'INAUTHENTIC JWT', { timeOut: 4500 });
+                'INAUTHENTIC JWT', { timeOut: 2000 });
             }
           }
           return event;
@@ -51,7 +51,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
             this.authService.signOut();
             this.router.navigate(['login']);
             this.toastr.error('You token was deemed invalid. Please back in.',
-              'Token Error', { timeOut: 4500 });
+              'Token Error', { timeOut: 2000 });
           }
           else if (error.status === 404) {
             this.router.navigate(['']);

@@ -81,7 +81,7 @@ public class UserApiController {
     }
 
     //update user password
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping({"/{id}/password"})
     public ResponseEntity<UserDto> updateUserPassword(@PathVariable int id, @RequestBody String password){
         return ResponseEntity.ok(userService.updateUserPassword(id, password));

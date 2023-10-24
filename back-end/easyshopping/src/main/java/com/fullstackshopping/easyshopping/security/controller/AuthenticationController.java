@@ -9,6 +9,7 @@ import com.fullstackshopping.easyshopping.security.service.AuthenticationService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,6 +51,7 @@ public class AuthenticationController {
 
 
 
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
     @PutMapping ("/update-password")
     public ResponseEntity<UserDto> updatePassword (@RequestBody UpdatePasswordDTO updatePasswordDTO, @RequestHeader(name = "Authorization") String token){
         HttpHeaders headers = new HttpHeaders();

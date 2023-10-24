@@ -98,7 +98,7 @@ public class AddressService {
             this.addressRepository.deleteById(id);
             return true;
         }catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not find address to delete.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find address to delete.");
         }
     }
 
