@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-      role: 'USER'
     },
       { validator: passwordMatchValidator('password', 'confirmPassword') }
     );
@@ -57,8 +56,6 @@ export class RegisterComponent implements OnInit {
           username: formData.username,
           email: formData.email,
           password: formData.password,
-          role: formData.role,
-
         };
 
         this.authService.postRegistration(registration).subscribe({
