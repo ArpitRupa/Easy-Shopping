@@ -3,7 +3,7 @@ import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Valida
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
-import { PassswordMatchService } from 'src/app/service/passsword-match.service';
+import { passwordMatchValidator } from 'src/app/service/passsword-match.service';
 
 @Component({
   selector: 'app-change-password',
@@ -31,7 +31,7 @@ export class ChangePasswordComponent implements OnInit {
         Validators.required
       ]]
     },
-      { validator: PassswordMatchService.passwordMatchValidator }
+      { validator: passwordMatchValidator('newPassword', 'confirmNewPassword') }
     );
   }
 

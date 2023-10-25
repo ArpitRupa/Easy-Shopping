@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from "ngx-toastr"
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { routeAnimation } from 'src/route-animations';
 import { RouterOutlet } from '@angular/router';
+import { passwordMatchValidator } from 'src/app/service/passsword-match.service';
+import { RegistrationRequestInterface } from 'src/app/interface/registrationRequest.interface';
 
 @Component({
   selector: 'app-register',
@@ -14,45 +16,75 @@ import { RouterOutlet } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private builder: FormBuilder, private toastr: ToastrService, private router: Router, private authService: AuthService) { }
+  registerForm!: FormGroup;
+  passwordMismatch: boolean = true;
+
+  constructor(private builder: FormBuilder, private toastr: ToastrService, private router: Router, private authService: AuthService) {
+
+    this.registerForm = this.builder.group({
+      firstName: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.required]],
+      lastName: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.required]],
+      username: ['', [Validators.pattern('[a-zA-Z][a-zA-Z0-9 ]*'), Validators.required]],
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      role: 'USER'
+    },
+      { validator: passwordMatchValidator('password', 'confirmPassword') }
+    );
+  }
 
   ngOnInit() {
   }
 
-  registerForm = this.builder.nonNullable.group({
-    firstName: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.required]],
-    lastName: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.required]],
-    username: ['', [Validators.pattern('[a-zA-Z][a-zA-Z0-9 ]*'), Validators.required]],
-    email: ['', [Validators.email, Validators.required]],
-    password: ['', Validators.required],
-    role: 'USER'
-  });
+
 
   public processRegistration() {
-    if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
+    const password = this.registerForm.get('password')?.value as string;
+    const confirmPassword = this.registerForm.get('confirmPassword')?.value as string;
 
-      this.authService.postRegistration(formData).subscribe({
-        next: (response) => {
-          // Handle the successful response
-          this.toastr.success("Registered Successfully.");
-          this.router.navigate(['login']);
-        },
-        error: (error) => {
-          // Handle API request error
-          console.error('Registration failed', error);
-        }
-      });
+    if (password === confirmPassword) {
+
+      this.passwordMismatch = false;
+
+      if (this.registerForm.valid) {
+        const formData = this.registerForm.value;
+
+        const registration: RegistrationRequestInterface = {
+
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+
+        };
+
+        this.authService.postRegistration(registration).subscribe({
+          next: (response) => {
+            // Handle the successful response
+            this.toastr.success("Registered Successfully.");
+            this.router.navigate(['login']);
+          },
+          error: (error) => {
+            // Handle API request error
+            console.error('Registration failed', error);
+          }
+        });
 
 
-    }
-    else {
-      for (const field in this.registerForm.controls) {
-        const formControl = this.registerForm.get(field)!;
-        if (formControl.errors) {
-          this.toastr.warning(this.getErrorMessage(formControl, field));
+      }
+      else {
+        for (const field in this.registerForm.controls) {
+          const formControl = this.registerForm.get(field)!;
+          if (formControl.errors) {
+            this.toastr.warning(this.getErrorMessage(formControl, field));
+          }
         }
       }
+    } else {
+      this.passwordMismatch = true;
     }
   }
 

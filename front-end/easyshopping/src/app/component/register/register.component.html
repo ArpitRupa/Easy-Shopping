@@ -51,6 +51,16 @@
           </mat-form-field>
         </div>
 
+
+        <div class="flex-container">
+          <mat-icon color="primary" fontIcon="lock" />
+          <mat-form-field class="full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
+            <mat-error *ngIf="passwordMismatch">New passwords do not match.</mat-error>
+          </mat-form-field>
+        </div>
+
         <div class="registration-buttons">
           <button style="width:50%" mat-raised-button color="primary">Submit</button>
           <a style="width:50%" routerLink="" mat-raised-button color="accent">Back Home</a>

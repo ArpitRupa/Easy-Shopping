@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class PassswordMatchService {
-
-  constructor() { }
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 
-  static passwordMatchValidator: ValidatorFn = (control: AbstractControl): { [key: string]: any } | null => {
-    const password = control.get('newPassword');
-    const confirmPassword = control.get('confirmNewPassword');
+export function passwordMatchValidator(field1: string, field2: string): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const password = control.get(field1);
+    const confirmPassword = control.get(field2);
 
     if (password && confirmPassword && password.value !== confirmPassword.value) {
       confirmPassword.setErrors({ 'passwordMismatch': true });
