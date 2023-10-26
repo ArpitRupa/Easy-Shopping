@@ -35,15 +35,69 @@ Here is the outline of the user experience along with screenshots of the process
 
 ### Creating a New User
 
-<div style="text-align: center;">
+When a user wishes to create a new account, they are presented with the following page at the `/register` URL:
+
+<div align="center">
   <img src="./images/auth/user-registration.png" alt="user_register" width="500">
 </div>
 
+
+The form requires that all fields are filled while meeting specific validations for each field.
+
+The `Password` and `Confirm Password` fields must match to ensure the user is providing an intended password.
+
+The `email` field must provide a valid email format.
+
+Both the `Username` and `Email` provided must be unique (cannot already exist in the backend).
+
+Upon clicking `Submit`, if all the validation parameters are met, a new user will be created in the backend.
+
 ### Login
 
-<div style="text-align: center;">
+When a user wishes to login they are presented with the following page at the `/login` URL:
+
+<div align="center">
   <img src="./images/auth/user-login.png" alt="user_login" width="500">
 </div>
+
+The user must provide the `Username` and `Password` of the account they are trying to access.
+
+If the User does not have an account, they can click `Register` which will forward them to the `/register` URL to create a new user.
+
+Upon providing the correct `Username` and `Password` the client will be provided with a `JWT` and mark the user as authenticated and forward them to the home page.
+
+
+### Navigation
+
+The navigation is handled in the header of the application. 
+
+The `nav-bar` is a dynamic component that will render either text for navigation or a button that will display a drop-down of options once clicked.
+
+The `nav-bar` also renders different options depending on if the user is logged in and what role they possess.
+
+The style of the `nav-bar` displayed to the user depends on the screen size of the user's device.
+
+<div align="center">
+  <img src="./images/nav/nav-expanded.png" alt="nav_expanded" width="500">
+  <div>
+Expanded nav-bar for desktop sized screens.
+</div>
+</div>
+
+<div align="center">
+  <img src="./images/nav/nav-collapsed.png" alt="nav_collapsed" width="500">
+<div>
+Collapsed nav-bar for mobile sized screens.
+</div>
+</div>
+
+<div align="center">
+  <img src="./images/nav/nav-elements.png" alt="nav_collapsed" width="100">
+<div>
+Drop down options from mobile nav-bar's collapsed button.
+</div>
+</div>
+
 
 ### Shopping
 
@@ -67,7 +121,7 @@ The accounts panel is where users can do things like:
 ##### Dashboard
 
 When a user initially gets to the accounts panel, they will see the following:
-<div style="text-align: center;">
+<div align="center">
 <img src="./images/account/account-dashboard.png" alt="account_dashboard" width="500">
 </div>
 
@@ -86,7 +140,7 @@ Clicking on the `Addresses` button, renders a children-route component (`/accoun
 
 This will render the following:
 
-<div style="text-align: center;">
+<div align="center">
 <img src="./images/account/account-addresses.png" alt="account_addresses" width="350">
 </div>
 
@@ -98,7 +152,7 @@ Users can also edit or delete specific addresses by clicking on the blue or red 
 
 ###### Add Address
 
-<div style="text-align: center;">
+<div align="center">
 <img src="./images/account/account-add-address.png" alt="account_add_address" width="300">
 </div>
 
@@ -110,7 +164,7 @@ Upon clicking "Submit" the valid `address` will be added to the database and the
 
 ###### Edit Address
 
-<div style="text-align: center;">
+<div align="center">
 <img src="./images/account/account-edit-address.png" alt="account_edit_address" width="300">
 </div>
 
@@ -124,7 +178,7 @@ Upon clicking "Submit" the valid `address` will be edited and snet to the databa
 ###### Delete Address
 
 
-<div style="text-align: center;">
+<div align="center">
 <img src="./images/account/account-confirm-delete.png" alt="account_confirm_delete" width="300">
 </div>
 
@@ -140,7 +194,7 @@ Clicking on the `Update Information` button, renders a children-route component 
 This will render the following:
 
 
-<div style="text-align: center;">
+<div align="center">
 <img src="./images/account/account-update-info.png" alt="account_update_info" width="300">
 </div>
 
@@ -154,7 +208,7 @@ Clicking on the `Update Information` button, renders a children-route component 
 
 This will render the following:
 
-<div style="text-align: center;">
+<div align="center">
   <img src="./images/account/account-change-password.png" alt="account-change-password" width="400">
 </div>
 
@@ -177,17 +231,49 @@ The "Current Password" field will be authenticated by the backend, and the input
 
 Here is the outline of the admin experience along with screenshots of the process.
 
+### Registration
+
+Admins cannot register for admin accounts directly.
+
+Admins must be upgraded to admins from the admin panel by a current admin.
+
+
 ### Login
 
-![user_login](./images/auth/user-login.png)
+Admins log in through the same portal as normal users. 
+
+
+<div align="center">
+  <img src="./images/auth/user-login.png" alt="user_login" width="500">
+</div>
 
 ### Managing Users
 
-![admin_panel](./images/admin/admin-panel.png)
+#### Overview
+Admins are given to ability to manage users of the application.
 
-![admin_edit_user](./images/admin/admin-edit-user.png)
 
-![admin_confirm](./images/admin/admin-confirm.png)
+### Console
+
+When an admin accesses the admin panel, they are greeted with the following page:
+
+<div align="center">
+  <img src="./images/admin/admin-panel.png" alt="admin_panel" width="400">
+</div>
+
+Upon clicking on any user's button the admin will be given options to manage the user.
+
+Admins can manage user roles, or delete users from the system.
+
+<div align="center">
+  <img src="./images/admin/admin-edit-user.png" alt="admin_edit_user" width="400">
+</div>
+
+Upon picking any option, the application will ask the admin to confirm their action before sending the edits to the database on the backend.
+
+<div align="center">
+  <img src="./images/admin/admin-confirm.png" alt="admin_confirm" width="400">
+</div>
 
 ### Managing Listings
 
