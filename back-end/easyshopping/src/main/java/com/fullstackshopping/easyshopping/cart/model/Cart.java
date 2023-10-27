@@ -9,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -23,7 +22,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false) // cannot update ID once set
-    private Long id;
+    private int id;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
@@ -40,7 +39,7 @@ public class Cart {
         this.cartItems = new ArrayList<>();
     }
 
-    public Long getId() {
+    public int getId() {
         return this.id;
     }
 

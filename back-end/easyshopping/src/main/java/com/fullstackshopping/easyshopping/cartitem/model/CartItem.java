@@ -16,7 +16,7 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false) // cannot update ID once set
-    private Long id;
+    private int id;
 
     @ManyToOne
     private Product product;
