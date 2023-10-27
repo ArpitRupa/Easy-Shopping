@@ -1,10 +1,13 @@
 package com.fullstackshopping.easyshopping.product.model;
 
+import com.fullstackshopping.easyshopping.user.model.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.io.Serializable;
@@ -24,6 +27,10 @@ public class Product implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "seller_id", nullable = false, updatable = false)
+    private User seller;
+
     @Column(name="avg_rating", precision = 3, scale = 2)
     private BigDecimal avgRating;
 
@@ -37,15 +44,17 @@ public class Product implements Serializable {
 
     }
 
-    public Product(String name, String description, BigDecimal rating){
+    public Product(String name, String description, User seller, BigDecimal avgRating, BigDecimal price) {
         this.name = name;
         this.description = description;
-        this.avgRating = rating;
+        this.seller = seller;
+        this.avgRating = avgRating;
+        this.price = price;
     }
 
     //overload in case no rating is provided
-    public Product(String name, String description){
-        this(name, description, BigDecimal.valueOf(0));
+    public Product(String name, String description, User seller, BigDecimal price){
+        this(name, description, seller, BigDecimal.valueOf(0), price);
     }
 
     // Getters and setters
@@ -68,6 +77,14 @@ public class Product implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getSeller() {
+        return this.seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
     }
 
     public BigDecimal getAvgRating() {
