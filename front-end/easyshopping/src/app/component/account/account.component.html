@@ -1,0 +1,35 @@
+<div class="flex-container">
+  <mat-card>
+    <mat-card-header>
+      <div class="flex-container">
+        <h2>{{userObject.username}} </h2>
+      </div>
+      <div>
+        <h4>{{userObject.firstName}} {{userObject.lastName}}</h4>
+      </div>
+      <div>
+        <h4>{{userObject.email}}</h4>
+      </div>
+      <div>
+        <h4>Role: {{userObject.role}}</h4>
+      </div>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+
+      <div class="flex-container-user-options">
+        <div class="option">
+          <a mat-button style="text-align: left;" (click)="routeFromButton('orders')">Orders</a>
+          <a mat-button style="text-align: right;" (click)="routeFromButton('addresses')">Addresses</a>
+        </div>
+        <div class="option">
+          <a mat-button style="text-align: left;" (click)="routeFromButton('password')">Change Password</a>
+          <a mat-button style="text-align: right;" (click)="routeFromButton('information')">Update Information</a>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<router-outlet></router-outlet>

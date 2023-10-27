@@ -1,0 +1,45 @@
+<mat-card class="parent-container">
+  <mat-card-content>
+    <div class="flex-container">
+      <h2>{{user.username}} </h2>
+    </div>
+    <div class="flex-container">
+      <h2> Id: {{user.id}} </h2>
+    </div>
+    <div class="flex-container">
+      <h4>{{user.firstName}} {{user.lastName}}</h4>
+    </div>
+    <div class="flex-container">
+      <h4>{{user.email}}</h4>
+    </div>
+    <div class="flex-container">
+      <h4>Role: {{user.role}}</h4>
+    </div>
+    <div class="button-container">
+
+      <div class="custom-form-field">
+        <label class="role-label" for="role">Role</label>
+        <div>
+          <select id="role" name="role" [(ngModel)]="currentRole" (change)="onRoleSelected(user)">
+            <option *ngFor="let role of roles" [value]="role.value">{{ role.viewValue }}</option>
+          </select>
+        </div>
+      </div>
+      <button mat-flat-button color="warn" (click)="openConfirmDeleteDialog(user)">Delete User</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- https://stackoverflow.com/questions/52282913/angular-how-to-disable-grey-out-screen-on-load-and-save -->
+
+<div id="overlay">
+  <span id="nav" *ngIf="saveInProgress">
+    <div class="spinner" style="display: block; position: fixed">
+    </div>
+  </span>
+  <span id="nav" *ngIf="saveInProgress">
+    <div class="submit-message" style="display: block; color: #FFFFFF; position: fixed; left: 49.7%; top: 54.5%;">
+      Saving...
+    </div>
+  </span>
+</div>

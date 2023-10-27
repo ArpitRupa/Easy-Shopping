@@ -1,0 +1,42 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.parent-container {
+    min-width: 200px;
+    width: 30vw;
+    max-width: 500px;
+}
+
+h2 {
+    font-family: 'Alfa Slab One';
+    margin-bottom: 0;
+
+
+    @media (max-width: 400px) {
+        font-size: small;
+    }
+
+    @media (max-width: 800px) and (min-width: 401px) {
+        font-size: medium;
+
+    }
+}
+
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+button {
+    flex: 1;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+}

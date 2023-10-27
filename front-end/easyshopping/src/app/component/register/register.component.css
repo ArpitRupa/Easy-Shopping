@@ -1,0 +1,43 @@
+.registration-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.flex-container mat-icon {
+    margin-right: 10px;
+    margin-bottom: 20px;
+
+    @media (max-width: 767px) {
+        padding-right: 3px;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+mat-label {
+    font-family: 'Oswald';
+}
+
+h1 {
+    font-family: 'Pridi';
+    font-weight: 700;
+}
+
+mat-card {
+    min-width: 300px;
+    width: 50vw;
+    margin-top: 5%;
+}
+
+.card-parent-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
