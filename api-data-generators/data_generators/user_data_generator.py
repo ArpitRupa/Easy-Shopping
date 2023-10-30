@@ -6,7 +6,7 @@ fake = Faker()
 fake = Faker()
 
 
-def generate_user(quantity: int) -> list:
+def generate_users(quantity: int) -> list:
     """
     Generate a list of fake user data.
 

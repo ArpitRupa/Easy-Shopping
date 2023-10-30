@@ -28,3 +28,25 @@ def generate_addresses(quantity: int) -> list:
         addresses.append(address)
 
     return addresses
+
+
+def generate_addresses_for_user(user_id: int, quantity: int) -> list:
+    """
+    Generate a list of fake address data for a particular user.
+
+    Args:
+        user_id (int): The ID of the user to generate addresses for.
+        quantity (int): The number of address data entries to generate.
+
+    Returns:
+        list: A list of dictionaries, where each dictionary represents a fake address
+              with attributes including 'userId', including 'shippingAddressLine1', 
+              'shippingAddressLine2', 'city', 'stateName', and 'postalCode'.
+    """
+
+    addresses = generate_addresses(quantity)
+
+    for address in addresses:
+        address["userId"] = user_id
+
+    return addresses

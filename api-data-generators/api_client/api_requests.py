@@ -29,11 +29,23 @@ def send_post_req_to_api(data: list, tag: str) -> list:
     response_list = []
 
     match tag:
-        case 'user':
+        case 'users':
             endpoint = api_address + "/auth/register"
-        case 'address':
+
+        # make helper functions to get all users
+        # maybe think about doing seperate post methods for each data type
+        # and then have this function call them depending on the tag
+        # posts to /addresses/user/id
+        case 'addresses':
             endpoint = api_address + "/api/addresses"
             headers['Authorization'] = f'Bearer {admin_token}'
+            users = get_all_request_from_api("users")
+            user_ids = [user['id'] for user in users]
+
+        case "addresses/user":
+            endpoint = api_address + "/api/addresses/user"
+            headers['Authorization'] = f'Bearer {admin_token}'
+
         case _:
             raise ValueError("Invalid data value")
 
@@ -64,9 +76,9 @@ def send_post_req_to_api(data: list, tag: str) -> list:
 
 def get_all_request_from_api(tag: str):
     match tag:
-        case 'user':
+        case 'users':
             endpoint = api_address + "/api/users"
-        case 'address':
+        case 'addresses':
             endpoint = api_address + "/api/addresses"
         case _:
             raise ValueError("Invalid data value")
