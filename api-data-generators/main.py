@@ -1,7 +1,7 @@
 import sys
 
 from data_generators import user_data_generator, address_data_generator
-from api_client import main_requests
+from api_client.api_requests import main_requests
 
 
 def generate_data(script_name, integer_arg):
@@ -47,7 +47,7 @@ def main():
         print("Invalid integer argument. Please provide a valid integer.")
         sys.exit(1)
 
-    data = generate_data(script_name, integer_arg)
+    generate_data(script_name, integer_arg)
 
 
 if __name__ == "__main__":

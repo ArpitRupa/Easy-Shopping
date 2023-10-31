@@ -4,9 +4,9 @@ import random
 import requests
 
 from dotenv import load_dotenv
-from config import api_address
-from address_request import post_address_to_api
-from user_request import register_user
+from .config import api_address
+from .address_request import post_address_to_api
+from .user_request import register_user
 
 
 load_dotenv()
@@ -98,7 +98,7 @@ def get_all_request_from_api(tag: str):
         response = requests.get(endpoint, timeout=10, headers=headers)
 
         if response.status_code == 200 or response.status_code == 201:
-            data = response.json().get('content')
+            data = response.json()
             if data is not None:
                 return data
 

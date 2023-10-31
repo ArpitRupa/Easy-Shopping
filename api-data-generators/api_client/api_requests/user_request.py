@@ -1,6 +1,6 @@
 import json
 import requests
-from config import api_address
+from .config import api_address
 
 
 def register_user(user: dict, headers: dict) -> dict:
@@ -18,7 +18,7 @@ def register_user(user: dict, headers: dict) -> dict:
         # print user in event of success
         if response.status_code == 200 or response.status_code == 201:
             print(f"Data: {user}")
-            return response.json()
+            return response
         # print error code and user in event of error
         else:
             response.raise_for_status()
