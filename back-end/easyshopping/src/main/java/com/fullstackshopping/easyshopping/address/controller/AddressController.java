@@ -50,7 +50,7 @@ public class AddressController {
 
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
-    @PostMapping("/user/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<List<ResponseAddress>> getAddressByUserId(@PathVariable int id){
 
         return ResponseEntity.ok(addressService.getAddressByUserId(id));
@@ -66,6 +66,16 @@ public class AddressController {
         return ResponseEntity.ok().headers(headers).body(addressService.getAddressByUser(token));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/user/{id}")
+    public ResponseEntity<ResponseAddress> createAddressByUserId(@PathVariable int id, @RequestBody CreateAddress address){
+
+        ResponseAddress responseAddress = addressService.createAddressByUserId(address, id);
+
+        URI location = getAddressLocation(responseAddress.getAddressId());
+
+        return ResponseEntity.created(location).body(responseAddress);
+    }
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
     @PostMapping("/create")
@@ -73,7 +83,7 @@ public class AddressController {
 
         ResponseAddress responseAddress = addressService.createAddress(address, token);
 
-        URI location = getUserLocation(responseAddress.getAddressId());
+        URI location = getAddressLocation(responseAddress.getAddressId());
 
         return ResponseEntity.created(location).body(responseAddress);
     }
@@ -93,7 +103,7 @@ public class AddressController {
     }
 
 
-    private URI getUserLocation (int id){
+    private URI getAddressLocation(int id){
         return ServletUriComponentsBuilder.fromCurrentContextPath().path("addresses/{id}").buildAndExpand(id).toUri();
     }
 }
