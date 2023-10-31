@@ -47,6 +47,6 @@ def generate_addresses_for_user(user_id: int, quantity: int) -> list:
     addresses = generate_addresses(quantity)
 
     for address in addresses:
-        address["userId"] = user_id
+        address["userID"] = user_id
 
     return addresses

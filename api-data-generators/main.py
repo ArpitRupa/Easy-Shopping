@@ -1,7 +1,7 @@
 import sys
 
 from data_generators import user_data_generator, address_data_generator
-from api_client import api_requests
+from api_client import main_requests
 
 
 def generate_data(script_name, integer_arg):
@@ -24,7 +24,7 @@ def generate_data(script_name, integer_arg):
             data = address_data_generator.generate_addresses(integer_arg)
             tag = "addresses"
 
-    api_requests.send_post_req_to_api(data, tag)
+    main_requests.send_post_req_to_api(data, tag)
 
 
 def main():

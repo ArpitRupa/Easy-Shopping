@@ -1,12 +1,15 @@
 import os
 import json
+import random
 import requests
 
 from dotenv import load_dotenv
+from config import api_address
+from address_request import post_address_to_api
+from user_request import register_user
+
 
 load_dotenv()
-
-api_address = os.environ.get("API_ADDRESS")
 
 admin_login = {
     "username": os.environ.get("ADMIN_USERNAME"),
@@ -30,40 +33,46 @@ def send_post_req_to_api(data: list, tag: str) -> list:
 
     match tag:
         case 'users':
-            endpoint = api_address + "/auth/register"
+
+            for data_point in data:
+                response = register_user(data_point, headers)
+                response_list.append(response.status_code)
 
         # make helper functions to get all users
         # maybe think about doing seperate post methods for each data type
         # and then have this function call them depending on the tag
         # posts to /addresses/user/id
+
+        # gnerate addresses for random users
         case 'addresses':
-            endpoint = api_address + "/api/addresses"
             headers['Authorization'] = f'Bearer {admin_token}'
+
+            # get all users from the backend
             users = get_all_request_from_api("users")
+
+            # get all user ids from the response
             user_ids = [user['id'] for user in users]
 
+            for address in data:
+                random_user_id = random.choice(user_ids)
+                response = post_address_to_api(
+                    address, random_user_id, headers)
+                response_list.append(response.status_code)
+
+        # generate addresses for a particular user
         case "addresses/user":
-            endpoint = api_address + "/api/addresses/user"
             headers['Authorization'] = f'Bearer {admin_token}'
 
+            if data[0].get('userID') is not None:
+                user_id = data[0].get('userID')
+                for data_point in data:
+                    response = post_address_to_api(
+                        data_point, user_id, headers)
+                    response_list.append(response.status_code)
         case _:
             raise ValueError("Invalid data value")
 
     total_requests = len(data)
-
-    # Iterate over data points and make POST requests
-    for data_point in data:
-        try:
-            response = requests.post(
-                endpoint,
-                data=json.dumps(data_point, indent=4),
-                headers=headers,
-                timeout=10
-            )
-            response_list.append(response.status_code)
-            print(f"Data: {data_point}")
-        except requests.exceptions.RequestException as error_code:
-            print("Error:", error_code)
 
     # Count successful responses (status codes 200 or 201)
     success_count = response_list.count(200) + response_list.count(201)
@@ -88,7 +97,7 @@ def get_all_request_from_api(tag: str):
     try:
         response = requests.get(endpoint, timeout=10, headers=headers)
 
-        if response.status_code == 200:
+        if response.status_code == 200 or response.status_code == 201:
             data = response.json().get('content')
             if data is not None:
                 return data
