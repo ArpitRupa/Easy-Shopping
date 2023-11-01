@@ -9,22 +9,45 @@
     <mat-divider></mat-divider>
 
     <mat-card-content>
-      <form>
+      <form [formGroup]="productForm">
         <div class="flex-container">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Product Name" name="productName" required>
+
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Product Name" formControlName="productName"
+              (keypress)="validateInput('productName')">
+            <mat-error *ngIf="productForm.get('productName')?.invalid"> Please enter a valid Product Name.</mat-error>
           </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <textarea matInput placeholder="Product Description" name="productDescription" required></textarea>
+
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Product Description (5-5,000 characters)"
+              formControlName="productDescription" (keypress)="validateInput('productDescription')"></textarea>
+            <mat-error *ngIf="productForm.get('productDescription')?.invalid"> Please enter a valid Product
+              Description.</mat-error>
           </mat-form-field>
-          <mat-form-field class="example-full-width">
+
+          <mat-form-field class="full-width">
             <span matPrefix>$</span>
-            <input matInput type="number" placeholder="Price" name="productPrice" step="0.01" pattern="\d+(\.\d{1,2})?"
-              required>
+            <input matInput type="number" placeholder="Price" formControlName="productPrice" step="0.01"
+              pattern="\d+(\.\d{1,2})?" (keypress)="validateInput('productPrice')">
+            <mat-error *ngIf="productForm.get('productPrice')?.invalid"> Please enter a valid Product Price.</mat-error>
+
           </mat-form-field>
-          <div class="flex-container">
-            <input type="file" accept="image/*">
+
+          <div>
+            <button (click)="fileInput.click()">
+              <span>Upload Images (Max 5)</span>
+            </button>
+            <input type="file" accept="image/*" #fileInput (change)="onFileSelected($event)" style="display: none;"
+              multiple>
           </div>
+
+          <div *ngIf="selectedFiles.length > 0">
+            <h4>Selected Files:</h4>
+            <ul>
+              <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
+            </ul>
+          </div>
+
         </div>
       </form>
     </mat-card-content>
