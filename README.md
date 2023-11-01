@@ -46,7 +46,7 @@ experience for users, allowing them to browse, buy products, and even create the
     - [Update Information](#update-information)
     - [Change Password](#change-password)
     - [Orders](#orders)
-  - [Posting a Listing](#posting-a-listing)
+    - [Posting a Listing](#posting-a-listing)
 - [Admin Experience](#admin-experience)
   - [Registration](#registration)
   - [Login](#login-1)
@@ -250,7 +250,7 @@ The "Current Password" field will be authenticated by the backend, and the input
 
     <place holder> 
 
-### Posting a Listing
+##### Posting a Listing
 
     <place holder> 
 
