@@ -8,9 +8,7 @@ import com.fullstackshopping.easyshopping.security.service.TokenService;
 import com.fullstackshopping.easyshopping.user.model.User;
 import com.fullstackshopping.easyshopping.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -117,28 +115,5 @@ public class AddressService {
         this.addressRepository.save(address);
 
         return new ResponseAddress(address);
-    }
-
-    public ResponseAddress createAddressByUserId(CreateAddress createAddress, int id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User by id not found"));
-
-        Address address = new Address(
-                createAddress.getShippingAddressLine1(),
-                createAddress.getShippingAddressLine2(),
-                createAddress.getCity(),
-                createAddress.getStateName(),
-                createAddress.getPostalCode(),
-                user
-        );
-
-        try {
-            Address savedAddress = addressRepository.save(address);
-            return new ResponseAddress(savedAddress);
-        } catch (DataAccessException e) {
-
-            e.printStackTrace();
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not create address for user provided.");
-        }
-
     }
 }

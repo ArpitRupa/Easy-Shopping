@@ -59,16 +59,4 @@ public class CreateAddress {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-
-
-    @Override
-    public String toString() {
-        return "CreateAddress{" +
-                "shippingAddressLine1='" + shippingAddressLine1 + '\'' +
-                ", shippingAddressLine2='" + shippingAddressLine2 + '\'' +
-                ", city='" + city + '\'' +
-                ", stateName='" + stateName + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                '}';
-    }
 }
