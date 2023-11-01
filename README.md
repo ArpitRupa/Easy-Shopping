@@ -29,6 +29,33 @@ experience for users, allowing them to browse, buy products, and even create the
 - Deployment:
     - TBD
 
+## Table of Contents
+- [User Experience](#user-experience)
+  - [Creating a New User](#creating-a-new-user)
+  - [Login](#login)
+  - [Navigation](#navigation)
+  - [Shopping](#shopping)
+  - [Checking Out](#checking-out)
+  - [Account Management](#account-management)
+    - [Overview](#overview)
+    - [Dashboard](#dashboard)
+    - [Addresses](#addresses)
+      - [Add Address](#add-address)
+      - [Edit Address](#edit-address)
+      - [Delete Address](#delete-address)
+    - [Update Information](#update-information)
+    - [Change Password](#change-password)
+    - [Orders](#orders)
+    - [Posting a Listing](#posting-a-listing)
+- [Admin Experience](#admin-experience)
+  - [Registration](#registration)
+  - [Login](#login-1)
+  - [Managing Users](#managing-users)
+    - [Overview](#overview-1)
+    - [Admin Panel](#admin-panel)
+    - [Managing Listings](#managing-listings)
+
+
 ## User Experience
 
 Here is the outline of the user experience along with screenshots of the process.
@@ -219,11 +246,11 @@ Clicking the eyes on the right of each field will toggle the "show password" fea
 The "Current Password" field will be authenticated by the backend, and the input for the "New Password" and "Confirm New Password" fields must match for the request to reach to backend.
 
 
-##### Orderes
+##### Orders
 
     <place holder> 
 
-### Posting a Listing
+##### Posting a Listing
 
     <place holder> 
 
@@ -253,7 +280,7 @@ Admins log in through the same portal as normal users.
 Admins are given to ability to manage users of the application.
 
 
-### Console
+#### Admin Panel
 
 When an admin accesses the admin panel, they are greeted with the following page:
 
@@ -275,7 +302,7 @@ Upon picking any option, the application will ask the admin to confirm their act
   <img src="./images/admin/admin-confirm.png" alt="admin_confirm" width="400">
 </div>
 
-### Managing Listings
+#### Managing Listings
 
     <place holder> 
 
