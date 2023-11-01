@@ -32,6 +32,7 @@ import { AddressComponent } from './component/account/component/address/address.
 import { AddressFormComponent } from './component/account/component/address/component/address-form/address-form.component';
 import { UpdateInfoFormComponent } from './component/account/component/update-info-form/update-info-form.component';
 import { ChangePasswordComponent } from './component/account/component/change-password/change-password.component';
+import { CreateListingComponent } from './component/account/component/create-listing/create-listing/create-listing.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ChangePasswordComponent } from './component/account/component/change-pa
     AddressComponent,
     AddressFormComponent,
     UpdateInfoFormComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    CreateListingComponent
   ],
   imports: [
     BrowserModule,

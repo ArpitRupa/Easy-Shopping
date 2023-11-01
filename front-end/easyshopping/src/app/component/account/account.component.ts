@@ -46,12 +46,17 @@ export class AccountComponent implements OnInit {
         this.router.navigate(['/account/addresses'])
         break;
       case 'information':
-        this.router.navigate(['/account/updateInfo', this.userObject.id], {
+        this.router.navigate(['/account/update-info', this.userObject.id], {
           state: { userObject: this.userObject },
         });
         break;
       case 'password':
-        this.router.navigate(['/account/changePassword', this.userObject.id], {
+        this.router.navigate(['/account/change-password', this.userObject.id], {
+          state: { userObject: this.userObject },
+        });
+        break;
+      case 'create-listing':
+        this.router.navigate(['/account/create-listing', this.userObject.id], {
           state: { userObject: this.userObject },
         });
         break;

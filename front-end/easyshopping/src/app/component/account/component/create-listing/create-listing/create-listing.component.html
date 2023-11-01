@@ -1,0 +1,39 @@
+<div class="flex-container">
+  <mat-card>
+    <mat-card-header>
+      <h3>
+        Create a Product Listing
+      </h3>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <form>
+        <div class="flex-container">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Product Name" name="productName" required>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Product Description" name="productDescription" required></textarea>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <span matPrefix>$</span>
+            <input matInput type="number" placeholder="Price" name="productPrice" step="0.01" pattern="\d+(\.\d{1,2})?"
+              required>
+          </mat-form-field>
+          <div class="flex-container">
+            <input type="file" accept="image/*">
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <div class="flex-container">
+      <mat-card-actions>
+        <button mat-raised-button color="primary">Post Listing</button>
+      </mat-card-actions>
+    </div>
+
+  </mat-card>
+</div>
