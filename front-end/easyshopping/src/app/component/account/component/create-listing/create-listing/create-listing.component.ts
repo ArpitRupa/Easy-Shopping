@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FileWithPreview } from 'src/app/interface/fileWithPreview.interface';
 
 @Component({
   selector: 'app-create-listing',
@@ -8,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateListingComponent implements OnInit {
 
-  selectedFiles: File[] = [];
+  selectedFiles: FileWithPreview[] = [];
   productForm!: FormGroup;
 
 
@@ -46,9 +47,22 @@ export class CreateListingComponent implements OnInit {
       event.target.value = ''; // Clear the file input
       this.selectedFiles = [];
       return;
-    } else {
-      this.selectedFiles = selectedFiles;
     }
+
+    this.selectedFiles = [];
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const file = selectedFiles[i];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const dataURL = reader.result as string;
+        this.selectedFiles.push({ file, dataURL });
+      };
+
+      reader.readAsDataURL(file);
+    }
+
   }
 
 
@@ -77,3 +91,4 @@ export class CreateListingComponent implements OnInit {
   }
 
 }
+

@@ -8,10 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "product_images")
@@ -27,8 +29,10 @@ public class ProductImage implements Serializable {
     @JoinColumn(name = "product_id", nullable = false, updatable = false)
     private Product product;
 
-    @Column(name = "image_url", nullable = false, updatable = false)
-    private String imageUrl;
+    @Lob // Annotation for Binary Large OBject
+    @Column(name = "image_data", nullable = false, updatable = false)
+    private byte[] imageData; // Change the data type to byte[]
+
 
 
     // Constructors, getters, setters
@@ -37,8 +41,8 @@ public class ProductImage implements Serializable {
     public ProductImage() {
     }
 
-    public ProductImage(String imageUrl, Product product) {
-        this.imageUrl = imageUrl;
+    public ProductImage(byte[] imageData, Product product) {
+        this.imageData = imageData;
         this.product = product;
     }
 
@@ -47,23 +51,22 @@ public class ProductImage implements Serializable {
         return this.imageId;
     }
 
-    public String getImageUrl() {
-        return this.imageUrl;
+    public byte[] getImageData() {
+        return this.imageData;
     }
-
     public Product getProduct() {
         return this.product;
     }
 
 
     //Override toString() method
+
+
     @Override
     public String toString() {
         return "ProductImage{" +
-                "\n\"imageId\"= " + this.imageId +
-                "\n\"imageUrl\"= \"" + this.imageUrl + "\"" +
-                "\n\"product\"= " + this.product.toString() +
-                "\n}";
+                "imageId=" + imageId +
+                ", product=" + product.toString() +
+                '}';
     }
-
 }
