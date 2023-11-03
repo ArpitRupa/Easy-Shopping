@@ -69,14 +69,11 @@ public class ProductImageService {
     }
 
     public Boolean deleteImage(int imageId) {
-        ProductImage productImage = productImageRepository.findById(imageId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found for DELETE request."));
-
         try {
-            productImageRepository.delete(productImage);
+            productImageRepository.deleteById(imageId);
             return true;
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image deletion failed");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image deletion failed for image with id: " + imageId);
         }
     }
 }
