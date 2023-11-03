@@ -4,18 +4,18 @@ import com.fullstackshopping.easyshopping.product.model.Product;
 
 public class ProductImageRequest {
 
-    private Product product;
+    private int productId;
     private byte[] imageData;
 
     public ProductImageRequest(){}
 
-    public ProductImageRequest(Product product, byte[] imageData) {
-        this.product = product;
+    public ProductImageRequest(int product, byte[] imageData) {
+        this.productId = product;
         this.imageData = imageData;
     }
 
-    public Product getProduct() {
-        return this.product;
+    public int getProductId() {
+        return this.productId;
     }
 
     public byte[] getImageData() {

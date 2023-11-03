@@ -58,6 +58,9 @@ public class ProductImage implements Serializable {
         return this.product;
     }
 
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
 
     //Override toString() method
 
