@@ -18,6 +18,10 @@ public class ProductImageRequest {
         return this.productId;
     }
 
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
     public byte[] getImageData() {
         return this.imageData;
     }

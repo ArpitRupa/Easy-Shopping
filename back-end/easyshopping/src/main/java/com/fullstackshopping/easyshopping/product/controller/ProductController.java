@@ -1,5 +1,7 @@
 package com.fullstackshopping.easyshopping.product.controller;
 
+import com.fullstackshopping.easyshopping.common.dto.request.ProductCreationRequest;
+import com.fullstackshopping.easyshopping.common.dto.request.ProductImageRequest;
 import com.fullstackshopping.easyshopping.common.dto.request.ProductRequest;
 import com.fullstackshopping.easyshopping.product.model.Product;
 import com.fullstackshopping.easyshopping.product.service.ProductService;
@@ -56,8 +58,18 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
     @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest productRequest, @RequestHeader(name="Authorization") String token) {
-        Product createdProduct = productService.createProduct(productRequest, token);
+    public ResponseEntity<Product> createProduct(@RequestBody ProductCreationRequest creationRequest, @RequestHeader(name="Authorization") String token) {
+        Product createdProduct;
+
+        // if list of images is not null and not empty:
+        if (creationRequest.getImageRequests() != null && !creationRequest.getImageRequests().isEmpty()) {
+            // call transactional service method to create images and product directly
+            createdProduct = productService.createProductWithImages(creationRequest.getProductRequest(), creationRequest.getImageRequests(), token);
+        } else {
+            // create listing without image
+            createdProduct = productService.createProduct(creationRequest.getProductRequest(), token);
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 

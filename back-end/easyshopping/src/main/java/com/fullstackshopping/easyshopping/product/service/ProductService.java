@@ -1,11 +1,14 @@
 package com.fullstackshopping.easyshopping.product.service;
 
+import com.fullstackshopping.easyshopping.common.dto.request.ProductImageRequest;
 import com.fullstackshopping.easyshopping.common.dto.request.ProductRequest;
 import com.fullstackshopping.easyshopping.product.model.Product;
 import com.fullstackshopping.easyshopping.product.repository.ProductRepository;
+import com.fullstackshopping.easyshopping.productimage.service.ProductImageService;
 import com.fullstackshopping.easyshopping.security.service.TokenService;
 import com.fullstackshopping.easyshopping.user.model.User;
 import com.fullstackshopping.easyshopping.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,15 +20,17 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private  final ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final ProductImageService productImageService;
     private final UserRepository userRepository;
     private final TokenService tokenService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, TokenService tokenService, UserRepository userRepository) {
+    public ProductService(ProductRepository productRepository, TokenService tokenService, UserRepository userRepository, ProductImageService productImageService) {
         this.productRepository = productRepository;
         this.tokenService = tokenService;
         this.userRepository = userRepository;
+        this.productImageService = productImageService;
     }
 
     public List<Product> getAllProducts() {
@@ -65,8 +70,25 @@ public class ProductService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not create Product.");
         }
 
-
     }
+
+
+    @Transactional
+    public Product createProductWithImages(ProductRequest productRequest, List<ProductImageRequest> imageRequests, String token) {
+
+        try{
+            Product product = this.createProduct(productRequest, token);
+
+            for (ProductImageRequest imageRequest : imageRequests) {
+                imageRequest.setProductId(product.getId());
+                productImageService.createProductImage(imageRequest);
+            }
+            return product;
+        }catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not create Product Listing with Images.");
+        }
+    }
+
     public Product updateProduct(int productId, ProductRequest updatedProductRequest) {
 
         Product currentProduct = productRepository.findById(productId)
