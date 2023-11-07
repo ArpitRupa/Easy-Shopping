@@ -45,8 +45,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses = new ArrayList<>();
+
 
     // Constructors, getters, setters, and other methods
 
@@ -114,14 +113,6 @@ public class User implements Serializable {
 
     public void setRole(Role role) { this.role = role; }
 
-    public List<Address> getAddresses() {
-        return this.addresses;
-    }
-
-    public void addAddress(Address address){
-        this.addresses.add(address);
-    }
-
     //Override toString() method
 
     @Override
@@ -134,7 +125,6 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", addresses=" + addresses +
                 '}';
     }
 }

@@ -20,12 +20,12 @@ export class ProductService {
 
 
   createProductListing(productCreation: ProductCreationRequest) {
-    return this.http.post<any>(this.apiUrl + '/api/product/create', productCreation, this.httpOptions)
+    return this.http.post<any>(this.apiUrl + '/api/products/create', productCreation, this.httpOptions)
       .pipe(
         catchError((error) => {
-          console.error('Creation of address failed', error);
+          console.error('Creation of Product Listing failed', error);
           // Return an observable with an error or some fallback value if needed
-          return throwError(() => new error('Creation of address failed'));
+          return throwError(() => new error('Creation of Product Listing failed'));
         })
       );
   }

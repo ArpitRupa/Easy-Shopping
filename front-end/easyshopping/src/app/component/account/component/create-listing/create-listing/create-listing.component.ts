@@ -32,17 +32,16 @@ export class CreateListingComponent implements OnInit {
         Validators.maxLength(5000)
       ]],
       productPrice: ['', [
-        Validators.pattern('[0-9]*'),
         Validators.required,
       ]],
-      productImages: ['', [
-        Validators.required
-      ]]
     });
   }
 
   postListing() {
     if (this.productForm.valid) {
+
+      console.log("Valid form")
+
       const listingData: ProductCreationRequest = {
 
         productRequest: {

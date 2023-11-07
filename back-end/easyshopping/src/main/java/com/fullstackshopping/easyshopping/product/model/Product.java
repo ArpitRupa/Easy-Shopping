@@ -105,14 +105,14 @@ public class Product implements Serializable {
 
     //Override toString() method
     @Override
-    public String toString(){
+    public String toString() {
         return "Product{" +
-                "\n\"id\"= \"" + this.id + "\"" +
-                "\n\"name\"= \"" + this.name + "\"" +
-                "\n\"description\"= \"" + this.description + "\"" +
-                "\n\"rating\"= \"" + this.avgRating.toString() + "\"" +
-                "\n\"price\"= \"" + this.price.toString() + "\"" +
-                "\n}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", seller=" + seller +
+                ", avgRating=" + avgRating +
+                ", price=" + price +
+                '}';
     }
-
 }

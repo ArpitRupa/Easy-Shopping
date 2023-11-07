@@ -23,7 +23,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -69,6 +69,8 @@ public class ProductController {
             // create listing without image
             createdProduct = productService.createProduct(creationRequest.getProductRequest(), token);
         }
+
+        System.out.println("PrintProduct: "+ createdProduct);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }

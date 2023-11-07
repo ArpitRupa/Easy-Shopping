@@ -92,7 +92,8 @@ public class WebSecurityConfig {
                                     ).hasRole("ADMIN");
                             authorize.requestMatchers(
                                     "/user/**",
-                                    "/api/addresses"
+                                    "/api/addresses",
+                                    "/api/products"
                                     ).hasAnyRole("ADMIN","USER");
                             authorize.anyRequest().authenticated();
                         })
