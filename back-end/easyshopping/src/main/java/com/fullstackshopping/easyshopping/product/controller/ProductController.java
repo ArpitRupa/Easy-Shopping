@@ -61,6 +61,9 @@ public class ProductController {
     public ResponseEntity<Product> createProduct(@RequestBody ProductCreationRequest creationRequest, @RequestHeader(name="Authorization") String token) {
         Product createdProduct;
 
+        System.out.println("PrintProduct: ");
+        System.out.println(creationRequest);
+
         // if list of images is not null and not empty:
         if (creationRequest.getImageRequests() != null && !creationRequest.getImageRequests().isEmpty()) {
             // call transactional service method to create images and product directly
@@ -69,8 +72,6 @@ public class ProductController {
             // create listing without image
             createdProduct = productService.createProduct(creationRequest.getProductRequest(), token);
         }
-
-        System.out.println("PrintProduct: "+ createdProduct);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }

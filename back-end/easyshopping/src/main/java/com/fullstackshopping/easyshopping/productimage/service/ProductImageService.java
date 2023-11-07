@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -35,12 +36,16 @@ public class ProductImageService {
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Images not found for product not found"));
     }
 
-    public ProductImageResponse createProductImage(ProductImageRequest productImageRequest) {
+    public ProductImageResponse createProductImage(ProductImageRequest productImageRequest) throws IOException {
 
         Product product = productRepository.findById(productImageRequest.getProductId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found; cannot POST image."));
 
-        ProductImage newProductImage = new ProductImage(productImageRequest.getImageData(), product);
+        byte[] imageBytes = productImageRequest.getImageFile().getBytes();
+        String imageName = productImageRequest.getImageFile().getName();
+        String fileType = productImageRequest.getImageFile().getContentType();
+
+        ProductImage newProductImage = new ProductImage(product, imageBytes, imageName, fileType);
 
 
         try {
@@ -53,11 +58,17 @@ public class ProductImageService {
 
     }
 
-    public Boolean updateImage(int imageId, ProductImageRequest updatedImageRequest) {
+    public Boolean updateImage(int imageId, ProductImageRequest updatedImageRequest) throws IOException {
         ProductImage productImage = productImageRepository.findById(imageId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found for PUT request"));
 
-        productImage.setImageData(updatedImageRequest.getImageData());
+        byte[] imageBytes = updatedImageRequest.getImageFile().getBytes();
+        String imageName = updatedImageRequest.getImageFile().getName();
+        String fileType = updatedImageRequest.getImageFile().getContentType();
+
+        productImage.setImageData(imageBytes);
+        productImage.setFileName(imageName);
+        productImage.setFileType(fileType);
 
         try {
             productImageRepository.save(productImage);

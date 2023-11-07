@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,7 @@ public class ProductImageController {
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
     @PostMapping("")
-    public ResponseEntity<ProductImageResponse> createProductImage(@RequestBody ProductImageRequest productImageRequest){
+    public ResponseEntity<ProductImageResponse> createProductImage(@RequestBody ProductImageRequest productImageRequest) throws IOException {
         return ResponseEntity.ok(this.productImageService.createProductImage(productImageRequest));
     }
 
@@ -47,7 +48,7 @@ public class ProductImageController {
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
     @PutMapping("/{imageId}")
-    public ResponseEntity<Boolean> updateImage(@PathVariable int imageId, @RequestBody ProductImageRequest updatedImageRequest) {
+    public ResponseEntity<Boolean> updateImage(@PathVariable int imageId, @RequestBody ProductImageRequest updatedImageRequest) throws IOException {
         return ResponseEntity.ok(this.productImageService.updateImage(imageId, updatedImageRequest));
     }
 

@@ -11,5 +11,5 @@ export interface ProductCreationRequest {
 
 export interface ProductImageRequest {
     productId: number;
-    imageData: Uint8Array;
+    imageData: File;
 }

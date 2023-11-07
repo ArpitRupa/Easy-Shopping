@@ -31,4 +31,12 @@ public class ProductCreationRequest {
     public void setImageRequests(List<ProductImageRequest> imageRequests) {
         this.imageRequests = imageRequests;
     }
+
+    @Override
+    public String toString() {
+        return "ProductCreationRequest{" +
+                "productRequest=" + productRequest +
+                ", imageRequests=" + imageRequests +
+                '}';
+    }
 }

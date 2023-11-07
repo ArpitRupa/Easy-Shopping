@@ -33,6 +33,10 @@ public class ProductImage implements Serializable {
     @Column(name = "image_data", nullable = false, updatable = false)
     private byte[] imageData; // Change the data type to byte[]
 
+    private String fileName;
+
+    private String  fileType;
+
 
 
     // Constructors, getters, setters
@@ -41,9 +45,11 @@ public class ProductImage implements Serializable {
     public ProductImage() {
     }
 
-    public ProductImage(byte[] imageData, Product product) {
-        this.imageData = imageData;
+    public ProductImage(Product product, byte[] imageData, String fileName, String fileType) {
         this.product = product;
+        this.imageData = imageData;
+        this.fileName = fileName;
+        this.fileType = fileType;
     }
 
     // Getters and setters
@@ -62,14 +68,32 @@ public class ProductImage implements Serializable {
         this.imageData = imageData;
     }
 
-    //Override toString() method
+    public String getFileName() {
+        return this.fileName;
+    }
 
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileType() {
+        return this.fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    //Override toString() method
 
     @Override
     public String toString() {
         return "ProductImage{" +
                 "imageId=" + imageId +
-                ", product=" + product.toString() +
+                ", product=" + product +
+                ", imageData=" + Arrays.toString(imageData) +
+                ", fileName='" + fileName + '\'' +
+                ", fileType='" + fileType + '\'' +
                 '}';
     }
 }

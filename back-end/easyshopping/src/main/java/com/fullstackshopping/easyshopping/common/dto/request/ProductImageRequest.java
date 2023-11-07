@@ -1,17 +1,20 @@
 package com.fullstackshopping.easyshopping.common.dto.request;
 
-import com.fullstackshopping.easyshopping.product.model.Product;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+
+import java.util.Arrays;
 
 public class ProductImageRequest {
 
     private int productId;
-    private byte[] imageData;
+    private MultipartFile imageFile;
 
     public ProductImageRequest(){}
 
-    public ProductImageRequest(int product, byte[] imageData) {
-        this.productId = product;
-        this.imageData = imageData;
+    public ProductImageRequest(int productId, MultipartFile imageFile) {
+        this.productId = productId;
+        this.imageFile = imageFile;
     }
 
     public int getProductId() {
@@ -22,9 +25,20 @@ public class ProductImageRequest {
         this.productId = productId;
     }
 
-    public byte[] getImageData() {
-        return this.imageData;
+    public MultipartFile getImageFile() {
+        return this.imageFile;
     }
 
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductImageRequest{" +
+                "productId=" + productId +
+                ", imageFile=" + imageFile.getName() +
+                '}';
+    }
 
 }

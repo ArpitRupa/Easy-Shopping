@@ -51,19 +51,17 @@ export class CreateListingComponent implements OnInit {
         },
 
         imageRequests: this.selectedFiles.map(image => {
-          // convert base64 string to binary data
-          const binaryData = atob(image.dataURL.split(',')[1]);
-          const imageBinaryData = new Uint8Array(binaryData.length);
-          for (let i = 0; i < binaryData.length; i++) {
-            imageBinaryData[i] = binaryData.charCodeAt(i);
-          }
 
+          console.log(image.file)
           return {
             productId: 0,
-            imageData: imageBinaryData
-          };
+            imageData: image.file
+          }
+
         })
       };
+
+      console.log(listingData);
 
       this.productService.createProductListing(listingData).subscribe({
         next: (response) => {

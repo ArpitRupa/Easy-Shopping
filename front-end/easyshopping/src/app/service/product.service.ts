@@ -19,7 +19,7 @@ export class ProductService {
   };
 
 
-  createProductListing(productCreation: ProductCreationRequest) {
+  createProductListing(productCreation: any) {
     return this.http.post<any>(this.apiUrl + '/api/products/create', productCreation, this.httpOptions)
       .pipe(
         catchError((error) => {
