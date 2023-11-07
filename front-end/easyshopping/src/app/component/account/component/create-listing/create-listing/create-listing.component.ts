@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageWithPreview } from 'src/app/interface/product/imageWithPreview.interface';
 import { ToastrService } from 'ngx-toastr';
-import { ProductCreationRequest } from 'src/app/interface/product/product.interface';
+import { ProductCreationRequest, ProductListing } from 'src/app/interface/product/product.interface';
 import { ProductService } from 'src/app/service/product.service';
 
 @Component({
@@ -42,28 +42,23 @@ export class CreateListingComponent implements OnInit {
 
       console.log("Valid form")
 
-      const listingData: ProductCreationRequest = {
-
-        productRequest: {
-          name: this.productForm.value.productName,
-          description: this.productForm.value.productDescription,
-          price: this.productForm.value.productPrice
-        },
-
-        imageRequests: this.selectedFiles.map(image => {
-
-          console.log(image.file)
-          return {
-            productId: 0,
-            imageData: image.file
-          }
-
-        })
+      const productRequest: ProductListing = {
+        name: this.productForm.value.productName,
+        description: this.productForm.value.productDescription,
+        price: this.productForm.value.productPrice
+        // Other fields from ProductRequest
       };
 
-      console.log(listingData);
+      const formData = new FormData();
+      formData.append('productRequest', JSON.stringify(productRequest));
 
-      this.productService.createProductListing(listingData).subscribe({
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        formData.append('imageRequests', this.selectedFiles[i].file);
+      }
+
+      console.log(formData);
+
+      this.productService.createProductListing(formData).subscribe({
         next: (response) => {
           // Handle the successful response
           const toast = this.toastrService.success("Listing Created Successfully.", "SUCCESS!", { timeOut: 2000 });

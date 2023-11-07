@@ -14,8 +14,9 @@ export class ProductService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json; charset=UTF-8',
-    })
+      'Content-Type': 'multipart/form-data',
+    }),
+    reportProgress: true,
   };
 
 

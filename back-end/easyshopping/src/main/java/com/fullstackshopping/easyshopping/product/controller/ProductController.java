@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -57,23 +60,47 @@ public class ProductController {
     }
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
-    @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@RequestBody ProductCreationRequest creationRequest, @RequestHeader(name="Authorization") String token) {
+    @PostMapping(value = "/create")
+    public ResponseEntity<Product> createProduct(
+            @RequestPart("productRequest") ProductRequest productRequest,
+            @RequestPart("imageRequests") MultipartFile imageRequests,
+            @RequestHeader(name="Authorization") String token) {
+
         Product createdProduct;
 
         System.out.println("PrintProduct: ");
-        System.out.println(creationRequest);
+        System.out.println(productRequest);
+        System.out.println(imageRequests);
 
-        // if list of images is not null and not empty:
-        if (creationRequest.getImageRequests() != null && !creationRequest.getImageRequests().isEmpty()) {
-            // call transactional service method to create images and product directly
-            createdProduct = productService.createProductWithImages(creationRequest.getProductRequest(), creationRequest.getImageRequests(), token);
+        if (imageRequests != null && !imageRequests.isEmpty()) {
+            System.out.println("Create Product with images. ");
+            createdProduct = productService.createProduct(productRequest, token);
+//            createdProduct = productService.createProductWithImages(productRequest, imageRequests, token);
         } else {
-            // create listing without image
-            createdProduct = productService.createProduct(creationRequest.getProductRequest(), token);
+            createdProduct = productService.createProduct(productRequest, token);
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+    }
+    @PostMapping(path = "/upload")
+    public ResponseEntity<String> uploadFile(
+            @RequestPart("name") String productName,
+            @RequestPart("description") String productDescription,
+            @RequestPart("price") String productPrice,
+            @RequestPart("files") List<MultipartFile> files) {
+
+        System.out.println(productName);
+        System.out.println(productDescription);
+        System.out.println(productPrice);
+
+        for (MultipartFile file : files) {
+            System.out.println("File Name: " + file.getName());
+            System.out.println("Original Filename: " + file.getOriginalFilename());
+            System.out.println("Content Type: " + file.getContentType());
+        }
+
+        return files.isEmpty() ?
+                new ResponseEntity<String>(HttpStatus.NOT_FOUND) : new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER'))")
