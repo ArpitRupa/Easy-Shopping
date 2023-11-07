@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileWithPreview } from 'src/app/interface/fileWithPreview.interface';
+import { ImageWithPreview } from 'src/app/interface/product/imageWithPreview.interface';
+import { ToastrService } from 'ngx-toastr';
+import { ProductCreationRequest } from 'src/app/interface/product/product.interface';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-create-listing',
@@ -9,11 +12,11 @@ import { FileWithPreview } from 'src/app/interface/fileWithPreview.interface';
 })
 export class CreateListingComponent implements OnInit {
 
-  selectedFiles: FileWithPreview[] = [];
+  selectedFiles: ImageWithPreview[] = [];
   productForm!: FormGroup;
 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private toastrService: ToastrService, private productService: ProductService) { }
 
   ngOnInit() {
     this.productForm = this.formBuilder.group({
@@ -36,6 +39,50 @@ export class CreateListingComponent implements OnInit {
         Validators.required
       ]]
     });
+  }
+
+  postListing() {
+    if (this.productForm.valid) {
+      const listingData: ProductCreationRequest = {
+
+        productRequest: {
+          name: this.productForm.value.productName,
+          description: this.productForm.value.productDescription,
+          price: this.productForm.value.productPrice
+        },
+
+        imageRequests: this.selectedFiles.map(image => {
+          // convert base64 string to binary data
+          const binaryData = atob(image.dataURL.split(',')[1]);
+          const imageBinaryData = new Uint8Array(binaryData.length);
+          for (let i = 0; i < binaryData.length; i++) {
+            imageBinaryData[i] = binaryData.charCodeAt(i);
+          }
+
+          return {
+            productId: 0,
+            imageData: imageBinaryData
+          };
+        })
+      };
+
+      this.productService.createProductListing(listingData).subscribe({
+        next: (response) => {
+          // Handle the successful response
+          const toast = this.toastrService.success("Listing Created Successfully.", "SUCCESS!", { timeOut: 2000 });
+          toast.onHidden.subscribe(() =>
+            window.location.reload()
+          );
+        },
+        error: (error) => {
+          this.toastrService.error("Failed to create listing.", "FAILED!", { timeOut: 2000 });
+          // Handle API request error
+          console.error('Listing Creation failed', error);
+        }
+      });
+    } else {
+      this.toastrService.error("Invalid Information. Please Check fields and try again.", "INVALID FORM", { timeOut: 2000 })
+    }
   }
 
 

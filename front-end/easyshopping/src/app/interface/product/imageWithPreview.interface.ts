@@ -1,4 +1,4 @@
-export interface FileWithPreview {
+export interface ImageWithPreview {
     file: File;
     dataURL: string;
 }
