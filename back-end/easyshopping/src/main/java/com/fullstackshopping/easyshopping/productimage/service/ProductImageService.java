@@ -4,6 +4,7 @@ import com.fullstackshopping.easyshopping.common.dto.request.ProductImageRequest
 import com.fullstackshopping.easyshopping.common.dto.response.ProductImageResponse;
 import com.fullstackshopping.easyshopping.product.model.Product;
 import com.fullstackshopping.easyshopping.product.repository.ProductRepository;
+import com.fullstackshopping.easyshopping.productimage.Util.ImageProcessor;
 import com.fullstackshopping.easyshopping.productimage.model.ProductImage;
 import com.fullstackshopping.easyshopping.productimage.repository.ProductImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,8 @@ public class ProductImageService {
         Product product = productRepository.findById(productImageRequest.getProductId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found; cannot POST image."));
 
+        ImageProcessor.compressImage(productImageRequest.getImageFile());
+
         byte[] imageBytes = productImageRequest.getImageFile().getBytes();
         String imageName = productImageRequest.getImageFile().getName();
         String fileType = productImageRequest.getImageFile().getContentType();
@@ -50,9 +53,11 @@ public class ProductImageService {
 
 
         try {
-            ProductImage savedProductImage = productImageRepository.save(newProductImage);
+            return new ProductImageResponse(newProductImage.getImageId(), newProductImage.getProduct());
 
-            return new ProductImageResponse(savedProductImage.getImageId(), savedProductImage.getProduct());
+//            ProductImage savedProductImage = productImageRepository.save(newProductImage);
+
+//            return new ProductImageResponse(savedProductImage.getImageId(), savedProductImage.getProduct());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image creation failed");
         }
