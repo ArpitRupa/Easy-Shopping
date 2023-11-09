@@ -24,7 +24,7 @@ spring:
 
 logging:
   level:
-    org.hibernate: DEBUG
+#    org.hibernate: DEBUG
     org.springframework: DEBUG
 
 server:

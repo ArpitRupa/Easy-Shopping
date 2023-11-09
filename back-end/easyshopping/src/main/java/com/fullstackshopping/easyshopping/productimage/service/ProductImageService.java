@@ -14,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 
 @Service
@@ -43,21 +45,17 @@ public class ProductImageService {
         Product product = productRepository.findById(productImageRequest.getProductId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found; cannot POST image."));
 
-        ImageProcessor.compressImage(productImageRequest.getImageFile());
-
-        byte[] imageBytes = productImageRequest.getImageFile().getBytes();
-        String imageName = productImageRequest.getImageFile().getName();
-        String fileType = productImageRequest.getImageFile().getContentType();
+        byte[] imageBytes = ImageProcessor.compressImage(productImageRequest.getImageFile());
+        String imageName = "image_" + UUID.randomUUID()+"_product_"+product.getId();
+        String fileType = extractFileType(Objects.requireNonNull(productImageRequest.getImageFile().getContentType()));
 
         ProductImage newProductImage = new ProductImage(product, imageBytes, imageName, fileType);
 
 
         try {
-            return new ProductImageResponse(newProductImage.getImageId(), newProductImage.getProduct());
+            ProductImage savedProductImage = productImageRepository.save(newProductImage);
 
-//            ProductImage savedProductImage = productImageRepository.save(newProductImage);
-
-//            return new ProductImageResponse(savedProductImage.getImageId(), savedProductImage.getProduct());
+            return new ProductImageResponse(savedProductImage.getImageId(), savedProductImage.getProduct());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image creation failed");
         }
@@ -91,6 +89,16 @@ public class ProductImageService {
             return true;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image deletion failed for image with id: " + imageId);
+        }
+    }
+
+    // Transform FileType from image/png -> png
+    private String extractFileType(String fullContentType) {
+        String[] parts = fullContentType.split("/");
+        if (parts.length == 2) {
+            return parts[1];
+        } else {
+            return fullContentType;
         }
     }
 }

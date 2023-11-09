@@ -30,11 +30,13 @@ public class ProductImage implements Serializable {
     private Product product;
 
     @Lob // Annotation for Binary Large OBject
-    @Column(name = "image_data", nullable = false, updatable = false)
-    private byte[] imageData; // Change the data type to byte[]
+    @Column(name = "image_data", nullable = false, updatable = false, length = 5242880)
+    private byte[] imageData;
 
+    @Column(name = "file_name", nullable = false, updatable = false)
     private String fileName;
 
+    @Column(name = "file_type", nullable = false, updatable = false)
     private String  fileType;
 
 

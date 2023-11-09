@@ -55,7 +55,7 @@ public class ImageProcessor{
             BufferedImage bufferedImage = ImageIO.read(inputStream);
 
             // Define the target height for scaling
-            int targetHeight = 800;
+            int targetHeight = 500;
 
             // Calculate the scaling factor to achieve the target height
             float scalingFactor = (float) targetHeight / bufferedImage.getHeight();
