@@ -21,36 +21,10 @@ import java.util.Iterator;
 // https://www.baeldung.com/java-image-compression-lossy-lossless
 public class ImageProcessor{
 
-    private static void compressPng(MultipartFile image) throws IOException {
+    private static byte[] compressPng(MultipartFile image) throws IOException {
         System.out.println("Original Size: " + image.getSize());
         System.out.println("PNG");
 
-        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(image.getBytes())) {
-            BufferedImage bufferedImage = ImageIO.read(inputStream);
-
-            // Loop over possible compression quality range
-            for (float quality = 0.0f; quality <= 1.0f; quality += 0.1f) {
-                try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-                    Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("png");
-                    ImageWriter writer = writers.next();
-
-                    ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(outputStream);
-                    writer.setOutput(imageOutputStream);
-
-                    ImageWriteParam params = writer.getDefaultWriteParam();
-                    params.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                    params.setCompressionQuality(quality);
-
-                    writer.write(null, new IIOImage(bufferedImage, null, null), params);
-
-                    byte[] compressedImageData = outputStream.toByteArray();
-                    System.out.println("New Size for " + quality + ": " + compressedImageData.length);
-
-                    imageOutputStream.close();
-                    writer.dispose();
-                }
-            }
-        }
         try (ByteArrayInputStream inputStream = new ByteArrayInputStream(image.getBytes())) {
             PngImage inputImage = new PngImage(inputStream);
             PngOptimizer imageOptimizer = new PngOptimizer();
@@ -64,66 +38,65 @@ public class ImageProcessor{
 
             byte[] compressedImageData = outputStream.toByteArray();
             System.out.println("New Size: " + compressedImageData.length);
+
+            return compressedImageData;
+        } catch (IOException pngCompressionException) {
+            System.err.println("Error during image compression: " + pngCompressionException.getMessage());
         }
+
+        return image.getBytes();
     }
 
-    private static void compressJpeg(MultipartFile image) throws IOException{
+    private static byte[] compressJpeg(MultipartFile image) throws IOException {
         System.out.println("Original Size: " + image.getSize());
         System.out.println("JPEG");
 
         try (ByteArrayInputStream inputStream = new ByteArrayInputStream(image.getBytes())) {
             BufferedImage bufferedImage = ImageIO.read(inputStream);
 
-            // Loop over possible compression quality range
-            for (float quality = 0.0f; quality <= 1.0f; quality += 0.1f) {
-                try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-                    Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
-                    ImageWriter writer = writers.next();
+            // Define the target height for scaling
+            int targetHeight = 800;
 
-                    ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(outputStream);
-                    writer.setOutput(imageOutputStream);
-
-                    ImageWriteParam params = writer.getDefaultWriteParam();
-                    params.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                    params.setCompressionQuality(quality);
-
-                    writer.write(null, new IIOImage(bufferedImage, null, null), params);
-
-                    byte[] compressedImageData = outputStream.toByteArray();
-                    System.out.println("New Size for " + quality + ": " + compressedImageData.length);
-
-                    imageOutputStream.close();
-                    writer.dispose();
-                }
-            }
-        }
-        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(image.getBytes())) {
-            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            // Calculate the scaling factor to achieve the target height
+            float scalingFactor = (float) targetHeight / bufferedImage.getHeight();
 
             // Loop over possible compression quality range using Thumbnails
-            for (float quality = 0.0f; quality <= 1.0f; quality += 0.1f) {
+            for (float quality = 0.9f; quality >= 0.1f; quality -= 0.1f) {
                 try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
                     // Compress the image using Thumbnails library
                     Thumbnails.of(bufferedImage)
-                            .scale(1)
+                            .scale(scalingFactor)
                             .outputQuality(quality)
                             .outputFormat("jpg")
                             .toOutputStream(outputStream);
 
                     byte[] compressedImageData = outputStream.toByteArray();
                     System.out.println("New Size for " + quality + ": " + compressedImageData.length);
+
+                    // Check if compressed image size is below 5MB
+                    if (compressedImageData.length < 5 * 1024 * 1024) {
+                        System.out.println("Upload Size for " + quality + ": " + compressedImageData.length);
+
+                        // Return Compressed Data
+                        return compressedImageData;
+                    }
+                }
+                catch (IOException innerIOException) {
+                    System.err.println("Error during image compression: " + innerIOException.getMessage());
                 }
             }
+        } catch (IOException outerIOException) {
+            System.err.println("Error reading the image file: " + outerIOException.getMessage());
         }
+
+        return image.getBytes();
     }
 
-    public static void compressImage(MultipartFile image) throws IOException {
+    public static byte[] compressImage(MultipartFile image) throws IOException {
         if ("image/png".equals(image.getContentType())) {
-//            return compressPng(image);
-            compressPng(image);
+            return compressPng(image);
         } else if ("image/jpeg".equals(image.getContentType())) {
-//            return compressJpeg(image);
-            compressJpeg(image);
+            return compressJpeg(image);
         } else {
             // Throw an exception if not supported type
             throw new UnsupportedOperationException("Unsupported image type: " + image.getContentType());
