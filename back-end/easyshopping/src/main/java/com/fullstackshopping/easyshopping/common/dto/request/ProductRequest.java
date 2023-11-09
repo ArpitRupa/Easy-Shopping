@@ -12,10 +12,10 @@ public class ProductRequest {
     public ProductRequest() {
     }
 
-    public ProductRequest(String name, String description, Long sellerId, BigDecimal avgRating, BigDecimal price) {
+    public ProductRequest(String name, String description, String price) {
         this.name = name;
         this.description = description;
-        this.price = price;
+        this.price = new BigDecimal(price);
     }
 
     public String getName() {

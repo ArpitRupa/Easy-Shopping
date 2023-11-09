@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Optional;
+
 import java.util.List;
 
 
@@ -87,19 +91,32 @@ public class ProductController {
             @RequestPart("name") String productName,
             @RequestPart("description") String productDescription,
             @RequestPart("price") String productPrice,
-            @RequestPart("files") List<MultipartFile> files) {
+            @RequestPart(value = "files", required = false) Optional<List<MultipartFile>> imageFilesOptional,
+            @RequestHeader(name="Authorization") String token) {
 
+        Product createdProduct;
+        ProductRequest productRequest = new ProductRequest(productName, productDescription, productPrice);
         System.out.println(productName);
         System.out.println(productDescription);
         System.out.println(productPrice);
+        List<MultipartFile> imageFiles = imageFilesOptional.orElse(Collections.emptyList());
 
-        for (MultipartFile file : files) {
-            System.out.println("File Name: " + file.getName());
-            System.out.println("Original Filename: " + file.getOriginalFilename());
-            System.out.println("Content Type: " + file.getContentType());
+        if ( !imageFiles.isEmpty()) {
+            System.out.println("Create Product with images. ");
+            for (MultipartFile file : imageFiles) {
+                System.out.println("File Name: " + file.getName());
+                System.out.println("Original Filename: " + file.getOriginalFilename());
+                System.out.println("Content Type: " + file.getContentType());
+            }
+            createdProduct = productService.createProductWithImages(productRequest, imageFiles, token);
+        } else {
+            System.out.println("Create Product without images. ");
+            createdProduct = productService.createProduct(productRequest, token);
         }
 
-        return files.isEmpty() ?
+
+
+        return imageFiles.isEmpty() ?
                 new ResponseEntity<String>(HttpStatus.NOT_FOUND) : new ResponseEntity<String>(HttpStatus.OK);
     }
 
