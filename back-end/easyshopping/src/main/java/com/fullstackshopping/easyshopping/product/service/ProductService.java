@@ -86,7 +86,7 @@ public class ProductService {
             }
             return product;
         }catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not create Product Listing with Images.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not create Product Listing with Images." + e.getMessage());
         }
     }
 
